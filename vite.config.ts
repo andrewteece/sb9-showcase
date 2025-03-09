@@ -17,8 +17,4 @@ export default defineConfig({
     }),
   ],
   assetsInclude: ["/sb-preview/runtime.js"],
-  test: {
-    globals: true,
-    environment: "jsdom",
-  },
 });
