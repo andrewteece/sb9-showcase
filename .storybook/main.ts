@@ -1,6 +1,8 @@
+import type { StorybookConfig } from "@storybook/react-vite";
+import type { AddonOptionsVite } from "@storybook/addon-coverage";
 import * as tsconfigPaths from "vite-tsconfig-paths";
 
-export default {
+const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
     "@storybook/addon-links",
@@ -10,19 +12,24 @@ export default {
     "storybook-addon-remix-react-router",
     "storybook-dark-mode",
     "@chromatic-com/storybook",
-    "@storybook/addon-coverage",
+    {
+      name: "@storybook/addon-coverage",
+      options: {
+        istanbul: {
+          include: ["src/**/*.tsx"],
+          exclude: ["src/**/*.ts"],
+        },
+      } satisfies AddonOptionsVite,
+    },
   ],
   framework: {
     name: "@storybook/react-vite",
     options: {},
   },
-  features: {
-    interactionsDebugger: true,
-  },
   async viteFinal(config) {
     return {
       ...config,
-      plugins: [...config.plugins, tsconfigPaths.default()],
+      plugins: [...(config.plugins ?? []), tsconfigPaths.default()],
     };
   },
   docs: {
@@ -32,3 +39,5 @@ export default {
     reactDocgen: "react-docgen-typescript",
   },
 };
+
+export default config;
