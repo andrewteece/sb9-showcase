@@ -38,6 +38,14 @@ const config: StorybookConfig = {
   typescript: {
     reactDocgen: "react-docgen-typescript",
   },
+  build: {
+    test: {
+      disabledAddons: [
+        "@storybook/addon-essentials/docs",
+        "storybook-dark-mode",
+      ],
+    },
+  },
 };
 
 export default config;
