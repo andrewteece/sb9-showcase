@@ -1,12 +1,12 @@
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 
 import { host } from "utils/http";
 
 import { PostResolver } from "./resolvers";
 
 export const getSignInHandler = (resolver?: PostResolver) =>
-  rest.post(`${host}/auth/login`, (req, res, ctx) => {
-    if (resolver) return resolver(req, res, ctx);
+  http.post(`${host}/auth/login`, (req) => {
+    if (resolver) return resolver(req);
 
-    return res(ctx.json({ token: "authtoken" }));
+    return HttpResponse.json({ token: "authtoken" });
   });

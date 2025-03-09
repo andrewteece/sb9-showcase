@@ -1,4 +1,4 @@
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 
 import { UserFixture } from "utils/fixtures";
 import { host } from "utils/http";
@@ -6,8 +6,8 @@ import { host } from "utils/http";
 import { GetResolver } from "./resolvers";
 
 export const getUserHandler = (resolver?: GetResolver) =>
-  rest.get(`${host}/users/:userId`, (req, res, ctx) => {
-    if (resolver) return resolver(req, res, ctx);
+  http.get(`${host}/users/:userId`, (req) => {
+    if (resolver) return resolver(req);
 
-    return res(ctx.json(UserFixture.toStructure()));
+    return HttpResponse.json(UserFixture.toStructure());
   });

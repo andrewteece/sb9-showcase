@@ -18,7 +18,7 @@ export const parameters = {
 initialize(
   {
     onUnhandledRequest: (req, print) => {
-      if (!req.url.host.includes("api")) {
+      if (!req.url.includes("api")) {
         return;
       }
 
@@ -35,4 +35,3 @@ export const decorators = [
 ];
 
 export const loaders = [mswLoader];
-export const tags = ["autodocs"];

@@ -6,6 +6,7 @@ import { CartFixture } from "utils/fixtures";
 
 import { Component } from "./index";
 import { cartPageLoader } from "./loader";
+import { HttpResponse } from "msw";
 
 const CART_ID = 1;
 const PRODUCT_ID_1 = 2;
@@ -32,17 +33,15 @@ export const Default: Story = {
   parameters: {
     msw: {
       handlers: [
-        getCartHandler((_, res, ctx) => {
-          return res(
-            ctx.json(
-              CartFixture.createPermutation({
-                id: CART_ID,
-                products: [
-                  { productId: PRODUCT_ID_1 },
-                  { productId: PRODUCT_ID_2 },
-                ],
-              })
-            )
+        getCartHandler(() => {
+          return HttpResponse.json(
+            CartFixture.createPermutation({
+              id: CART_ID,
+              products: [
+                { productId: PRODUCT_ID_1 },
+                { productId: PRODUCT_ID_2 },
+              ],
+            })
           );
         }),
         getProductHandler(),

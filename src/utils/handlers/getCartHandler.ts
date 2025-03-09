@@ -1,4 +1,4 @@
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 
 import { CartFixture } from "utils/fixtures";
 import { host } from "utils/http";
@@ -6,8 +6,8 @@ import { host } from "utils/http";
 import { GetResolver } from "./resolvers";
 
 export const getCartHandler = (resolver?: GetResolver) =>
-  rest.get(`${host}/carts/:cartId`, (req, res, ctx) => {
-    if (resolver) return resolver(req, res, ctx);
+  http.get(`${host}/carts/:cartId`, (req) => {
+    if (resolver) return resolver(req);
 
-    return res(ctx.json(CartFixture.toStructure()));
+    return HttpResponse.json(CartFixture.toStructure());
   });

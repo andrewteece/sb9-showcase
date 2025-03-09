@@ -1,4 +1,4 @@
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 
 import { buildUrl } from "utils";
 import { ProductFixture } from "utils/fixtures";
@@ -7,13 +7,13 @@ import { host } from "utils/http";
 import { GetResolver } from "./resolvers";
 
 export const getProductsHandler = (resolver?: GetResolver) =>
-  rest.get(
+  http.get(
     `${host}/${buildUrl("products", { limit: 10, sort: "asc" })}`,
-    (req, res, ctx) => {
-      if (resolver) return resolver(req, res, ctx);
+    (req) => {
+      if (resolver) return resolver(req);
 
-      return res(
-        ctx.json(ProductFixture.createCollection([{ id: 1 }, { id: 2 }]))
+      return HttpResponse.json(
+        ProductFixture.createCollection([{ id: 1 }, { id: 2 }])
       );
     }
   );

@@ -1,6 +1,6 @@
-import { rest } from "msw";
+import { http } from "msw";
 
-export type GetResolver = Parameters<typeof rest.get>[1];
-export type DeleteResolver = Parameters<typeof rest.delete>[1];
-export type PutResolver = Parameters<typeof rest.put>[1];
-export type PostResolver = Parameters<typeof rest.post>[1];
+export type GetResolver = Parameters<typeof http.get>[1];
+export type DeleteResolver = Parameters<typeof http.delete>[1];
+export type PutResolver = Parameters<typeof http.put>[1];
+export type PostResolver = Parameters<typeof http.post>[1];

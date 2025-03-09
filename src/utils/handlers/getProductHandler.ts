@@ -1,4 +1,4 @@
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 
 import { ProductFixture } from "utils/fixtures";
 import { host } from "utils/http";
@@ -6,8 +6,8 @@ import { host } from "utils/http";
 import { GetResolver } from "./resolvers";
 
 export const getProductHandler = (resolver?: GetResolver) =>
-  rest.get(`${host}/products/:productId`, (req, res, ctx) => {
-    if (resolver) return resolver(req, res, ctx);
+  http.get(`${host}/products/:productId`, (req) => {
+    if (resolver) return resolver(req);
 
-    return res(ctx.json(ProductFixture.toStructure()));
+    return HttpResponse.json(ProductFixture.toStructure());
   });

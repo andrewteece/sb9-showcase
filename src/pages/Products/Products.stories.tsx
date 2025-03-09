@@ -5,6 +5,7 @@ import { getAddToCartHandler, getProductsHandler } from "utils";
 
 import { Component } from "./index";
 import { productsPageLoader } from "./loader";
+import { HttpResponse } from "msw";
 
 const meta = {
   title: "pages/Products",
@@ -32,7 +33,7 @@ export const Default: Story = {
 export const WithoutProducts: Story = {
   parameters: {
     msw: {
-      handlers: [getProductsHandler((req, res, ctx) => res(ctx.json([])))],
+      handlers: [getProductsHandler(() => HttpResponse.json([]))],
     },
   },
 };
