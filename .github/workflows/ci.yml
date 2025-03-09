@@ -16,10 +16,53 @@ jobs:
       test-command: pnpm lint
 
   unit-tests:
-    uses: ./.github/workflows/run-tests.yml
-    with:
-      test-type: unit
-      test-command: pnpm test:ci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        id: pnpm-install
+        with:
+          version: 10.6.1
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+          cache: "pnpm"
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile --ignore-scripts
+
+      - name: Run coverage
+        run: pnpm test:coverage
+
+      - name: Run unit tests
+        run: pnpm test:ci
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Unit tests results
+          path: reports/**/*
 
   storybook-tests:
     runs-on: ubuntu-latest
@@ -68,13 +111,17 @@ jobs:
         run: |
           pnpm exec concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
             "pnpm exec http-server storybook-static --port 6006 --silent" \
-            "pnpm exec wait-on tcp:127.0.0.1:6006 && pnpm exec test-storybook --coverage --json --outputFile storybook-report.json"
+            "pnpm exec wait-on tcp:127.0.0.1:6006 && pnpm exec test-storybook --coverage --junit"
 
-      - name: Upload json report artifacts
+      - name: Move Storybook coverage report and cleanup
+        run: |
+          mv coverage/storybook/coverage-storybook.json reports/storybook-coverage.json && rm -rf coverage
+
+      - name: Upload Storybook report artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: storybook-report
-          path: storybook-report.json
+          name: Storybook tests results
+          path: reports/**/*
 
   build:
     needs: [lint-tests, unit-tests, storybook-tests]
