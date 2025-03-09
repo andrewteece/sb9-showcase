@@ -10,6 +10,7 @@ export default {
     "storybook-addon-remix-react-router",
     "storybook-dark-mode",
     "@chromatic-com/storybook",
+    "@storybook/addon-coverage",
   ],
   framework: {
     name: "@storybook/react-vite",
