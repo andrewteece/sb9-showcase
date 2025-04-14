@@ -1,6 +1,6 @@
 import { dateVO } from "utils/format";
 
-import { ICart } from "modules/carts/types";
+import type { ICart } from "modules/carts/types";
 
 import { createFixture } from "./createFixture";
 

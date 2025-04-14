@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import {
   Stack,
@@ -6,7 +6,7 @@ import {
   Heading,
   Text,
   ButtonGroup,
-  HeadingProps,
+  type HeadingProps,
 } from "@chakra-ui/react";
 import { useSecondaryTextColor } from "theme";
 

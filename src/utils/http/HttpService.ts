@@ -1,6 +1,6 @@
-import { IHttpService } from "./IHttpService";
-import { IHttpServiceClient } from "./IHttpServiceClient";
-import { IHttpServiceOptions } from "./IHttpServiceOptions";
+import type { IHttpService } from "./IHttpService";
+import type { IHttpServiceClient } from "./IHttpServiceClient";
+import type { IHttpServiceOptions } from "./IHttpServiceOptions";
 
 export class HttpService<Options extends IHttpServiceOptions>
   implements IHttpService<Options>

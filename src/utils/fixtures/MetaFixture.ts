@@ -1,4 +1,4 @@
-import { IMeta } from "types";
+import type { IMeta } from "types";
 
 import { createFixture } from "./createFixture";
 

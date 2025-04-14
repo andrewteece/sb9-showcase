@@ -14,7 +14,7 @@ interface IAddToCartValues {
 interface IAddToCartDto {
   userId: number;
   date: string;
-  products: Array<{ productId: number; quantity: number }>;
+  products: { productId: number; quantity: number }[];
 }
 
 export const useAddToCart = () => {
@@ -42,7 +42,10 @@ export const useAddToCart = () => {
         // listen for a specific error and act respectively (e.g. throwing a specific error and catch it later)
 
         // notify backend about the error if needed
-        Logger.error("An error occurred during adding an item to the cart", e);
+        Logger.error(
+          "An error occurred during adding an item to the cart",
+          e as Error
+        );
 
         throw e;
       });

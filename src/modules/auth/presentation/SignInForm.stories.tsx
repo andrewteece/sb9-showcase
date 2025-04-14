@@ -45,7 +45,7 @@ export const SigningIn: Story = {
       await sleep(500);
     });
 
-    expect(
+    await expect(
       await screen.findByText("Logged in successfully.")
     ).toBeInTheDocument();
   },

@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import { ConsoleLogger } from "./ConsoleLogger";
-import { ILogger, LogEnvironment } from "./ILogger";
+import { type ILogger, LogEnvironment } from "./ILogger";
 import { StorybookLogger } from "./StorybookLogger";
 
 // todo: HttpLogger

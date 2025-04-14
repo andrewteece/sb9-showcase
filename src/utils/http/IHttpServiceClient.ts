@@ -1,4 +1,4 @@
-import { IHttpServiceOptions } from "./IHttpServiceOptions";
+import { type IHttpServiceOptions } from "./IHttpServiceOptions";
 
 export interface IHttpServiceClient<Options extends IHttpServiceOptions> {
   options: Options;

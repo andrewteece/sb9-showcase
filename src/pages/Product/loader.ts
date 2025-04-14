@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs } from "shared/Router";
+import type { LoaderFunctionArgs } from "shared/Router";
 
 import { productLoader } from "modules/products/infrastructure";
 

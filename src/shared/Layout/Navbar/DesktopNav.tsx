@@ -15,7 +15,7 @@ import { useBrandColor } from "theme";
 
 import { Link, useLocation } from "shared/Router";
 
-import { INavItem } from "./INavItem";
+import type { INavItem } from "./INavItem";
 import { useNavItems } from "./useNavItems";
 
 export const DesktopNav = () => {
@@ -60,11 +60,11 @@ export const DesktopNav = () => {
             {navItem.children && (
               <PopoverContent
                 border={0}
-                boxShadow={"xl"}
+                boxShadow="xl"
                 bg={popoverContentBgColor}
                 p={4}
-                rounded={"xl"}
-                minW={"sm"}
+                rounded="xl"
+                minW="sm"
               >
                 <Stack>
                   {navItem.children.map((child) => (
@@ -103,7 +103,7 @@ const DesktopSubNav = ({ label, href, subLabel }: INavItem) => {
           >
             {label}
           </Text>
-          <Text fontSize={"sm"}>{subLabel}</Text>
+          <Text fontSize="sm">{subLabel}</Text>
         </Box>
         <Flex
           transition="all .3s ease"

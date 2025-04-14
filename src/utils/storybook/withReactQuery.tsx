@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Decorator } from "@storybook/react/*";
 import { QueryClientProvider } from "@tanstack/react-query";
 
 import { queryClient } from "utils";
 
-export const withReactQuery = (story: any) => {
+export const withReactQuery: Decorator = (story) => {
   queryClient.clear();
 
   return (

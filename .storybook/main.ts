@@ -26,7 +26,7 @@ const config: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {},
   },
-  async viteFinal(config) {
+  viteFinal(config) {
     return {
       ...config,
       plugins: [...(config.plugins ?? []), tsconfigPaths.default()],

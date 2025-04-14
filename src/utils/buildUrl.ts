@@ -1,7 +1,7 @@
 import { isEmpty } from "lodash-es";
 import queryString from "query-string";
 
-import { IQueryParams } from "../types";
+import type { IQueryParams } from "../types";
 
 export const buildUrl = <Params = IQueryParams>(
   path: string,
@@ -10,8 +10,8 @@ export const buildUrl = <Params = IQueryParams>(
   if (isEmpty(params)) {
     return path;
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return `${path}?${queryString.stringify(params as any, {
+
+  return `${path}?${queryString.stringify(params ?? {}, {
     arrayFormat: "comma",
   })}`;
 };

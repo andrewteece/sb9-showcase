@@ -1,6 +1,6 @@
 import { useAuthStore } from "modules/auth/application";
 
-import { INavItem } from "./INavItem";
+import type { INavItem } from "./INavItem";
 
 export const useNavItems = () => {
   const isAuthenticated = useAuthStore((store) => store.isAuthenticated);
@@ -9,7 +9,7 @@ export const useNavItems = () => {
 };
 
 // todo: translations
-export const NAV_ITEMS: Array<INavItem> = [
+export const NAV_ITEMS: INavItem[] = [
   {
     label: "Inspiration",
     children: [

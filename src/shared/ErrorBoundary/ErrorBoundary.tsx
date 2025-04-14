@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ComponentType, ReactNode } from "react";
+import type { ComponentType, ReactNode } from "react";
 import {
   ErrorBoundary as Boundary,
-  ErrorBoundaryPropsWithFallback,
+  type ErrorBoundaryPropsWithFallback,
 } from "react-error-boundary";
 
 import { ErrorPageStrategy } from "shared/Result";
@@ -23,7 +23,7 @@ interface ErrorBoundaryProps<ErrorType> {
     }
   ) => void;
   fallback?: ErrorFallback<ErrorType> | React.ReactElement<any, any>;
-  resetKeys?: Array<any>;
+  resetKeys?: any[];
 }
 
 export interface IErrorBoundaryProps<ErrorType>
@@ -38,6 +38,7 @@ export function ErrorBoundary<ErrorType extends Error>({
 }: IErrorBoundaryProps<ErrorType>) {
   return (
     <Boundary
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       FallbackComponent={(fallback as any) ?? ErrorPageStrategy}
       {...props}
     >

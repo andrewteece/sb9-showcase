@@ -1,11 +1,11 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import {
   FormControl,
   FormLabel,
   Input,
   FormErrorMessage,
-  InputProps,
+  type InputProps,
 } from "@chakra-ui/react";
 
 import { t } from "utils";

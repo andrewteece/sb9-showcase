@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Decorator } from "@storybook/react";
 // eslint-disable-next-line no-restricted-imports
 import {
   initializeAuthStore,
   Provider,
 } from "modules/auth/application/authStore";
 
-export const withoutAuth = (story: any) => {
+export const withoutAuth: Decorator = (story) => {
   const store = initializeAuthStore({
     isAuthenticated: false,
     isError: false,

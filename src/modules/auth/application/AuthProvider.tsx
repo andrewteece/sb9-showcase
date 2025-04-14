@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { type PropsWithChildren, useRef } from "react";
 
 import { type AuthStore, initializeAuthStore, Provider } from "./authStore";

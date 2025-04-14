@@ -1,4 +1,4 @@
-import { IUser } from "modules/auth/types";
+import type { IUser } from "modules/auth/types";
 
 import { createFixture } from "./createFixture";
 

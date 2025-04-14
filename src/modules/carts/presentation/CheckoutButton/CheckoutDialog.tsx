@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, type RefObject } from "react";
 
 import {
   AlertDialog,
@@ -18,7 +18,7 @@ import { CheckoutForm } from "../CheckoutForm";
 export const usePurchaseDialogStore = createModalStore();
 
 const CheckoutDialog = () => {
-  const cancelRef = useRef();
+  const cancelRef = useRef<HTMLButtonElement>();
 
   const { isOpen, onClose } = usePurchaseDialogStore((state) => ({
     isOpen: state.isOpen,
@@ -28,8 +28,7 @@ const CheckoutDialog = () => {
   return (
     <AlertDialog
       isOpen={isOpen}
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      leastDestructiveRef={cancelRef as any}
+      leastDestructiveRef={cancelRef as RefObject<HTMLButtonElement>}
       onClose={onClose}
     >
       <AlertDialogOverlay>

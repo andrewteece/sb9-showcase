@@ -1,11 +1,12 @@
-import { Component, ComponentType } from "react";
+import { Component, type ComponentType } from "react";
 
-import { IRequireAuthProps, RequireAuth } from "./RequireAuth";
+import { type IRequireAuthProps, RequireAuth } from "./RequireAuth";
 
 export function withRequireAuth<Props>(
   Wrapper: ComponentType<Props>,
   props?: Omit<IRequireAuthProps, "children">
 ) {
+  // eslint-disable-next-line react/display-name
   return class extends Component<Props> {
     render() {
       return (

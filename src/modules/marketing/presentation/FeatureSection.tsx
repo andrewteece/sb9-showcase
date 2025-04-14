@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { CheckIcon } from "@chakra-ui/icons";
 import {
@@ -49,7 +49,7 @@ const FeatureSection = () => {
               textTransform="uppercase"
               letterSpacing="wide"
             >
-              Everything you need
+              {"Everything you need"}
             </chakra.h2>
             <chakra.h2
               color={brandColor}
@@ -62,15 +62,15 @@ const FeatureSection = () => {
               letterSpacing="tight"
               textAlign={{ base: "center", lg: "start" }}
             >
-              All-in-one platform
+              {"All-in-one platform"}
             </chakra.h2>
             <Text
               color={textColor}
               textAlign={{ base: "center", lg: "start" }}
               pt={2}
             >
-              Lorem ipsum dolor sit amet consect adipisicing elit. Possimus
-              magnam voluptatum cupiditate veritatis in accusamus quisquam.
+              {"Lorem ipsum dolor sit amet consect adipisicing elit. Possimus"}
+              {"magnam voluptatum cupiditate veritatis in accusamus quisquam."}
             </Text>
           </GridItem>
           <GridItem colSpan={2}>
@@ -93,28 +93,36 @@ const FeatureSection = () => {
               }}
             >
               <Feature title="Invite team members">
-                Improve your conversion rates by monitoring exactly what’s going
-                on while your customers are in trial.
+                {
+                  "Improve your conversion rates by monitoring exactly what’s going"
+                }
+                {"on while your customers are in trial."}
               </Feature>
               <Feature title="Unify your payments stack">
-                Manage all your online and offline sales in one place with a
-                single integration, simplifying reporting and reconciliation.
+                {"Manage all your online and offline sales in one place with a"}
+                {
+                  "single integration, simplifying reporting and reconciliation."
+                }
               </Feature>
               <Feature title="Own your in-store experience">
-                Provide a seamless customer experience across channels, like
-                reserving online and picking up in store.
+                {"Provide a seamless customer experience across channels, like"}
+                {"reserving online and picking up in store."}
               </Feature>
               <Feature title="Grow your platform’s revenue">
-                Add in-person payments to your platform or marketplace. Using
-                Terminal with Connect.
+                {
+                  "Add in-person payments to your platform or marketplace. Using"
+                }
+                {"Terminal with Connect."}
               </Feature>
               <Feature title="Clear overview for efficient tracking">
-                Handle your subscriptions and transactions efficiently with the
-                clear overview in Dashboard. Fea
+                {
+                  "Handle your subscriptions and transactions efficiently with the"
+                }
+                {"clear overview in Dashboard. Fea"}
               </Feature>
               <Feature title="Decide how you integrate Payments">
-                Love to code? Decide how you integrate Payments and build
-                advanced and reliable products yourself from scratch.
+                {"Love to code? Decide how you integrate Payments and build"}
+                {"advanced and reliable products yourself from scratch."}
               </Feature>
             </Stack>
           </GridItem>

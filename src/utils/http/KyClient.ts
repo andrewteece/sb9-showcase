@@ -1,7 +1,7 @@
-import ky, { Options } from "ky";
+import ky, { type Options } from "ky";
 
 import { AjaxError } from "./AjaxError";
-import { IHttpServiceClient } from "./IHttpServiceClient";
+import { type IHttpServiceClient } from "./IHttpServiceClient";
 import {
   InternalServerException,
   ResourceNotFoundException,

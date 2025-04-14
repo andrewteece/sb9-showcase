@@ -10,7 +10,7 @@ import { CartsList, ClearCartButton } from "modules/carts/presentation";
 
 const CartPage = () => {
   const params = useParams<{ cartId: string }>();
-  const { data } = useCartProductsQuery(params.cartId as string);
+  const { data } = useCartProductsQuery(params.cartId!);
 
   return (
     <Page>

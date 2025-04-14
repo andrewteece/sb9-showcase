@@ -26,8 +26,8 @@ export const Purchasing: Story = {
     await step("Clear the cart", async () => {
       await userEvent.click(screen.getByRole("button", { name: /Checkout/ }));
 
-      expect(
-        await screen.getByRole("button", { name: "Purchase" })
+      await expect(
+        screen.getByRole("button", { name: "Purchase" })
       ).toBeInTheDocument();
     });
 

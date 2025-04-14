@@ -13,7 +13,7 @@ export enum LogEnvironment {
   Storybook = "storybook",
 }
 
-export type LogParams = {
+export interface LogParams {
   route?: string;
   stacktrace?: string;
   user?: object;
@@ -23,7 +23,7 @@ export type LogParams = {
   additionalInfo?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any;
-};
+}
 
 export type Log = {
   name: string;

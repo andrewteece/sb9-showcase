@@ -10,6 +10,7 @@ type CreateStructure<T> = (extend?: DeepPartial<T> | ExtendStructureFn<T>) => T;
 export function createStructureFactory<T>(structure: T): CreateStructure<T> {
   return (extend = {}) => {
     if (typeof extend === "function") {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return merge({}, structure, extend(structure));
     }
     return merge({}, structure, extend);

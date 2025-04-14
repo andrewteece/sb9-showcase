@@ -59,13 +59,13 @@ export const Navbar = () => {
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontWeight="extrabold"
           >
-            Logo
+            {"Logo"}
           </Text>
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
           </Flex>
         </Flex>
-        <HStack direction={"row"} spacing={4}>
+        <HStack direction="row" spacing={4}>
           <SignInButton />
           <SignUpButton />
           <LogoutButton />
@@ -89,7 +89,7 @@ const SignInButton = () => {
 
   return (
     <Button fontWeight={400} variant="link" as={Link} to="/sign-in">
-      Sign In
+      {"Sign In"}
     </Button>
   );
 };
@@ -108,7 +108,7 @@ const SignUpButton = () => {
       colorScheme="orange"
       onClick={notImplemented}
     >
-      Sign Up
+      {"Sign Up"}
     </Button>
   );
 };
@@ -129,7 +129,7 @@ const LogoutButton = () => {
       variant="link"
       onClick={() => logout().then(() => navigate("/"))}
     >
-      Logout
+      {"Logout"}
     </Button>
   );
 };

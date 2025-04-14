@@ -25,7 +25,7 @@ import {
   ProductAddedDialog,
 } from "modules/carts/presentation";
 
-import { IProduct } from "../types";
+import type { IProduct } from "../types";
 import { StarRating } from "./StarRating";
 import { useCategoryLabel } from "./useCategoryLabel";
 
@@ -101,10 +101,16 @@ const ProductDetails = ({ product, onBack }: IProps) => {
                 <AccordionIcon />
               </AccordionButton>
               <AccordionPanel pb={4}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                {
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do"
+                }
+                {
+                  "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut"
+                }
+                {
+                  "enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+                }
+                {"nisi ut aliquip ex ea commodo consequat."}
               </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
@@ -115,10 +121,16 @@ const ProductDetails = ({ product, onBack }: IProps) => {
                 <AccordionIcon />
               </AccordionButton>
               <AccordionPanel pb={4}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                {
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do"
+                }
+                {
+                  "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut"
+                }
+                {
+                  "enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+                }
+                {"nisi ut aliquip ex ea commodo consequat."}
               </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
@@ -129,10 +141,16 @@ const ProductDetails = ({ product, onBack }: IProps) => {
                 <AccordionIcon />
               </AccordionButton>
               <AccordionPanel pb={4}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                {
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do"
+                }
+                {
+                  "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut"
+                }
+                {
+                  "enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+                }
+                {"nisi ut aliquip ex ea commodo consequat."}
               </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
@@ -143,10 +161,16 @@ const ProductDetails = ({ product, onBack }: IProps) => {
                 <AccordionIcon />
               </AccordionButton>
               <AccordionPanel pb={4}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                {
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do"
+                }
+                {
+                  "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut"
+                }
+                {
+                  "enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+                }
+                {"nisi ut aliquip ex ea commodo consequat."}
               </AccordionPanel>
             </AccordionItem>
           </Accordion>

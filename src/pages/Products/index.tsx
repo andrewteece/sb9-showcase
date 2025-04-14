@@ -3,7 +3,7 @@ import { useState } from "react";
 import { SettingsIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 
-import { IQueryParams } from "types";
+import type { IQueryParams } from "types";
 
 import { t } from "utils";
 

@@ -29,7 +29,8 @@ initialize(
 );
 
 export const decorators = [
-  (story) => createElement(ChakraProvider, { children: story(), theme }),
+  // eslint-disable-next-line react/no-children-prop, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
+  (story: any) => createElement(ChakraProvider, { children: story(), theme }),
   withReactQuery,
   withAuth,
 ];

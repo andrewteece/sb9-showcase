@@ -1,5 +1,5 @@
 import { Category } from "./Category";
-import { IRating } from "./IRating";
+import type { IRating } from "./IRating";
 
 export interface IProduct {
   id: number;

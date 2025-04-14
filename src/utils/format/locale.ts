@@ -16,10 +16,10 @@ const Locale = {
 export const getLocale = (value = locale) => {
   switch (value) {
     case "en":
-      return Locale["en"];
+      return Locale.en;
     case "pl":
-      return Locale["pl"];
+      return Locale.pl;
     default:
-      return Locale["en"];
+      return Locale.en;
   }
 };

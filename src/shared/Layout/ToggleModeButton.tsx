@@ -1,7 +1,9 @@
-import React from "react";
-
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
-import { IconButton, useColorMode, IconButtonProps } from "@chakra-ui/react";
+import {
+  IconButton,
+  useColorMode,
+  type IconButtonProps,
+} from "@chakra-ui/react";
 
 const ToggleModeButton = (
   props: Omit<IconButtonProps, "aria-label" | "onClick" | "variant" | "icon">

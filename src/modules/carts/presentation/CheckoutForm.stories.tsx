@@ -36,9 +36,8 @@ export const Purchasing: Story = {
     });
 
     // https://cathalmacdonnacha.com/how-to-test-a-select-element-with-react-testing-library
-    expect(
-      await screen.getByRole<HTMLOptionElement>("option", { name: "PayPal" })
-        .selected
+    await expect(
+      screen.getByRole<HTMLOptionElement>("option", { name: "PayPal" }).selected
     ).toBeTruthy();
 
     await step("Submit form", async () => {
@@ -47,7 +46,7 @@ export const Purchasing: Story = {
       await userEvent.click(screen.getByRole("button", { name: "Purchase" }));
     });
 
-    expect(
+    await expect(
       await screen.findByText(
         "You have successfully purchased all selected products."
       )

@@ -21,7 +21,7 @@ export const useClearCart = () => {
         // listen for a specific error and act respectively (e.g. throwing a specific error and catch it later)
 
         // notify backend about the error if needed
-        Logger.error("An error occurred during clearing the cart", e);
+        Logger.error("An error occurred during clearing the cart", e as Error);
 
         throw e;
       });

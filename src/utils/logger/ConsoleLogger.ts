@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable no-console */
-import { ILogger, LogParams, LogLevel } from "./ILogger";
+import { type ILogger, type LogParams, LogLevel } from "./ILogger";
 
 export class ConsoleLogger implements ILogger {
   static methodMap = {

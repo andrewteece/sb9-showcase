@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Center, VStack, Heading, Text } from "@chakra-ui/react";
 import { useSecondaryTextColor } from "theme";

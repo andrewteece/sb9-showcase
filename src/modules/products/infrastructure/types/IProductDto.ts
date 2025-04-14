@@ -1,3 +1,3 @@
-import { IProduct } from "../../types";
+import type { IProduct } from "../../types";
 
 export interface IProductDto extends IProduct {}

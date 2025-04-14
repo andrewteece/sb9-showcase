@@ -12,7 +12,7 @@ import {
 
 import { Link } from "shared/Router";
 
-import { INavItem } from "./INavItem";
+import type { INavItem } from "./INavItem";
 import { useNavItems } from "./useNavItems";
 
 export const MobileNav = () => {
@@ -75,18 +75,17 @@ const MobileNavItem = ({ label, children, href }: INavItem) => {
           borderColor={useColorModeValue("gray.200", "gray.700")}
           align="start"
         >
-          {children &&
-            children.map((child) => (
-              <ChLink
-                key={child.label}
-                py={2}
-                href={child.href}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                {child.label}
-              </ChLink>
-            ))}
+          {children?.map((child) => (
+            <ChLink
+              key={child.label}
+              py={2}
+              href={child.href}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {child.label}
+            </ChLink>
+          ))}
         </Stack>
       </Collapse>
     </Stack>

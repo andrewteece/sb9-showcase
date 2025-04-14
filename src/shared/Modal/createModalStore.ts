@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
-type IModalStore<Item> = {
+interface IModalStore<Item> {
   selectedItem: Item | null;
   isOpen: boolean;
   onOpen(item?: Item): void;
   onClose(): void;
-};
+}
 
 export function createModalStore<Item>(store?: Partial<IModalStore<Item>>) {
   return create<IModalStore<Item>>((set) => {

@@ -1,6 +1,6 @@
 import IntlMessageFormat, {
-  PrimitiveType,
-  FormatXMLElementFn,
+  type PrimitiveType,
+  type FormatXMLElementFn,
 } from "intl-messageformat";
 
 import { locale } from "./locale";

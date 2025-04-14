@@ -1,5 +1,4 @@
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-import { useRef } from "react";
+import { useRef, type RefObject } from "react";
 
 import {
   Button,
@@ -26,7 +25,7 @@ import { useClearCartNotifications } from "./useClearCartNotifications";
 export const useConfirmClearCartDialogStore = createModalStore<number>();
 
 const ConfirmClearCartDialog = () => {
-  const cancelRef = useRef();
+  const cancelRef = useRef<HTMLButtonElement>();
   const secondaryColor = useSecondaryTextColor();
   const [clear, isLoading] = useClearCart();
 
@@ -40,7 +39,7 @@ const ConfirmClearCartDialog = () => {
   return (
     <AlertDialog
       isOpen={isOpen}
-      leastDestructiveRef={cancelRef as any}
+      leastDestructiveRef={cancelRef as RefObject<HTMLButtonElement>}
       onClose={onClose}
     >
       <AlertDialogOverlay>
@@ -62,7 +61,10 @@ const ConfirmClearCartDialog = () => {
             </VStack>
           </AlertDialogBody>
           <AlertDialogFooter>
-            <Button ref={cancelRef as any} onClick={onClose}>
+            <Button
+              ref={cancelRef as RefObject<HTMLButtonElement>}
+              onClick={onClose}
+            >
               {t("Cancel")}
             </Button>
             <Button

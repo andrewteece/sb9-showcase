@@ -2,7 +2,7 @@ import { http, HttpResponse } from "msw";
 
 import { host } from "utils/http";
 
-import { PutResolver } from "./resolvers";
+import type { PutResolver } from "./resolvers";
 
 export const getAddToCartHandler = (resolver?: PutResolver) =>
   http.put(`${host}/carts/:cartId`, (req) => {

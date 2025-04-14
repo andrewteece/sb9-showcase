@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs } from "shared/Router";
+import type { LoaderFunctionArgs } from "shared/Router";
 
 import { cartProductsLoader } from "modules/carts/infrastructure";
 

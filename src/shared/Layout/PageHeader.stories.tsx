@@ -26,10 +26,10 @@ export const Default: Story = {
           variant="outline"
           leftIcon={<ExternalLinkIcon />}
         >
-          See profile
+          {"See profile"}
         </Button>
         <Button colorScheme="blue" leftIcon={<EmailIcon />}>
-          Contact
+          {"Contact"}
         </Button>
       </>
     ),

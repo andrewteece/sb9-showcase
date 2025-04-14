@@ -4,7 +4,7 @@ import { EmptyStateResult } from "shared/Result";
 
 import { ProductAddedDialog } from "modules/carts/presentation";
 
-import { IProduct } from "../types";
+import type { IProduct } from "../types";
 import { ProductCard } from "./ProductCard";
 
 interface IProps {

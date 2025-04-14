@@ -3,7 +3,7 @@ import { useState } from "react";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 
 import { Button, VStack, useBoolean } from "@chakra-ui/react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Decorator, Meta, StoryObj } from "@storybook/react";
 
 import { AjaxError } from "utils";
 
@@ -12,8 +12,7 @@ import { InternalServerErrorResult } from "shared/Result";
 
 import { ErrorBoundary } from "./ErrorBoundary";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const withRouter = (story: any) => {
+const withRouter: Decorator = (story) => {
   const router = createMemoryRouter(
     [
       {
@@ -31,7 +30,7 @@ const withRouter = (story: any) => {
 };
 
 const Throw500Error = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
   throw new AjaxError<any, any>(500, {}, {}, {} as any);
 };
 
@@ -51,7 +50,7 @@ const TestableErrorBoundary = ({
           return (
             <InternalServerErrorResult>
               <Button onClick={() => setResetKey((state) => !state)}>
-                Try again
+                {"Try again"}
               </Button>
             </InternalServerErrorResult>
           );
@@ -62,12 +61,12 @@ const TestableErrorBoundary = ({
     >
       <VStack>
         <Button id="test" onClick={setError.on} colorScheme="red">
-          Throw an error
+          {"Throw an error"}
         </Button>
         {throwError ? (
           <Throw500Error />
         ) : (
-          <div>"Everything is fine... at least now"</div>
+          <div>{'"Everything is fine... at least now"'}</div>
         )}
       </VStack>
     </ErrorBoundary>

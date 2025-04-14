@@ -1,4 +1,4 @@
-import { IHttpServiceOptions } from "./IHttpServiceOptions";
+import { type IHttpServiceOptions } from "./IHttpServiceOptions";
 
 export interface IHttpService<Options extends IHttpServiceOptions> {
   get<R = unknown>(url: string, options?: Options): Promise<R>;

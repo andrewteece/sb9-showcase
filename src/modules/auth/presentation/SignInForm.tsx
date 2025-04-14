@@ -42,7 +42,7 @@ export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
         </Heading>
         <Text fontSize={{ base: "md", md: "lg" }} color={secondaryColor}>
           {t("to enjoy all of our cool {link} ✌️", {
-            link: <Link color={"blue.400"}>{t("features")}</Link>,
+            link: <Link color="blue.400">{t("features")}</Link>,
           })}
         </Text>
       </VStack>

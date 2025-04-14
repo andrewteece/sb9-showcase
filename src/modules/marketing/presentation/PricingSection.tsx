@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { CheckIcon as ChakraCheckIcon } from "@chakra-ui/icons";
 import {
@@ -27,7 +27,7 @@ const PricingSection = () => {
           fontWeight="bold"
           fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
         >
-          Plans that fit your need
+          {"Plans that fit your need"}
         </Heading>
         <Text
           fontSize={{
@@ -37,8 +37,8 @@ const PricingSection = () => {
           }}
           color={textColor}
         >
-          Start with 14-day free trial. No credit card needed. Cancel at
-          anytime.
+          {"Start with 14-day free trial. No credit card needed. Cancel at"}
+          {"anytime."}
         </Text>
       </VStack>
       <Stack
@@ -51,35 +51,35 @@ const PricingSection = () => {
         <PriceWrapper>
           <Box py={4} px={12}>
             <Text fontWeight="500" fontSize="2xl">
-              Hobby
+              {"Hobby"}
             </Text>
             <HStack justifyContent="center">
               <Text fontSize="3xl" fontWeight="600">
-                $
+                {"$"}
               </Text>
               <Text fontSize="5xl" fontWeight="900">
-                79
+                {"79"}
               </Text>
               <Text fontSize="3xl" color="gray.500">
-                /month
+                {"/month"}
               </Text>
             </HStack>
           </Box>
-          <VStack bg={sectionBg} py={4} borderBottomRadius={"xl"}>
+          <VStack bg={sectionBg} py={4} borderBottomRadius="xl">
             <List spacing={3} textAlign="start" px={12}>
               <ListItem>
-                <CheckIcon /> unlimited build minutes
+                <CheckIcon /> {"unlimited build minutes"}
               </ListItem>
               <ListItem>
-                <CheckIcon /> Lorem, ipsum dolor.
+                <CheckIcon /> {"Lorem, ipsum dolor."}
               </ListItem>
               <ListItem>
-                <CheckIcon /> 5TB Lorem, ipsum dolor.
+                <CheckIcon /> {"5TB Lorem, ipsum dolor."}
               </ListItem>
             </List>
             <Box w="80%" pt={7}>
               <Button w="full" colorScheme="orange" variant="outline">
-                Start trial
+                {"Start trial"}
               </Button>
             </Box>
           </VStack>
@@ -90,41 +90,41 @@ const PricingSection = () => {
             <MostPopularBadge />
             <Box py={4} px={12}>
               <Text fontWeight="500" fontSize="2xl">
-                Growth
+                {"Growth"}
               </Text>
               <HStack justifyContent="center">
                 <Text fontSize="3xl" fontWeight="600">
-                  $
+                  {"$"}
                 </Text>
                 <Text fontSize="5xl" fontWeight="900">
-                  149
+                  {"149"}
                 </Text>
                 <Text fontSize="3xl" color="gray.500">
-                  /month
+                  {"/month"}
                 </Text>
               </HStack>
             </Box>
-            <VStack bg={sectionBg} py={4} borderBottomRadius={"xl"}>
+            <VStack bg={sectionBg} py={4} borderBottomRadius="xl">
               <List spacing={3} textAlign="start" px={12}>
                 <ListItem>
-                  <CheckIcon /> unlimited build minutes
+                  <CheckIcon /> {"unlimited build minutes"}
                 </ListItem>
                 <ListItem>
-                  <CheckIcon /> Lorem, ipsum dolor.
+                  <CheckIcon /> {"Lorem, ipsum dolor."}
                 </ListItem>
                 <ListItem>
-                  <CheckIcon /> 5TB Lorem, ipsum dolor.
+                  <CheckIcon /> {"5TB Lorem, ipsum dolor."}
                 </ListItem>
                 <ListItem>
-                  <CheckIcon /> 5TB Lorem, ipsum dolor.
+                  <CheckIcon /> {"5TB Lorem, ipsum dolor."}
                 </ListItem>
                 <ListItem>
-                  <CheckIcon /> 5TB Lorem, ipsum dolor.
+                  <CheckIcon /> {"5TB Lorem, ipsum dolor."}
                 </ListItem>
               </List>
               <Box w="80%" pt={7}>
                 <Button w="full" colorScheme="orange">
-                  Start trial
+                  {"Start trial"}
                 </Button>
               </Box>
             </VStack>
@@ -133,35 +133,35 @@ const PricingSection = () => {
         <PriceWrapper>
           <Box py={4} px={12}>
             <Text fontWeight="500" fontSize="2xl">
-              Scale
+              {"Scale"}
             </Text>
             <HStack justifyContent="center">
               <Text fontSize="3xl" fontWeight="600">
-                $
+                {"$"}
               </Text>
               <Text fontSize="5xl" fontWeight="900">
-                349
+                {"349"}
               </Text>
               <Text fontSize="3xl" color="gray.500">
-                /month
+                {"/month"}
               </Text>
             </HStack>
           </Box>
           <VStack bg={sectionBg} py={4} borderBottomRadius="xl">
             <List spacing={3} textAlign="start" px={12}>
               <ListItem>
-                <CheckIcon /> unlimited build minutes
+                <CheckIcon /> {"unlimited build minutes"}
               </ListItem>
               <ListItem>
-                <CheckIcon /> Lorem, ipsum dolor.
+                <CheckIcon /> {"Lorem, ipsum dolor."}
               </ListItem>
               <ListItem>
-                <CheckIcon /> 5TB Lorem, ipsum dolor.
+                <CheckIcon /> {"5TB Lorem, ipsum dolor."}
               </ListItem>
             </List>
             <Box w="80%" pt={7}>
               <Button w="full" colorScheme="orange" variant="outline">
-                Start trial
+                {"Start trial"}
               </Button>
             </Box>
           </VStack>
@@ -209,7 +209,7 @@ const MostPopularBadge = () => {
         fontWeight="600"
         rounded="xl"
       >
-        Most Popular
+        {"Most Popular"}
       </Text>
     </Box>
   );

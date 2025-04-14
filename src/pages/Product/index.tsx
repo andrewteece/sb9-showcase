@@ -15,7 +15,7 @@ import { ProductNotFoundResult } from "modules/products/presentation";
 const ProductPage = () => {
   const params = useParams<{ productId: string }>();
   const navigate = useNavigate();
-  const { data } = useProductQuery(params.productId as string);
+  const { data } = useProductQuery(params.productId!);
 
   return (
     <Page spacing={6}>
@@ -26,7 +26,7 @@ const ProductPage = () => {
       >
         {t("Back to products' list")}
       </Button>
-      <ProductDetails product={data!} onBack={() => navigate("/products")} />
+      <ProductDetails product={data} onBack={() => navigate("/products")} />
     </Page>
   );
 };

@@ -17,7 +17,7 @@ const Demo = () => {
           </Button>
           <Text fontWeight="700">
             {t(`Edit {path} and save to test HMR`, {
-              path: <code>src/App.tsx</code>,
+              path: <code>{"src/App.tsx"}</code>,
             })}
           </Text>
         </VStack>

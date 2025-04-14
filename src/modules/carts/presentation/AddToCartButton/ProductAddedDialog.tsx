@@ -1,5 +1,4 @@
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-import { useRef } from "react";
+import { useRef, type RefObject } from "react";
 
 import {
   Button,
@@ -26,7 +25,7 @@ const ProductAddedDialog = () => {
   const secondaryColor = useSecondaryTextColor();
   const navigate = useNavigate();
 
-  const cancelRef = useRef();
+  const cancelRef = useRef<HTMLButtonElement>();
 
   const { isOpen, onClose, cartId } = useProductAddedDialogStore((state) => ({
     isOpen: state.isOpen,
@@ -37,7 +36,7 @@ const ProductAddedDialog = () => {
   return (
     <AlertDialog
       isOpen={isOpen}
-      leastDestructiveRef={cancelRef as any}
+      leastDestructiveRef={cancelRef as RefObject<HTMLButtonElement>}
       onClose={onClose}
     >
       <AlertDialogOverlay>
@@ -61,7 +60,10 @@ const ProductAddedDialog = () => {
             </VStack>
           </AlertDialogBody>
           <AlertDialogFooter>
-            <Button ref={cancelRef as any} onClick={onClose}>
+            <Button
+              ref={cancelRef as RefObject<HTMLButtonElement>}
+              onClick={onClose}
+            >
               {t("Continue shopping")}
             </Button>
             <Button

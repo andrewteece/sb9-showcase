@@ -55,12 +55,12 @@ export const AddingProductToCart: Story = {
         screen.getByRole("button", { name: /Add to cart/ })
       );
 
-      expect(
+      await expect(
         await screen.findByText(
           "A product has been successfully added to your cart."
         )
       ).toBeInTheDocument();
-      expect(
+      await expect(
         await screen.findByText(
           /Wonderful! You have already added a new product to your cart/
         )

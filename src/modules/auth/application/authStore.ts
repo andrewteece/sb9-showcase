@@ -3,8 +3,8 @@ import { createContext, useContext } from "react";
 import { createStore, useStore } from "zustand";
 
 import { getUser, loginUser } from "../infrastructure";
-import { ICredentials } from "../infrastructure/loginUser";
-import { IUser } from "../types";
+import type { ICredentials } from "../infrastructure/loginUser";
+import type { IUser } from "../types";
 
 const AUTH_KEY = "fake_store_is_authenticated";
 

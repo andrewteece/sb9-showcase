@@ -1,4 +1,4 @@
-import { ComponentProps, Fragment } from "react";
+import { type ComponentProps, Fragment } from "react";
 
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { VStack, HStack, Button, Text, Divider } from "@chakra-ui/react";

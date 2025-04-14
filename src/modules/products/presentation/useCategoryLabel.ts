@@ -5,7 +5,7 @@ import { Category } from "../types";
 export const useCategoryLabel = (category: Category) => {
   const message = messages[category];
 
-  return (t(message) as string) ?? category;
+  return t(message) ?? category;
 };
 
 const messages = {

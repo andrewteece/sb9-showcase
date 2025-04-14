@@ -1,4 +1,4 @@
-import { Category, IProduct } from "modules/products/types";
+import { Category, type IProduct } from "modules/products/types";
 
 import { createFixture } from "./createFixture";
 

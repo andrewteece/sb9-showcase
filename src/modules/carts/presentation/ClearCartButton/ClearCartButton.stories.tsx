@@ -28,7 +28,7 @@ export const ClearingCart: Story = {
 
     await step("Clear the cart", async () => {
       await userEvent.click(screen.getByRole("button", { name: /Clear cart/ }));
-      expect(await screen.findByText(/Are you sure?/)).toBeInTheDocument();
+      await expect(screen.findByText(/Are you sure?/)).toBeInTheDocument();
     });
 
     await step("Confirm clearing the cart", async () => {
@@ -37,7 +37,7 @@ export const ClearingCart: Story = {
       await userEvent.click(screen.getByRole("button", { name: /Confirm/ }));
     });
 
-    expect(
+    await expect(
       await screen.findByText("Your cart has been successfully cleared.")
     ).toBeInTheDocument();
   },

@@ -1,4 +1,4 @@
-import { useToast as chUseToast, UseToastOptions } from "@chakra-ui/react";
+import { useToast as chUseToast, type UseToastOptions } from "@chakra-ui/react";
 
 const defaultOptions: UseToastOptions = {
   duration: 5000,

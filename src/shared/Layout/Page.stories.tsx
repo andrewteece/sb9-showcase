@@ -18,7 +18,7 @@ type Story = StoryObj<typeof meta>;
 const Placeholder = () => (
   <Box display="stretch" border="3px dashed gray">
     <Center minH="200px">
-      <Heading size="md">Placeholder</Heading>
+      <Heading size="md">{"Placeholder"}</Heading>
     </Center>
   </Box>
 );

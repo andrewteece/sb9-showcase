@@ -1,11 +1,11 @@
-import { UseQueryOptions } from "@tanstack/react-query";
+import type { UseQueryOptions } from "@tanstack/react-query";
 
-import { IQueryParams, IMeta } from "types";
+import type { IQueryParams, IMeta } from "types";
 
 import { buildUrl, httpService, queryClient, useQuery } from "utils";
 
-import { IProduct } from "../types";
-import { IProductDto } from "./types";
+import type { IProduct } from "../types";
+import type { IProductDto } from "./types";
 
 const defaultParams = { limit: 10, sort: "asc" };
 

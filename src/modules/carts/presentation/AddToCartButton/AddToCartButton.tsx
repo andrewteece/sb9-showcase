@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from "@chakra-ui/react";
+import { Button, type ButtonProps } from "@chakra-ui/react";
 
 import { t } from "utils";
 
@@ -33,7 +33,7 @@ const AddToCartButton = ({ productId, colorScheme = "gray" }: IProps) => {
         }
 
         try {
-          add({ productId });
+          await add({ productId });
           notifySuccess();
           onOpen(cartId);
         } catch {

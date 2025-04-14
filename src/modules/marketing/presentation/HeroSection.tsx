@@ -31,17 +31,21 @@ const HeroSection = ({ productNumber }: IProps) => {
         <Heading
           fontWeight="extrabold"
           fontSize={{ base: "3xl", sm: "4xl", md: "6xl", lg: "7xl" }}
-          lineHeight={"110%"}
+          lineHeight="110%"
         >
-          Make money from <br />
+          {"Make money from "}
+          <br />
           <Text as="span" color={brandColor}>
-            your products
+            {"your products"}
           </Text>
         </Heading>
         <Text fontSize={{ base: "md", md: "lg", lg: "xl" }} color={textColor}>
-          We are a brand new e-commerce service with a lot of potential to
-          growth. At this point, we have about {productNumber} products in our
-          store and plenty of trusted clients that will soon extend their offer.
+          {"We are a brand new e-commerce service with a lot of potential to"}
+          {"growth. At this point, we have about "}
+          {productNumber} {"products in our"}
+          {
+            "store and plenty of trusted clients that will soon extend their offer."
+          }
         </Text>
         <VStack
           spacing={3}
@@ -50,10 +54,10 @@ const HeroSection = ({ productNumber }: IProps) => {
           position="relative"
         >
           <Button colorScheme="orange" rounded="full" px={6}>
-            Get Started
+            {"Get Started"}
           </Button>
-          <Button variant="link" colorScheme="blue" size={"sm"}>
-            Learn more
+          <Button variant="link" colorScheme="blue" size="sm">
+            {"Learn more"}
           </Button>
           <Box>
             <Icon
@@ -71,7 +75,7 @@ const HeroSection = ({ productNumber }: IProps) => {
               top="-25px"
               transform="rotate(10deg)"
             >
-              Starting at $79/mo
+              {"Starting at $79/mo"}
             </Text>
           </Box>
         </VStack>

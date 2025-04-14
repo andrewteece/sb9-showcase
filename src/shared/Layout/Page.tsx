@@ -1,8 +1,8 @@
 import {
   VStack,
-  StackProps,
+  type StackProps,
   Container,
-  ContainerProps,
+  type ContainerProps,
 } from "@chakra-ui/react";
 
 interface IProps {

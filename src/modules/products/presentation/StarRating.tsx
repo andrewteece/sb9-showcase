@@ -1,5 +1,3 @@
-import React from "react";
-
 import { StarIcon } from "@chakra-ui/icons";
 import { HStack, Tooltip, useColorModeValue } from "@chakra-ui/react";
 

@@ -1,6 +1,6 @@
 import { action } from "@storybook/addon-actions";
 
-import { ILogger, LogParams, LogLevel } from "./ILogger";
+import { type ILogger, type LogParams, LogLevel } from "./ILogger";
 
 export class StorybookLogger implements ILogger {
   send = action("logger");

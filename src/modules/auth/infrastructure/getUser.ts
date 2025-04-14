@@ -2,8 +2,8 @@ import { omit } from "lodash-es";
 
 import { httpService } from "utils";
 
-import { IUser } from "../types";
-import { IUserDto } from "./types/IUserDto";
+import type { IUser } from "../types";
+import type { IUserDto } from "./types/IUserDto";
 
 export const getUser = () => {
   // mocking current user and its cartId by passing id=1

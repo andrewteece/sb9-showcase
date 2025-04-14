@@ -1,6 +1,6 @@
 import { vi, expect } from "vitest";
 
-import { ILogger, LogParams } from "./ILogger";
+import type { ILogger, LogParams } from "./ILogger";
 
 export class MockLogger implements ILogger {
   log = vi.fn();
