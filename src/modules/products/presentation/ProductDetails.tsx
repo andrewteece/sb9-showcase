@@ -14,19 +14,16 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from "@chakra-ui/react";
-import { useSecondaryTextColor } from "theme";
-
+import { useSecondaryTextColor } from "theme/useSecondaryTextColor";
 import { moneyVO, t } from "utils";
 import { PageHeader } from "shared/Layout";
-
 import {
   AddToCartButton,
   ProductAddedDialog,
 } from "modules/carts/presentation";
 import { useCategoryLabel } from "modules/products/presentation/useCategoryLabel";
-
-import type { IProduct } from "../types";
-import { StarRating } from "./StarRating";
+import type { IProduct } from "modules/products/types/IProduct";
+import { StarRating } from "modules/products/presentation/StarRating";
 
 interface IProps {
   product: IProduct;
