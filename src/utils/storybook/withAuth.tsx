@@ -1,7 +1,6 @@
 import type { Decorator } from "@storybook/react";
 import { UserFixture } from "utils/fixtures";
 
-// eslint-disable-next-line no-restricted-imports
 import {
   initializeAuthStore,
   Provider,

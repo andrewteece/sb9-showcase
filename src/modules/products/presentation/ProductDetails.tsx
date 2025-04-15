@@ -17,17 +17,16 @@ import {
 import { useSecondaryTextColor } from "theme";
 
 import { moneyVO, t } from "utils";
-
 import { PageHeader } from "shared/Layout";
 
 import {
   AddToCartButton,
   ProductAddedDialog,
 } from "modules/carts/presentation";
+import { useCategoryLabel } from "modules/products/presentation/useCategoryLabel";
 
 import type { IProduct } from "../types";
 import { StarRating } from "./StarRating";
-import { useCategoryLabel } from "./useCategoryLabel";
 
 interface IProps {
   product: IProduct;

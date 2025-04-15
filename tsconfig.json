@@ -26,6 +26,9 @@
     "allowJs": true,
     "esModuleInterop": true,
     "incremental": true,
+    // "paths": {
+    //   "@/*": ["./src/*"]
+    // }
     "baseUrl": "./src"
   },
   "include": ["src/**/*", ".storybook/**/*.ts", "eslint.config.mjs"],

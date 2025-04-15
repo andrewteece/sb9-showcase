@@ -1,5 +1,4 @@
 import type { Decorator } from "@storybook/react";
-// eslint-disable-next-line no-restricted-imports
 import {
   initializeAuthStore,
   Provider,
