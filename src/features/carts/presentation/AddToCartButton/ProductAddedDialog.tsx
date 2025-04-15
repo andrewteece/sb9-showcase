@@ -1,5 +1,3 @@
-import { useRef, type RefObject } from "react";
-
 import {
   Button,
   AlertDialog,
@@ -12,12 +10,12 @@ import {
   Text,
   AlertDialogCloseButton,
 } from "@chakra-ui/react";
-import { createModalStore } from "@/lib/components/Modal/createModalStore";
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
+import { useRef, type RefObject } from "react";
+
+import { useProductAddedDialogStore } from "@/features/carts/presentation/AddToCartButton/useProductAddedDialogStore";
 import { useNavigate } from "@/lib/components/Router";
 import { t } from "@/lib/format/message";
-
-export const useProductAddedDialogStore = createModalStore<number>();
+import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 const ProductAddedDialog = () => {
   const secondaryColor = useSecondaryTextColor();

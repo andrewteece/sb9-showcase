@@ -1,11 +1,12 @@
 import { Box, Text, VStack, HStack } from "@chakra-ui/react";
 
-import { useCategoryLabel } from "./useCategoryLabel";
+import { AddToCartButton } from "@/features/carts/presentation/AddToCartButton/AddToCartButton";
 import { Category } from "@/features/products/types/Category";
 import { useNavigate } from "@/lib/components/Router";
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 import { moneyVO } from "@/lib/format/Money";
-import { AddToCartButton } from "@/features/carts/presentation/AddToCartButton/AddToCartButton";
+import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
+
+import { useCategoryLabel } from "./useCategoryLabel";
 
 interface IProps {
   id: number;

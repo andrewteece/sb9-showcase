@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 
-import { useAuthStore } from "./authStore";
 import { Navigate } from "@/lib/components/Router";
+
+import { useAuthStore } from "./authStore";
 
 export interface IRequirePubProps {
   children: ReactNode;

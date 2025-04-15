@@ -1,9 +1,9 @@
-import { expect } from "@storybook/test";
 import type { Meta, StoryObj } from "@storybook/react";
-import { userEvent, within, screen } from "@storybook/test";
+import { userEvent, within, screen, expect } from "@storybook/test";
+
+import { sleep } from "@/lib/storybook/sleep";
 
 import { CheckoutForm } from "./CheckoutForm";
-import { sleep } from "@/lib/storybook/sleep";
 
 const meta = {
   title: "modules/Carts/CheckoutForm",

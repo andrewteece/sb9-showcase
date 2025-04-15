@@ -1,11 +1,12 @@
 // eslint-disable-next-line no-restricted-imports
 import { createBrowserRouter, ScrollRestoration } from "react-router-dom";
 
+import { Layout } from "@/lib/components/Layout/Layout";
+
 import { cartPageLoader } from "./Cart/loader";
 import { homePageLoader } from "./Home/loader";
 import { productPageLoader } from "./Product/loader";
 import { productsPageLoader } from "./Products/loader";
-import { Layout } from "@/lib/components/Layout/Layout";
 
 export const router = createBrowserRouter([
   {

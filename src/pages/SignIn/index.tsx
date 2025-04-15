@@ -1,8 +1,9 @@
+import { Center } from "@chakra-ui/react";
+
 import { withRequirePub } from "@/features/auth/application/withRequirePub";
 import { SignInForm } from "@/features/auth/presentation/SignInForm";
 import { Page } from "@/lib/components/Layout/Page";
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";
-import { Center } from "@chakra-ui/react";
 
 export const SignInPage = () => {
   return (

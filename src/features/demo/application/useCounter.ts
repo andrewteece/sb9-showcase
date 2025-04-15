@@ -1,5 +1,6 @@
-import { Logger } from "@/lib/logger";
 import { useState, useCallback } from "react";
+
+import { Logger } from "@/lib/logger";
 
 const useCounter = () => {
   const [count, setCount] = useState(0);

@@ -1,10 +1,10 @@
-import { expect } from "@storybook/test";
 import type { Meta, StoryObj } from "@storybook/react";
-import { userEvent, within, screen } from "@storybook/test";
+import { userEvent, within, screen, expect } from "@storybook/test";
 
-import { SignInForm } from "./SignInForm";
 import { getSignInHandler } from "@/lib/handlers/signInHandler";
 import { sleep } from "@/lib/storybook/sleep";
+
+import { SignInForm } from "./SignInForm";
 
 const meta = {
   title: "modules/Auth/SignInForm",

@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { SignInPage as Component } from "./index";
 import { getSignInHandler } from "@/lib/handlers/signInHandler";
+
+import { SignInPage as Component } from "./index";
 
 const meta = {
   title: "pages/SignIn",

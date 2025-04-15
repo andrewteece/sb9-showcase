@@ -1,6 +1,5 @@
-import type { ReactNode } from "react";
-
 import { ButtonGroup } from "@chakra-ui/react";
+import type { ReactNode } from "react";
 
 import { t } from "@/lib/format/message";
 

@@ -1,13 +1,13 @@
-import { type ComponentProps, Fragment } from "react";
-
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { VStack, HStack, Button, Text, Divider } from "@chakra-ui/react";
-import { useNavigate } from "@/lib/components/Router";
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
+import { type ComponentProps, Fragment } from "react";
+
 import { CartItem } from "@/features/carts/presentation/CartItem";
-import { moneyVO } from "@/lib/format/Money";
-import { t } from "@/lib/format/message";
 import { CheckoutButton } from "@/features/carts/presentation/CheckoutButton/CheckoutButton";
+import { useNavigate } from "@/lib/components/Router";
+import { t } from "@/lib/format/message";
+import { moneyVO } from "@/lib/format/Money";
+import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 interface IProps {
   cartProducts: ComponentProps<typeof CartItem>[];

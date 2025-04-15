@@ -1,5 +1,5 @@
-import type { StorybookConfig } from "@storybook/react-vite";
 import type { AddonOptionsVite } from "@storybook/addon-coverage";
+import type { StorybookConfig } from "@storybook/react-vite";
 import * as tsconfigPaths from "vite-tsconfig-paths";
 
 const config: StorybookConfig = {

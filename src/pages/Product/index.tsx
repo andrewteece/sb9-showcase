@@ -1,3 +1,6 @@
+import { ArrowBackIcon } from "@chakra-ui/icons";
+import { Button } from "@chakra-ui/react";
+
 import { useProductQuery } from "@/features/products/infrastructure/productQuery";
 import { ProductDetails } from "@/features/products/presentation/ProductDetails";
 import { ProductNotFoundResult } from "@/features/products/presentation/ProductNotFoundResult";
@@ -6,8 +9,6 @@ import { InternalErrorResult } from "@/lib/components/Result/InternalErrorResult
 import { useNavigate, useParams, useRouteError } from "@/lib/components/Router";
 import { t } from "@/lib/format/message";
 import { ResourceNotFoundException } from "@/lib/http/exceptions/ResourceNotFoundException";
-import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Button } from "@chakra-ui/react";
 
 const ProductPage = () => {
   const params = useParams<{ productId: string }>();

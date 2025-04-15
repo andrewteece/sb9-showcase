@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import {
   Box,
   Checkbox,
@@ -11,12 +9,14 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
+import { useState } from "react";
+
+import { useAuthStore } from "@/features/auth/application/authStore";
+import { TextInput } from "@/lib/components/Form/TextInput";
+import { t } from "@/lib/format/message";
+import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 import { useSignInNotifications } from "./useSignInNotifications";
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
-import { useAuthStore } from "@/features/auth/application/authStore";
-import { t } from "@/lib/format/message";
-import { TextInput } from "@/lib/components/Form/TextInput";
 
 interface IProps {
   initialUsername?: string;

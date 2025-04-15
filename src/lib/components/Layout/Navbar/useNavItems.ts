@@ -1,4 +1,5 @@
 import { useAuthStore } from "@/features/auth/application/authStore";
+
 import type { INavItem } from "./INavItem";
 
 export const useNavItems = () => {

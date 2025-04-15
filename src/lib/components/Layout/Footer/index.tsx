@@ -1,5 +1,3 @@
-import type { ReactNode } from "react";
-
 import {
   Box,
   Container,
@@ -9,6 +7,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import type { ReactNode } from "react";
 
 import { Logo } from "./Logo";
 

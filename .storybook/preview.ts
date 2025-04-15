@@ -1,6 +1,6 @@
-import { createElement } from "react";
 import { ChakraProvider, theme } from "@chakra-ui/react";
 import { initialize, mswLoader } from "msw-storybook-addon";
+import { createElement } from "react";
 
 import { getUserHandler } from "@/lib/handlers/getUserHandler";
 import { withAuth } from "@/lib/storybook/withAuth";

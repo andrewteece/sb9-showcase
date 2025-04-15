@@ -1,5 +1,3 @@
-import { useBrandColor } from "@/lib/theme/useBrandColor";
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 import {
   Box,
   Heading,
@@ -12,6 +10,9 @@ import {
   useColorModeValue,
   createIcon,
 } from "@chakra-ui/react";
+
+import { useBrandColor } from "@/lib/theme/useBrandColor";
+import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 interface IProps {
   productNumber: number;

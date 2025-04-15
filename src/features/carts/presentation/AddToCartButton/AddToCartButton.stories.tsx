@@ -1,17 +1,18 @@
-import { expect } from "@storybook/test";
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   userEvent,
   within,
   screen,
   waitForElementToBeRemoved,
+  expect,
 } from "@storybook/test";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { AddToCartButton } from "./AddToCartButton";
-import { ProductAddedDialog } from "./ProductAddedDialog";
 import { getAddToCartHandler } from "@/lib/handlers/getAddToCartHandler";
 import { sleep } from "@/lib/storybook/sleep";
+
+import { AddToCartButton } from "./AddToCartButton";
+import { ProductAddedDialog } from "./ProductAddedDialog";
 
 const meta = {
   title: "modules/Carts/AddToCartButton",

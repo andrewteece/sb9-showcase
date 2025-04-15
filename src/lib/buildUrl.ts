@@ -1,6 +1,7 @@
-import type { IQueryParams } from "@/types/IQueryParams";
 import { isEmpty } from "lodash-es";
 import queryString from "query-string";
+
+import type { IQueryParams } from "@/types/IQueryParams";
 
 export const buildUrl = <Params = IQueryParams>(
   path: string,

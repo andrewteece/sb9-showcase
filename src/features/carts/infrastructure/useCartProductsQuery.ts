@@ -1,9 +1,10 @@
+import type { UseQueryOptions } from "@tanstack/react-query";
+
 import type { ICartDto } from "@/features/carts/infrastructure/types/ICartDto";
 import type { ICartProduct } from "@/features/carts/types/ICartProduct";
 import { getProductQuery } from "@/features/products/infrastructure/productQuery";
 import { httpService } from "@/lib/http";
 import { queryClient, useQuery } from "@/lib/query";
-import type { UseQueryOptions } from "@tanstack/react-query";
 
 interface IResponse {
   date: string;

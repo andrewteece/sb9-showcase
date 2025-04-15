@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { useAuthStore } from "@/features/auth/application/authStore";
+import { useNavigate, useRouteError } from "@/lib/components/Router";
 import { AjaxError } from "@/lib/http/AjaxError";
 
 import { InternalErrorResult } from "./InternalErrorResult";
 import { InternalServerErrorResult } from "./InternalServerErrorResult";
 import { NotFoundResult } from "./NotFoundResult";
-import { useNavigate, useRouteError } from "@/lib/components/Router";
-import { useAuthStore } from "@/features/auth/application/authStore";
 
 interface IProps<Response extends AjaxError["response"] = any> {
   error?: AjaxError<Response>;
