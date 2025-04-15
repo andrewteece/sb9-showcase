@@ -6,6 +6,7 @@ import prettierPluginRecommended from "eslint-plugin-prettier/recommended";
 import importPlugin from "eslint-plugin-import";
 import storybookPlugin from "eslint-plugin-storybook";
 import vitest from "eslint-plugin-vitest";
+import reactRefresh from "eslint-plugin-react-refresh";
 
 export default config(
   { ignores: ["**/dist", "**/*.typegen.ts", "**/public/mockServiceWorker.js"] },
@@ -41,7 +42,7 @@ export default config(
   },
   {
     files: ["**/*.{ts,tsx}"],
-    plugins: { import: importPlugin },
+    plugins: { import: importPlugin, "react-refresh": reactRefresh },
     settings: {
       "import/resolver": { typescript: { alwaysTryTypes: true } },
       "import/ignore": [
@@ -69,6 +70,7 @@ export default config(
           "newlines-between": "always",
         },
       ],
+      "react-refresh/only-export-components": "error",
       "no-unused-vars": "off",
       "prettier/prettier": [
         "error",

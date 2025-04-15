@@ -13,13 +13,11 @@ import {
 import { useRef, type RefObject } from "react";
 
 import { useClearCart } from "@/features/carts/infrastructure/useClearCart";
-import { createModalStore } from "@/lib/components/Modal/createModalStore";
+import { useConfirmClearCartDialogStore } from "@/features/carts/presentation/ClearCartButton/useConfirmClearCartDialogStore";
 import { t } from "@/lib/format/message";
 import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 import { useClearCartNotifications } from "./useClearCartNotifications";
-
-export const useConfirmClearCartDialogStore = createModalStore<number>();
 
 const ConfirmClearCartDialog = () => {
   const cancelRef = useRef<HTMLButtonElement>();

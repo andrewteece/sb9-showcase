@@ -8,12 +8,10 @@ import {
 } from "@chakra-ui/react";
 import { useRef, type RefObject } from "react";
 
-import { createModalStore } from "@/lib/components/Modal/createModalStore";
+import { usePurchaseDialogStore } from "@/features/carts/presentation/CheckoutButton/usePurchaseDialogStore";
 import { t } from "@/lib/format/message";
 
 import { CheckoutForm } from "../CheckoutForm";
-
-export const usePurchaseDialogStore = createModalStore();
 
 const CheckoutDialog = () => {
   const cancelRef = useRef<HTMLButtonElement>();
