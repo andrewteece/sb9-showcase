@@ -1,23 +1,27 @@
-import tseslint from "typescript-eslint";
+import { config, configs as tsConfigs } from "typescript-eslint";
 import js from "@eslint/js";
-import reactHooks from "eslint-plugin-react-hooks";
+import { configs } from "eslint-plugin-react-hooks";
 import reactPlugin from "eslint-plugin-react";
 import prettierPluginRecommended from "eslint-plugin-prettier/recommended";
 // import importPlugin from "eslint-plugin-import";
 import storybookPlugin from "eslint-plugin-storybook";
 import vitest from "eslint-plugin-vitest";
+import * as pluginImportX from "eslint-plugin-import-x";
+// import tsParser from "@typescript-eslint/parser";
 
-export default tseslint.config(
+export default config(
   { ignores: ["**/dist", "**/*.typegen.ts", "**/public/mockServiceWorker.js"] },
   js.configs.recommended,
-  tseslint.configs.recommendedTypeChecked,
-  tseslint.configs.stylisticTypeChecked,
-  reactHooks.configs["recommended-latest"],
+  // importPlugin.flatConfigs.recommended,
+  tsConfigs.recommendedTypeChecked,
+  tsConfigs.stylisticTypeChecked,
+  configs["recommended-latest"],
   reactPlugin.configs.flat.recommended,
   reactPlugin.configs.flat["jsx-runtime"],
   prettierPluginRecommended,
-  //   importPlugin.flatConfigs.recommended,
   ...storybookPlugin.configs["flat/recommended"],
+  pluginImportX.flatConfigs.recommended,
+  pluginImportX.flatConfigs.typescript,
   {
     languageOptions: {
       parserOptions: {
@@ -54,6 +58,9 @@ export default tseslint.config(
     //   "import/external-module-folders": ["node_modules", ".pnpm-store"],
     // },
     rules: {
+      "no-unused-vars": "off",
+      "import-x/no-dynamic-require": "warn",
+      "import-x/no-nodejs-modules": "warn",
       "prettier/prettier": [
         "error",
         {
@@ -74,7 +81,6 @@ export default tseslint.config(
           propElementValues: "always",
         },
       ],
-      "no-unused-vars": "off",
       "no-void": [
         "error",
         {

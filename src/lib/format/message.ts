@@ -1,3 +1,4 @@
+// eslint-disable-next-line import-x/no-named-as-default
 import IntlMessageFormat, {
   type PrimitiveType,
   type FormatXMLElementFn,
