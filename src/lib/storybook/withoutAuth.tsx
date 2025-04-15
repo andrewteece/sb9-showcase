@@ -1,0 +1,15 @@
+import {
+  initializeAuthStore,
+  Provider,
+} from "@/features/auth/application/authStore";
+import type { Decorator } from "@storybook/react";
+
+export const withoutAuth: Decorator = (story) => {
+  const store = initializeAuthStore({
+    isAuthenticated: false,
+    isError: false,
+    state: "finished",
+  });
+
+  return <Provider value={store}>{story()}</Provider>;
+};

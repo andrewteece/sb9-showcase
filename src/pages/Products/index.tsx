@@ -2,17 +2,14 @@ import { useState } from "react";
 
 import { SettingsIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
-
-import { IQueryParams } from "types";
-
-import { t } from "utils";
-
-import { Page, PageHeader } from "shared/Layout";
-import { ErrorPageStrategy } from "shared/Result";
-import { useNotImplementedYetToast } from "shared/Toast";
-
-import { useProductsQuery } from "modules/products/infrastructure";
-import { ProductsList } from "modules/products/presentation";
+import { useProductsQuery } from "@/features/products/infrastructure/productsQuery";
+import { ProductsList } from "@/features/products/presentation/ProductsList";
+import { Page } from "@/lib/components/Layout/Page";
+import { PageHeader } from "@/lib/components/Layout/PageHeader";
+import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";
+import { useNotImplementedYetToast } from "@/lib/components/Toast/useNotImplementedYetToast";
+import { t } from "@/lib/format/message";
+import type { IQueryParams } from "@/types/IQueryParams";
 
 const defaultParams: IQueryParams = { limit: 10, sort: "asc" };
 

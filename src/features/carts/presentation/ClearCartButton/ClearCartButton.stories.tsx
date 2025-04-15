@@ -1,0 +1,45 @@
+import { expect } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react";
+import { userEvent, within, screen } from "@storybook/test";
+import { ClearCartButton } from "@/features/carts/presentation/ClearCartButton/ClearCartButton";
+import { getClearCartHandler } from "@/lib/handlers/getClearCartHandler";
+import { sleep } from "@/lib/storybook/sleep";
+
+const meta = {
+  title: "modules/Carts/ClearCartButton",
+  component: ClearCartButton,
+  parameters: {
+    layout: "centered",
+    msw: {
+      handlers: [getClearCartHandler()],
+    },
+  },
+} satisfies Meta<typeof ClearCartButton>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};
+
+export const ClearingCart: Story = {
+  play: async ({ canvasElement, step }) => {
+    within(canvasElement);
+
+    await step("Clear the cart", async () => {
+      await userEvent.click(screen.getByRole("button", { name: /Clear cart/ }));
+      await expect(
+        await screen.findByText(/Are you sure?/)
+      ).toBeInTheDocument();
+    });
+
+    await step("Confirm clearing the cart", async () => {
+      await sleep(500);
+
+      await userEvent.click(screen.getByRole("button", { name: /Confirm/ }));
+    });
+
+    await expect(
+      await screen.findByText("Your cart has been successfully cleared.")
+    ).toBeInTheDocument();
+  },
+};

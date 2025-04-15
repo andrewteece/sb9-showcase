@@ -5,9 +5,9 @@ import { Center, Spinner } from "@chakra-ui/react";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/700.css";
 import "@fontsource/inter/900.css";
-import { router } from "pages/router";
 
-import { useAuthStore } from "modules/auth/application";
+import { useAuthStore } from "@/features/auth/application/authStore";
+import { router } from "@/pages/router";
 
 function App() {
   const state = useAuthStore((store) => store.state);

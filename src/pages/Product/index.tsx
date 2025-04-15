@@ -1,21 +1,18 @@
+import { useProductQuery } from "@/features/products/infrastructure/productQuery";
+import { ProductDetails } from "@/features/products/presentation/ProductDetails";
+import { ProductNotFoundResult } from "@/features/products/presentation/ProductNotFoundResult";
+import { Page } from "@/lib/components/Layout/Page";
+import { InternalErrorResult } from "@/lib/components/Result/InternalErrorResult";
+import { useNavigate, useParams, useRouteError } from "@/lib/components/Router";
+import { t } from "@/lib/format/message";
+import { ResourceNotFoundException } from "@/lib/http/exceptions/ResourceNotFoundException";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
-
-import { t } from "utils";
-import { ResourceNotFoundException } from "utils";
-
-import { Page } from "shared/Layout";
-import { InternalErrorResult } from "shared/Result";
-import { useNavigate, useParams, useRouteError } from "shared/Router";
-
-import { useProductQuery } from "modules/products/infrastructure";
-import { ProductDetails } from "modules/products/presentation";
-import { ProductNotFoundResult } from "modules/products/presentation";
 
 const ProductPage = () => {
   const params = useParams<{ productId: string }>();
   const navigate = useNavigate();
-  const { data } = useProductQuery(params.productId as string);
+  const { data } = useProductQuery(params.productId!);
 
   return (
     <Page spacing={6}>
@@ -26,7 +23,7 @@ const ProductPage = () => {
       >
         {t("Back to products' list")}
       </Button>
-      <ProductDetails product={data!} onBack={() => navigate("/products")} />
+      <ProductDetails product={data} onBack={() => navigate("/products")} />
     </Page>
   );
 };
