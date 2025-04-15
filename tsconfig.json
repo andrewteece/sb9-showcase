@@ -30,13 +30,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "src/**/*",
-    ".storybook/**/*.ts",
-    "eslint.config.mjs",
-    "lib/theme",
-    "lib/components"
-  ],
+  "include": ["src/**/*", ".storybook/**/*.ts", "eslint.config.mjs"],
   "references": [
     {
       "path": "./tsconfig.node.json"
