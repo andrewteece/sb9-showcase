@@ -1,7 +1,7 @@
-import { useState } from "react";
-
 import { SettingsIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
+import { useState } from "react";
+
 import { useProductsQuery } from "@/features/products/infrastructure/productsQuery";
 import { ProductsList } from "@/features/products/presentation/ProductsList";
 import { Page } from "@/lib/components/Layout/Page";

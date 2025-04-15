@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
 import { ChakraProvider, theme } from "@chakra-ui/react";
 import { QueryClientProvider } from "@tanstack/react-query";
+import type { ReactNode } from "react";
 
 import { AuthProvider } from "@/features/auth/application/AuthProvider";
 import { queryClient } from "@/lib/query";

@@ -1,8 +1,9 @@
 import { http, HttpResponse } from "msw";
 
-import type { GetResolver } from "./resolvers";
-import { host } from "@/lib/http";
 import { ProductFixture } from "@/lib/fixtures/ProductFixture";
+import { host } from "@/lib/http";
+
+import type { GetResolver } from "./resolvers";
 
 export const getProductHandler = (resolver?: GetResolver) =>
   http.get(`${host}/products/:productId`, (req) => {

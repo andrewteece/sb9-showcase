@@ -1,9 +1,10 @@
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
 
-import { ProductCard } from "./ProductCard";
 import { ProductAddedDialog } from "@/features/carts/presentation/AddToCartButton/ProductAddedDialog";
 import type { IProduct } from "@/features/products/types/IProduct";
 import { EmptyStateResult } from "@/lib/components/Result/EmptyStateResult";
+
+import { ProductCard } from "./ProductCard";
 
 interface IProps {
   products: IProduct[];

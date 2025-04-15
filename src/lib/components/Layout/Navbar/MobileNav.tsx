@@ -10,9 +10,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
+import { Link } from "@/lib/components/Router";
+
 import type { INavItem } from "./INavItem";
 import { useNavItems } from "./useNavItems";
-import { Link } from "@/lib/components/Router";
 
 export const MobileNav = () => {
   const bg = useColorModeValue("white", "gray.800");

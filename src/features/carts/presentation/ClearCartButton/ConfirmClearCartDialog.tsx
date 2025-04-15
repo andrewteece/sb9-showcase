@@ -1,5 +1,3 @@
-import { useRef, type RefObject } from "react";
-
 import {
   Button,
   AlertDialog,
@@ -12,12 +10,14 @@ import {
   VStack,
   Text,
 } from "@chakra-ui/react";
+import { useRef, type RefObject } from "react";
+
+import { useClearCart } from "@/features/carts/infrastructure/useClearCart";
+import { createModalStore } from "@/lib/components/Modal/createModalStore";
+import { t } from "@/lib/format/message";
+import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 import { useClearCartNotifications } from "./useClearCartNotifications";
-import { createModalStore } from "@/lib/components/Modal/createModalStore";
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
-import { useClearCart } from "@/features/carts/infrastructure/useClearCart";
-import { t } from "@/lib/format/message";
 
 export const useConfirmClearCartDialogStore = createModalStore<number>();
 

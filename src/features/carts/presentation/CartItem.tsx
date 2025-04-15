@@ -1,3 +1,6 @@
+import { CheckIcon } from "@chakra-ui/icons";
+import { Box, Text, VStack, HStack, Button, Stack } from "@chakra-ui/react";
+
 import { useCategoryLabel } from "@/features/products/presentation/useCategoryLabel";
 import { Category } from "@/features/products/types/Category";
 import { useNavigate } from "@/lib/components/Router";
@@ -5,8 +8,6 @@ import { useNotImplementedYetToast } from "@/lib/components/Toast/useNotImplemen
 import { t } from "@/lib/format/message";
 import { moneyVO } from "@/lib/format/Money";
 import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
-import { CheckIcon } from "@chakra-ui/icons";
-import { Box, Text, VStack, HStack, Button, Stack } from "@chakra-ui/react";
 
 interface IProps {
   id: number;

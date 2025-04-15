@@ -1,11 +1,10 @@
-import type { ReactNode } from "react";
-
 import {
   VStack,
   type SelectProps,
   Select as ChakraSelect,
   Text,
 } from "@chakra-ui/react";
+import type { ReactNode } from "react";
 
 interface IProps extends SelectProps {
   id: string;

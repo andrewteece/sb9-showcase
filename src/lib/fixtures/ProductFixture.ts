@@ -1,6 +1,7 @@
-import type { IProduct } from "@/features/products/types/IProduct";
-import { createFixture } from "./createFixture";
 import { Category } from "@/features/products/types/Category";
+import type { IProduct } from "@/features/products/types/IProduct";
+
+import { createFixture } from "./createFixture";
 
 export const ProductFixture = createFixture<IProduct>({
   id: 1,

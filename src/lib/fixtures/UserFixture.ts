@@ -1,4 +1,5 @@
 import type { IUser } from "@/features/auth/types/IUser";
+
 import { createFixture } from "./createFixture";
 
 export const UserFixture = createFixture<IUser>({

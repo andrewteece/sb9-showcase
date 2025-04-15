@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { HttpResponse } from "msw";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { Component } from "./index";
-import { productsPageLoader } from "./loader";
-import { HttpResponse } from "msw";
-import { getProductsHandler } from "@/lib/handlers/getProductsHandler";
 import { getAddToCartHandler } from "@/lib/handlers/getAddToCartHandler";
+import { getProductsHandler } from "@/lib/handlers/getProductsHandler";
+
+import { productsPageLoader } from "./loader";
+
+import { Component } from "./index";
 
 const meta = {
   title: "pages/Products",

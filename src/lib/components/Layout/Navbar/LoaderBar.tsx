@@ -1,5 +1,6 @@
-import { useNavigation } from "@/lib/components/Router";
 import { Progress } from "@chakra-ui/react";
+
+import { useNavigation } from "@/lib/components/Router";
 
 const LoaderBar = () => {
   const { state } = useNavigation();

@@ -1,9 +1,10 @@
+import { Button, ButtonGroup } from "@chakra-ui/react";
+
 import { ContactUsButton } from "@/lib/components/Result/Buttons/ContactUsButton";
 import { WarningIcon } from "@/lib/components/Result/Icons/WarningIcon";
 import { Result } from "@/lib/components/Result/Result";
 import { useNavigate } from "@/lib/components/Router";
 import { t } from "@/lib/format/message";
-import { Button, ButtonGroup } from "@chakra-ui/react";
 
 const ProductNotFoundResult = () => {
   const navigate = useNavigate();

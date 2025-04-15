@@ -1,9 +1,10 @@
 import ky, { type Options } from "ky";
 
+import { InternalServerException } from "@/lib/http/exceptions/InternalServerException";
+import { ResourceNotFoundException } from "@/lib/http/exceptions/ResourceNotFoundException";
+
 import { AjaxError } from "./AjaxError";
 import { type IHttpServiceClient } from "./IHttpServiceClient";
-import { ResourceNotFoundException } from "@/lib/http/exceptions/ResourceNotFoundException";
-import { InternalServerException } from "@/lib/http/exceptions/InternalServerException";
 
 export interface IKyClientOptions extends Options {}
 

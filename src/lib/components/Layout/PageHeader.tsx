@@ -1,5 +1,3 @@
-import type { ReactNode } from "react";
-
 import {
   Stack,
   VStack,
@@ -8,6 +6,7 @@ import {
   ButtonGroup,
   type HeadingProps,
 } from "@chakra-ui/react";
+import type { ReactNode } from "react";
 
 import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 

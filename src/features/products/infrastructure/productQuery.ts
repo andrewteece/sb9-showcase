@@ -1,8 +1,9 @@
+import type { UseQueryOptions } from "@tanstack/react-query";
+
 import type { IProductDto } from "@/features/products/infrastructure/types/IProductDto";
 import type { IProduct } from "@/features/products/types/IProduct";
 import { httpService } from "@/lib/http";
 import { queryClient, useQuery } from "@/lib/query";
-import type { UseQueryOptions } from "@tanstack/react-query";
 
 export const getProductQueryKey = (productId: string) => ["product", productId];
 

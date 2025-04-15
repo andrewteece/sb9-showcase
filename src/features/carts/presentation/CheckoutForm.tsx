@@ -1,12 +1,12 @@
+import { Button, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 
-import { Button, VStack } from "@chakra-ui/react";
-
-import { usePurchaseNotifications } from "./useCheckoutNotifications";
 import { usePurchase } from "@/features/carts/infrastructure/usePurchase";
+import { Select } from "@/lib/components/Form/Select";
 import { TextInput } from "@/lib/components/Form/TextInput";
 import { t } from "@/lib/format/message";
-import { Select } from "@/lib/components/Form/Select";
+
+import { usePurchaseNotifications } from "./useCheckoutNotifications";
 
 interface IProps {
   onSuccess?: () => void;

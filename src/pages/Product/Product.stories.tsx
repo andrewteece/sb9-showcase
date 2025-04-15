@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { Component } from "./index";
-import { productPageLoader } from "./loader";
 import { getAddToCartHandler } from "@/lib/handlers/getAddToCartHandler";
 import { getProductHandler } from "@/lib/handlers/getProductHandler";
+
+import { productPageLoader } from "./loader";
+
+import { Component } from "./index";
 
 const PRODUCT_ID = "1";
 

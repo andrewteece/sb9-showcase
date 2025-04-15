@@ -1,7 +1,8 @@
+import { useMutation } from "@tanstack/react-query";
+
 import { useAuthStore } from "@/features/auth/application/authStore";
 import { httpService } from "@/lib/http";
 import { Logger } from "@/lib/logger";
-import { useMutation } from "@tanstack/react-query";
 
 export const useClearCart = () => {
   const cartId = useAuthStore((store) => store.user.cartId);

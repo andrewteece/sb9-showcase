@@ -1,5 +1,3 @@
-import type { ReactNode } from "react";
-
 import { CheckIcon as ChakraCheckIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -13,6 +11,8 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
+import type { ReactNode } from "react";
+
 import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 const PricingSection = () => {

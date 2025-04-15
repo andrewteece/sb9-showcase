@@ -1,6 +1,7 @@
-import { t } from "@/lib/format/message";
 import { StarIcon } from "@chakra-ui/icons";
 import { HStack, Tooltip, useColorModeValue } from "@chakra-ui/react";
+
+import { t } from "@/lib/format/message";
 
 interface IProps {
   rating: number;

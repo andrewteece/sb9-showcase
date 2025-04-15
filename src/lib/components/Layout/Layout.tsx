@@ -1,8 +1,9 @@
 import { chakra } from "@chakra-ui/react";
 
+import { Outlet } from "@/lib/components/Router";
+
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
-import { Outlet } from "@/lib/components/Router";
 
 export const Layout = () => {
   return (

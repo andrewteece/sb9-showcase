@@ -1,5 +1,3 @@
-import { useRef, type RefObject } from "react";
-
 import {
   AlertDialog,
   AlertDialogBody,
@@ -8,10 +6,12 @@ import {
   AlertDialogOverlay,
   AlertDialogCloseButton,
 } from "@chakra-ui/react";
+import { useRef, type RefObject } from "react";
 
-import { CheckoutForm } from "../CheckoutForm";
 import { createModalStore } from "@/lib/components/Modal/createModalStore";
 import { t } from "@/lib/format/message";
+
+import { CheckoutForm } from "../CheckoutForm";
 
 export const usePurchaseDialogStore = createModalStore();
 

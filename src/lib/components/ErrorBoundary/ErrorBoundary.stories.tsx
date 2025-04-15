@@ -1,13 +1,12 @@
+import { Button, VStack, useBoolean } from "@chakra-ui/react";
+import type { Decorator, Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 // eslint-disable-next-line no-restricted-imports
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 
-import { Button, VStack, useBoolean } from "@chakra-ui/react";
-import type { Decorator, Meta, StoryObj } from "@storybook/react";
-
+import { ErrorBoundary } from "@/lib/components/ErrorBoundary/ErrorBoundary";
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";
 import { InternalServerErrorResult } from "@/lib/components/Result/InternalServerErrorResult";
-import { ErrorBoundary } from "@/lib/components/ErrorBoundary/ErrorBoundary";
 import { AjaxError } from "@/lib/http/AjaxError";
 
 const withRouter: Decorator = (story) => {

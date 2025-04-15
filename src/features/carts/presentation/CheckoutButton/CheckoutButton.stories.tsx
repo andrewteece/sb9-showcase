@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within, screen, expect } from "@storybook/test";
 
-import { Purchasing as CheckoutFormPurchasing } from "../CheckoutForm.stories";
 import { CheckoutButton } from "@/features/carts/presentation/CheckoutButton/CheckoutButton";
+
+import { Purchasing as CheckoutFormPurchasing } from "../CheckoutForm.stories";
 
 const meta = {
   title: "modules/Carts/CheckoutButton",

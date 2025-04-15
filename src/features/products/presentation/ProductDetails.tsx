@@ -1,12 +1,3 @@
-import { AddToCartButton } from "@/features/carts/presentation/AddToCartButton/AddToCartButton";
-import { ProductAddedDialog } from "@/features/carts/presentation/AddToCartButton/ProductAddedDialog";
-import { StarRating } from "@/features/products/presentation/StarRating";
-import { useCategoryLabel } from "@/features/products/presentation/useCategoryLabel";
-import type { IProduct } from "@/features/products/types/IProduct";
-import { PageHeader } from "@/lib/components/Layout/PageHeader";
-import { t } from "@/lib/format/message";
-import { moneyVO } from "@/lib/format/Money";
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 import {
   chakra,
   Box,
@@ -23,6 +14,16 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from "@chakra-ui/react";
+
+import { AddToCartButton } from "@/features/carts/presentation/AddToCartButton/AddToCartButton";
+import { ProductAddedDialog } from "@/features/carts/presentation/AddToCartButton/ProductAddedDialog";
+import { StarRating } from "@/features/products/presentation/StarRating";
+import { useCategoryLabel } from "@/features/products/presentation/useCategoryLabel";
+import type { IProduct } from "@/features/products/types/IProduct";
+import { PageHeader } from "@/lib/components/Layout/PageHeader";
+import { t } from "@/lib/format/message";
+import { moneyVO } from "@/lib/format/Money";
+import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 interface IProps {
   product: IProduct;

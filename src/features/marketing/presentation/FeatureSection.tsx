@@ -1,5 +1,3 @@
-import type { ReactNode } from "react";
-
 import { CheckIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -13,6 +11,8 @@ import {
   CardBody,
   Card,
 } from "@chakra-ui/react";
+import type { ReactNode } from "react";
+
 import { useBrandColor } from "@/lib/theme/useBrandColor";
 import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 

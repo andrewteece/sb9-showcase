@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { Navbar } from "./index";
 import { withoutAuth } from "@/lib/storybook/withoutAuth";
+
+import { Navbar } from "./index";
 
 const meta = {
   component: Navbar,

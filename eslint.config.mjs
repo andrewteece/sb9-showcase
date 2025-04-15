@@ -3,16 +3,13 @@ import js from "@eslint/js";
 import { configs } from "eslint-plugin-react-hooks";
 import reactPlugin from "eslint-plugin-react";
 import prettierPluginRecommended from "eslint-plugin-prettier/recommended";
-// import importPlugin from "eslint-plugin-import";
+import importPlugin from "eslint-plugin-import";
 import storybookPlugin from "eslint-plugin-storybook";
 import vitest from "eslint-plugin-vitest";
-import * as pluginImportX from "eslint-plugin-import-x";
-// import tsParser from "@typescript-eslint/parser";
 
 export default config(
   { ignores: ["**/dist", "**/*.typegen.ts", "**/public/mockServiceWorker.js"] },
   js.configs.recommended,
-  // importPlugin.flatConfigs.recommended,
   tsConfigs.recommendedTypeChecked,
   tsConfigs.stylisticTypeChecked,
   configs["recommended-latest"],
@@ -20,8 +17,7 @@ export default config(
   reactPlugin.configs.flat["jsx-runtime"],
   prettierPluginRecommended,
   ...storybookPlugin.configs["flat/recommended"],
-  pluginImportX.flatConfigs.recommended,
-  pluginImportX.flatConfigs.typescript,
+
   {
     languageOptions: {
       parserOptions: {
@@ -45,22 +41,35 @@ export default config(
   },
   {
     files: ["**/*.{ts,tsx}"],
-    // settings: {
-    //   "import/resolver": {
-    //     typescript: true,
-    //   },
-    //   "import/ignore": [
-    //     "node_modules",
-    //     ".json$",
-    //     ".(css|scss)$",
-    //     ".(jpg|png|gif|svg|html|txt|md|woff|woff2|ttf|eot)$",
-    //   ],
-    //   "import/external-module-folders": ["node_modules", ".pnpm-store"],
-    // },
+    plugins: { import: importPlugin },
+    settings: {
+      "import/resolver": { typescript: { alwaysTryTypes: true } },
+      "import/ignore": [
+        "node_modules",
+        ".json$",
+        ".(css|scss)$",
+        ".(jpg|png|gif|svg|html|txt|md|woff|woff2|ttf|eot)$",
+      ],
+      "import/external-module-folders": ["node_modules", ".pnpm-store"],
+    },
     rules: {
+      ...importPlugin.configs.recommended.rules,
+      ...importPlugin.configs.typescript.rules,
+      "import/no-dynamic-require": "error",
+      "import/no-useless-path-segments": "error",
+      "import/no-extraneous-dependencies": "error",
+      "import/newline-after-import": "error",
+      "import/no-commonjs": "error",
+      "import/no-amd": "error",
+      "import/order": [
+        "error",
+        {
+          alphabetize: { caseInsensitive: true, order: "asc" },
+          groups: ["builtin", "external", "internal", "parent", "sibling"],
+          "newlines-between": "always",
+        },
+      ],
       "no-unused-vars": "off",
-      "import-x/no-dynamic-require": "warn",
-      "import-x/no-nodejs-modules": "warn",
       "prettier/prettier": [
         "error",
         {
@@ -146,12 +155,6 @@ export default config(
           ],
         },
       ],
-      //   "import/no-dynamic-require": "error",
-      //   "import/no-useless-path-segments": "error",
-      //   "import/no-extraneous-dependencies": "error",
-      //   "import/newline-after-import": "error",
-      //   "import/no-commonjs": "error",
-      //   "import/no-amd": "error",
     },
   },
   {
@@ -175,6 +178,9 @@ export default config(
       strict: "off",
       "import/no-commonjs": "off",
       "@typescript-eslint/prefer-nullish-coalescing": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-spread": "off",
     },
   }
 );

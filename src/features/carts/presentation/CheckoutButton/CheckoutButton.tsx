@@ -1,7 +1,8 @@
 import { Button } from "@chakra-ui/react";
 
-import { CheckoutDialog, usePurchaseDialogStore } from "./CheckoutDialog";
 import { t } from "@/lib/format/message";
+
+import { CheckoutDialog, usePurchaseDialogStore } from "./CheckoutDialog";
 
 const CheckoutButton = () => {
   const onOpen = usePurchaseDialogStore((state) => state.onOpen);

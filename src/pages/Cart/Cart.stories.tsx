@@ -1,13 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { HttpResponse } from "msw";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { Component } from "./index";
-import { cartPageLoader } from "./loader";
-import { HttpResponse } from "msw";
-import { getCartHandler } from "@/lib/handlers/getCartHandler";
 import { CartFixture } from "@/lib/fixtures/CartFixture";
-import { getProductHandler } from "@/lib/handlers/getProductHandler";
+import { getCartHandler } from "@/lib/handlers/getCartHandler";
 import { getClearCartHandler } from "@/lib/handlers/getClearCartHandler";
+import { getProductHandler } from "@/lib/handlers/getProductHandler";
+
+import { cartPageLoader } from "./loader";
+
+import { Component } from "./index";
 
 const CART_ID = 1;
 const PRODUCT_ID_1 = 2;
