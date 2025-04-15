@@ -1,12 +1,9 @@
 import type { ReactNode } from "react";
-
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, theme } from "@chakra-ui/react";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { theme } from "theme";
 
-import { queryClient } from "utils";
-
-import { AuthProvider } from "modules/auth/application";
+import { AuthProvider } from "@/features/auth/application/AuthProvider";
+import { queryClient } from "@/lib/query";
 
 interface IProps {
   children: ReactNode;

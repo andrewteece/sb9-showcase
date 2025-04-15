@@ -26,12 +26,17 @@
     "allowJs": true,
     "esModuleInterop": true,
     "incremental": true,
-    // "paths": {
-    //   "@/*": ["./src/*"]
-    // }
-    "baseUrl": "./src"
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["src/**/*", ".storybook/**/*.ts", "eslint.config.mjs"],
+  "include": [
+    "src/**/*",
+    ".storybook/**/*.ts",
+    "eslint.config.mjs",
+    "lib/theme",
+    "lib/components"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"

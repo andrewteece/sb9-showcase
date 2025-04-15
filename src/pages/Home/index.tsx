@@ -1,13 +1,10 @@
-import { Page } from "shared/Layout";
-import { InternalErrorResult } from "shared/Result";
-import { useRouteError } from "shared/Router";
-
-import {
-  HeroSection,
-  FeatureSection,
-  PricingSection,
-} from "modules/marketing/presentation";
-import { useProductsQuery } from "modules/products/infrastructure";
+import { FeatureSection } from "@/features/marketing/presentation/FeatureSection";
+import { HeroSection } from "@/features/marketing/presentation/HeroSection";
+import { PricingSection } from "@/features/marketing/presentation/PricingSection";
+import { useProductsQuery } from "@/features/products/infrastructure/productsQuery";
+import { Page } from "@/lib/components/Layout/Page";
+import { InternalErrorResult } from "@/lib/components/Result/InternalErrorResult";
+import { useRouteError } from "@/lib/components/Router/useRouteError";
 
 interface IProps {
   fallbackProductsNumber?: number;

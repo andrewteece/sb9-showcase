@@ -1,4 +1,4 @@
-import { productsLoader } from "modules/products/infrastructure";
+import { productsLoader } from "@/features/products/infrastructure/productsQuery";
 
 export const homePageLoader = () => {
   return productsLoader();

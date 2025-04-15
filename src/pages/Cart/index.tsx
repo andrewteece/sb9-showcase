@@ -1,12 +1,13 @@
-import { dateVO, t } from "utils";
-
-import { Page, PageHeader } from "shared/Layout";
-import { ErrorPageStrategy } from "shared/Result";
-import { useParams } from "shared/Router";
-
-import { withRequireAuth } from "modules/auth/application";
-import { useCartProductsQuery } from "modules/carts/infrastructure";
-import { CartsList, ClearCartButton } from "modules/carts/presentation";
+import { withRequireAuth } from "@/features/auth/application/withRequireAuth";
+import { useCartProductsQuery } from "@/features/carts/infrastructure/useCartProductsQuery";
+import { CartsList } from "@/features/carts/presentation/CartsList";
+import { ClearCartButton } from "@/features/carts/presentation/ClearCartButton/ClearCartButton";
+import { Page } from "@/lib/components/Layout/Page";
+import { PageHeader } from "@/lib/components/Layout/PageHeader";
+import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";
+import { useParams } from "@/lib/components/Router";
+import { dateVO } from "@/lib/format/Date";
+import { t } from "@/lib/format/message";
 
 const CartPage = () => {
   const params = useParams<{ cartId: string }>();

@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { getProductsHandler } from "utils";
-
 import { Component } from "./index";
 import { homePageLoader } from "./loader";
+import { getProductsHandler } from "@/lib/handlers/getProductsHandler";
 
 const meta = {
   title: "pages/Home",
