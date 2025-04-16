@@ -1,3 +1,4 @@
+/* eslint-disable import/no-restricted-paths */
 import { CheckIcon } from "@chakra-ui/icons";
 import { Box, Text, VStack, HStack, Button, Stack } from "@chakra-ui/react";
 

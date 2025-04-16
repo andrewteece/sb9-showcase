@@ -1,3 +1,4 @@
+/* eslint-disable import/no-restricted-paths */
 import { Box, Text, VStack, HStack } from "@chakra-ui/react";
 
 import { AddToCartButton } from "@/features/carts/presentation/AddToCartButton/AddToCartButton";

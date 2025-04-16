@@ -8,6 +8,15 @@ import storybookPlugin from "eslint-plugin-storybook";
 import vitest from "eslint-plugin-vitest";
 import reactRefresh from "eslint-plugin-react-refresh";
 
+// used by import/no-restricted-paths
+const featureSlices = ["carts", "marketing", "products"];
+const featureToFeatureZones = featureSlices.map((feature) => ({
+  target: `./src/features/${feature}`,
+  from: "./src/features",
+  except: [`./${feature}`, "./auth"],
+  message: "Avoid importing from other features.",
+}));
+
 export default config(
   { ignores: ["**/dist", "**/*.typegen.ts", "**/public/mockServiceWorker.js"] },
   js.configs.recommended,
@@ -183,6 +192,17 @@ export default config(
       "@typescript-eslint/no-unsafe-assignment": "off",
       "@typescript-eslint/no-unsafe-member-access": "off",
       "@typescript-eslint/no-unsafe-spread": "off",
+    },
+  },
+  {
+    files: ["./src/features/**"],
+    rules: {
+      "import/no-restricted-paths": [
+        "error",
+        {
+          zones: featureToFeatureZones,
+        },
+      ],
     },
   }
 );
