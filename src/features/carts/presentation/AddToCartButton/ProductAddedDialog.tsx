@@ -64,7 +64,7 @@ const ProductAddedDialog = () => {
               colorScheme="orange"
               onClick={() => {
                 onClose();
-                navigate(`/cart/${cartId}`);
+                void navigate(`/cart/${cartId}`);
               }}
               ml={3}
             >
