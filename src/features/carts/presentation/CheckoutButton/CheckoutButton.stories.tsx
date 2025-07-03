@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { userEvent, within, screen, expect } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { userEvent, within, screen, expect } from "storybook/test";
 
 import { CheckoutButton } from "@/features/carts/presentation/CheckoutButton/CheckoutButton";
 

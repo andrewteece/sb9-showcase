@@ -5,8 +5,9 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   AlertDialogCloseButton,
+  type AlertDialogProps,
 } from "@chakra-ui/react";
-import { useRef, type RefObject } from "react";
+import { useRef } from "react";
 
 import { usePurchaseDialogStore } from "@/features/carts/presentation/CheckoutButton/usePurchaseDialogStore";
 import { t } from "@/lib/format/message";
@@ -14,7 +15,7 @@ import { t } from "@/lib/format/message";
 import { CheckoutForm } from "../CheckoutForm";
 
 const CheckoutDialog = () => {
-  const cancelRef = useRef<HTMLButtonElement>();
+  const cancelRef = useRef<HTMLButtonElement>(null);
 
   const { isOpen, onClose } = usePurchaseDialogStore((state) => ({
     isOpen: state.isOpen,
@@ -24,7 +25,7 @@ const CheckoutDialog = () => {
   return (
     <AlertDialog
       isOpen={isOpen}
-      leastDestructiveRef={cancelRef as RefObject<HTMLButtonElement>}
+      leastDestructiveRef={cancelRef as AlertDialogProps["leastDestructiveRef"]}
       onClose={onClose}
     >
       <AlertDialogOverlay>

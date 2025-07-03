@@ -1,5 +1,5 @@
 import { Button, VStack, useBoolean } from "@chakra-ui/react";
-import type { Decorator, Meta, StoryObj } from "@storybook/react";
+import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 // eslint-disable-next-line no-restricted-imports
 import { createMemoryRouter, RouterProvider } from "react-router-dom";

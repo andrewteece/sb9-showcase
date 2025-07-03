@@ -1,6 +1,6 @@
 import { EmailIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { PageHeader } from "./PageHeader";
 

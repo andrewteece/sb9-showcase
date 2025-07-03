@@ -9,8 +9,9 @@ import {
   AlertDialogCloseButton,
   VStack,
   Text,
+  type AlertDialogProps,
 } from "@chakra-ui/react";
-import { useRef, type RefObject } from "react";
+import { useRef } from "react";
 
 import { useClearCart } from "@/features/carts/infrastructure/useClearCart";
 import { useConfirmClearCartDialogStore } from "@/features/carts/presentation/ClearCartButton/useConfirmClearCartDialogStore";
@@ -20,7 +21,7 @@ import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 import { useClearCartNotifications } from "./useClearCartNotifications";
 
 const ConfirmClearCartDialog = () => {
-  const cancelRef = useRef<HTMLButtonElement>();
+  const cancelRef = useRef<HTMLButtonElement>(null);
   const secondaryColor = useSecondaryTextColor();
   const [clear, isLoading] = useClearCart();
 
@@ -34,7 +35,7 @@ const ConfirmClearCartDialog = () => {
   return (
     <AlertDialog
       isOpen={isOpen}
-      leastDestructiveRef={cancelRef as RefObject<HTMLButtonElement>}
+      leastDestructiveRef={cancelRef as AlertDialogProps["leastDestructiveRef"]}
       onClose={onClose}
     >
       <AlertDialogOverlay>
@@ -56,10 +57,7 @@ const ConfirmClearCartDialog = () => {
             </VStack>
           </AlertDialogBody>
           <AlertDialogFooter>
-            <Button
-              ref={cancelRef as RefObject<HTMLButtonElement>}
-              onClick={onClose}
-            >
+            <Button ref={cancelRef} onClick={onClose}>
               {t("Cancel")}
             </Button>
             <Button
