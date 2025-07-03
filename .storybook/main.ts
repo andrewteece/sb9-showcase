@@ -1,6 +1,6 @@
 import type { AddonOptionsVite } from "@storybook/addon-coverage";
 import type { StorybookConfig } from "@storybook/react-vite";
-// import * as tsconfigPaths from "vite-tsconfig-paths";
+import * as tsconfigPaths from "vite-tsconfig-paths";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
@@ -26,13 +26,12 @@ const config: StorybookConfig = {
     options: {},
   },
 
-  // async viteFinal(config) {
-  //   const { mergeConfig } = await import("vite");
-
-  //   return mergeConfig(config, {
-  //     plugins: [...(config.plugins ?? []), tsconfigPaths.default()],
-  //   });
-  // },
+  viteFinal(config) {
+    return {
+      ...config,
+      plugins: [...(config.plugins ?? []), tsconfigPaths.default()],
+    };
+  },
 
   typescript: {
     reactDocgen: "react-docgen-typescript",
