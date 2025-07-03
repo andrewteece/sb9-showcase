@@ -36,6 +36,12 @@ const config: StorybookConfig = {
   typescript: {
     reactDocgen: "react-docgen-typescript",
   },
+
+  build: {
+    test: {
+      disabledAddons: ["@storybook/addon-docs"],
+    },
+  },
 };
 
 export default config;
