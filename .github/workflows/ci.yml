@@ -21,12 +21,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        id: pnpm-install
-        with:
-          version: 10.6.1
-          run_install: false
+      - name: Enable corepack
+        run: corepack enable
 
       - name: Install Node.js
         uses: actions/setup-node@v4
@@ -101,8 +97,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile --ignore-scripts
 
-      - name: Install Playwright
-        run: pnpm exec playwright install --with-deps
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install chromium --with-deps --only-shell
 
       - name: Build Storybook
         run: pnpm build-storybook --quiet
@@ -111,7 +107,7 @@ jobs:
         run: |
           pnpm exec concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
             "pnpm exec http-server storybook-static --port 6006 --silent" \
-            "pnpm exec wait-on tcp:127.0.0.1:6006 && pnpm exec test-storybook --coverage --junit"
+            "pnpm exec wait-on tcp:6006 && pnpm exec test-storybook --coverage --junit"
 
       - name: Move Storybook coverage report and cleanup
         run: |

@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   userEvent,
   within,
   screen,
   waitForElementToBeRemoved,
   expect,
-} from "@storybook/test";
+} from "storybook/test";
 import { withRouter } from "storybook-addon-remix-react-router";
 
 import { getAddToCartHandler } from "@/lib/handlers/getAddToCartHandler";

@@ -9,8 +9,9 @@ import {
   VStack,
   Text,
   AlertDialogCloseButton,
+  type AlertDialogProps,
 } from "@chakra-ui/react";
-import { useRef, type RefObject } from "react";
+import { useRef } from "react";
 
 import { useProductAddedDialogStore } from "@/features/carts/presentation/AddToCartButton/useProductAddedDialogStore";
 import { useNavigate } from "@/lib/components/Router";
@@ -21,7 +22,7 @@ const ProductAddedDialog = () => {
   const secondaryColor = useSecondaryTextColor();
   const navigate = useNavigate();
 
-  const cancelRef = useRef<HTMLButtonElement>();
+  const cancelRef = useRef<HTMLButtonElement>(null);
 
   const { isOpen, onClose, cartId } = useProductAddedDialogStore((state) => ({
     isOpen: state.isOpen,
@@ -32,7 +33,7 @@ const ProductAddedDialog = () => {
   return (
     <AlertDialog
       isOpen={isOpen}
-      leastDestructiveRef={cancelRef as RefObject<HTMLButtonElement>}
+      leastDestructiveRef={cancelRef as AlertDialogProps["leastDestructiveRef"]}
       onClose={onClose}
     >
       <AlertDialogOverlay>
@@ -56,17 +57,14 @@ const ProductAddedDialog = () => {
             </VStack>
           </AlertDialogBody>
           <AlertDialogFooter>
-            <Button
-              ref={cancelRef as RefObject<HTMLButtonElement>}
-              onClick={onClose}
-            >
+            <Button ref={cancelRef} onClick={onClose}>
               {t("Continue shopping")}
             </Button>
             <Button
               colorScheme="orange"
               onClick={() => {
                 onClose();
-                navigate(`/cart/${cartId}`);
+                void navigate(`/cart/${cartId}`);
               }}
               ml={3}
             >

@@ -1,4 +1,5 @@
-export const locale = navigator.language;
+// export const locale = navigator.language;
+export const locale = "en";
 
 const Locale = {
   en: {
