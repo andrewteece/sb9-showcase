@@ -1,6 +1,6 @@
 import { describe } from "vitest";
 
-import { DateVO } from "@/lib/date/dateVO";
+import { DateVO } from "@/lib/date/Date";
 import { generateDate } from "@/test-lib/date/generateDate";
 
 describe("DateVO", () => {

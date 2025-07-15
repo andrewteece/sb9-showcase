@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
-import { DateVO } from "@/lib/date/dateVO";
+import { DateVO } from "@/lib/date/Date";
 
 type Format = "long" | "short" | "longWithoutDay";
 
