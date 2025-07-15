@@ -4,6 +4,7 @@ import { createElement } from "react";
 
 import { getUserHandler } from "@/test-lib/handlers/getUserHandler";
 import { withAuth } from "@/test-lib/storybook/withAuth";
+import { withI18Next } from "@/test-lib/storybook/withI18Next";
 import { withReactQuery } from "@/test-lib/storybook/withReactQuery";
 
 export const parameters = {
@@ -32,6 +33,7 @@ initialize(
 export const decorators = [
   // eslint-disable-next-line react/no-children-prop, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
   (story: any) => createElement(ChakraProvider, { children: story(), theme }),
+  withI18Next,
   withReactQuery,
   withAuth,
 ];
