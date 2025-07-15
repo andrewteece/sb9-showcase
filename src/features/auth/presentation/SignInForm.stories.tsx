@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { userEvent, within, screen, expect } from "storybook/test";
 
-import { getSignInHandler } from "@/lib/handlers/signInHandler";
-import { sleep } from "@/lib/storybook/sleep";
+import { getSignInHandler } from "@/test-lib/handlers/signInHandler";
+import { sleep } from "@/test-lib/storybook/sleep";
 
 import { SignInForm } from "./SignInForm";
 

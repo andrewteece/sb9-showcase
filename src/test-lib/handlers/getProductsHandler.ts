@@ -1,8 +1,8 @@
 import { http, HttpResponse } from "msw";
 
 import { buildUrl } from "@/lib/buildUrl";
-import { ProductFixture } from "@/lib/fixtures/ProductFixture";
 import { host } from "@/lib/http";
+import { ProductFixture } from "@/test-lib/fixtures/ProductFixture";
 
 import type { GetResolver } from "./resolvers";
 

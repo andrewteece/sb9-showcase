@@ -1,7 +1,7 @@
 import { http, HttpResponse } from "msw";
 
-import { UserFixture } from "@/lib/fixtures/UserFixture";
 import { host } from "@/lib/http";
+import { UserFixture } from "@/test-lib/fixtures/UserFixture";
 
 import type { GetResolver } from "./resolvers";
 

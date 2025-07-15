@@ -4,7 +4,7 @@ import {
   initializeAuthStore,
   Provider,
 } from "@/features/auth/application/authStore";
-import { UserFixture } from "@/lib/fixtures/UserFixture";
+import { UserFixture } from "@/test-lib/fixtures/UserFixture";
 
 export const withAuth: Decorator = (story) => {
   const store = initializeAuthStore({

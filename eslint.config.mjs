@@ -18,7 +18,15 @@ const featureToFeatureZones = featureSlices.map((feature) => ({
 }));
 
 export default config(
-  { ignores: ["**/dist", "**/*.typegen.ts", "**/public/mockServiceWorker.js"] },
+  {
+    ignores: [
+      "**/dist",
+      "**/storybook-static/**",
+      "**/reports/**",
+      "**/*.typegen.ts",
+      "**/public/mockServiceWorker.js",
+    ],
+  },
   js.configs.recommended,
   tsConfigs.recommendedTypeChecked,
   tsConfigs.stylisticTypeChecked,

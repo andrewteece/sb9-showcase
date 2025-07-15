@@ -1,7 +1,7 @@
 import { http, HttpResponse } from "msw";
 
-import { CartFixture } from "@/lib/fixtures/CartFixture";
 import { host } from "@/lib/http";
+import { CartFixture } from "@/test-lib/fixtures/CartFixture";
 
 import type { GetResolver } from "./resolvers";
 

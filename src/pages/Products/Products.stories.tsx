@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { HttpResponse } from "msw";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { getAddToCartHandler } from "@/lib/handlers/getAddToCartHandler";
-import { getProductsHandler } from "@/lib/handlers/getProductsHandler";
+import { getAddToCartHandler } from "@/test-lib/handlers/getAddToCartHandler";
+import { getProductsHandler } from "@/test-lib/handlers/getProductsHandler";
 
 import { productsPageLoader } from "./loader";
 

@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { withRouter } from "storybook-addon-remix-react-router";
 
-import { ProductFixture } from "@/lib/fixtures/ProductFixture";
-import { getAddToCartHandler } from "@/lib/handlers/getAddToCartHandler";
+import { ProductFixture } from "@/test-lib/fixtures/ProductFixture";
+import { getAddToCartHandler } from "@/test-lib/handlers/getAddToCartHandler";
 
 import { ProductDetails } from "./ProductDetails";
 

@@ -2,9 +2,9 @@ import { ChakraProvider, theme } from "@chakra-ui/react";
 import { initialize, mswLoader } from "msw-storybook-addon";
 import { createElement } from "react";
 
-import { getUserHandler } from "@/lib/handlers/getUserHandler";
-import { withAuth } from "@/lib/storybook/withAuth";
-import { withReactQuery } from "@/lib/storybook/withReactQuery";
+import { getUserHandler } from "@/test-lib/handlers/getUserHandler";
+import { withAuth } from "@/test-lib/storybook/withAuth";
+import { withReactQuery } from "@/test-lib/storybook/withReactQuery";
 
 export const parameters = {
   controls: {

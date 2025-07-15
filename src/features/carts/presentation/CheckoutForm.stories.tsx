@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { userEvent, within, screen, expect } from "storybook/test";
 
-import { sleep } from "@/lib/storybook/sleep";
+import { sleep } from "@/test-lib/storybook/sleep";
 
 import { CheckoutForm } from "./CheckoutForm";
 
