@@ -1,23 +1,22 @@
 import { useToast } from "@/lib/components/Toast/useToast";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 export const useClearCartNotifications = () => {
+  const t = useTranslations("features.carts.clear-cart.notifications");
   const toast = useToast();
 
   const success = () =>
     toast({
       status: "success",
-      title: t("Clear cart"),
-      description: t("Your cart has been successfully cleared."),
+      title: t("title"),
+      description: t("success"),
     });
 
   const failure = () =>
     toast({
       status: "error",
-      title: t("Clear cart"),
-      description: t(
-        "Something went wrong with clearing your cart. Pleas try again or contact us."
-      ),
+      title: t("title"),
+      description: t("error"),
     });
 
   return [success, failure] as const;

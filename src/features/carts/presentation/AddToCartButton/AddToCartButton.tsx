@@ -3,7 +3,7 @@ import { Button, type ButtonProps } from "@chakra-ui/react";
 import { useAuthStore } from "@/features/auth/application/authStore";
 import { useAddToCart } from "@/features/carts/infrastructure/useAddToCart";
 import { useProductAddedDialogStore } from "@/features/carts/presentation/AddToCartButton/useProductAddedDialogStore";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 import { useAddToCartNotifications } from "./useAddToCartNotifications";
 
@@ -15,6 +15,7 @@ interface IProps {
 const AddToCartButton = ({ productId, colorScheme = "gray" }: IProps) => {
   const cartId = useAuthStore((store) => store.user?.cartId);
   const isAuthenticated = useAuthStore((store) => store.isAuthenticated);
+  const t = useTranslations("features.carts.add-to-cart");
 
   const [add, isLoading] = useAddToCart();
   const { notifyFailure, notifySuccess, notifyNotAuthenticated } =
@@ -40,7 +41,7 @@ const AddToCartButton = ({ productId, colorScheme = "gray" }: IProps) => {
         }
       }}
     >
-      {t("Add to cart")}
+      {t("button")}
     </Button>
   );
 };

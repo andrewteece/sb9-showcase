@@ -4,7 +4,7 @@ import { useState } from "react";
 import { usePurchase } from "@/features/carts/infrastructure/usePurchase";
 import { Select } from "@/lib/components/Form/Select";
 import { TextInput } from "@/lib/components/Form/TextInput";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 import { usePurchaseNotifications } from "./useCheckoutNotifications";
 
@@ -13,6 +13,7 @@ interface IProps {
 }
 
 const CheckoutForm = ({ onSuccess }: IProps) => {
+  const t = useTranslations("features.carts.checkout.form");
   const [fullName, setFullName] = useState<string>();
   const [address, setAddress] = useState<string>();
   const [method, setMethod] = useState<string>("blik");
@@ -41,42 +42,30 @@ const CheckoutForm = ({ onSuccess }: IProps) => {
         value={fullName}
         onChange={(e) => setFullName(e.currentTarget.value)}
       >
-        {t("Full Name")}
+        {t("full-name")}
       </TextInput>
       <TextInput
         id="address"
         value={address}
         onChange={(e) => setAddress(e.currentTarget.value)}
       >
-        {t("Your address")}
+        {t("address")}
       </TextInput>
       <Select
         id="method"
-        options={[
-          {
-            label: t("BLIK"),
-            value: "blik",
-          },
-          {
-            label: "PayPal",
-            value: "paypal",
-          },
-        ]}
         value={method}
-        onChange={(e) => setMethod(e.target.value)}
+        onChange={(e) => setMethod(e.currentTarget.value)}
+        options={[
+          { value: "blik", label: t("payment-methods.blik") },
+          { value: "card", label: t("payment-methods.card") },
+          { value: "paypal", label: t("payment-methods.paypal") },
+        ]}
       >
-        {t("Payment method")}
+        {t("payment-method")}
       </Select>
-      <VStack w="100%" pt={6}>
-        <Button
-          isLoading={isLoading}
-          type="submit"
-          colorScheme="orange"
-          w="100%"
-        >
-          {t("Purchase")}
-        </Button>
-      </VStack>
+      <Button type="submit" colorScheme="blue" w="100%" isLoading={isLoading}>
+        {t("submit")}
+      </Button>
     </VStack>
   );
 };

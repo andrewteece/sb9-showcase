@@ -7,7 +7,7 @@ import {
 } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 interface IProps extends InputProps {
   id: string;
@@ -16,15 +16,14 @@ interface IProps extends InputProps {
 }
 
 const TextInput = ({ id, children, isRequired = true, ...props }: IProps) => {
+  const t = useTranslations("shared.form");
   const isInvalid = props.value === "";
 
   return (
     <FormControl id={id} isRequired={isRequired} isInvalid={isInvalid}>
       <FormLabel>{children}</FormLabel>
       <Input {...props} />
-      {isInvalid && (
-        <FormErrorMessage>{t("Field is required.")}</FormErrorMessage>
-      )}
+      {isInvalid && <FormErrorMessage>{t("required")}</FormErrorMessage>}
     </FormControl>
   );
 };

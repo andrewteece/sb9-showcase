@@ -5,8 +5,8 @@ import { type ComponentProps, Fragment } from "react";
 import { CartItem } from "@/features/carts/presentation/CartItem";
 import { CheckoutButton } from "@/features/carts/presentation/CheckoutButton/CheckoutButton";
 import { useNavigate } from "@/lib/components/Router";
-import { t } from "@/lib/format/message";
 import { moneyVO } from "@/lib/format/Money";
+import { useTranslations } from "@/lib/i18n/useTransations";
 import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 interface IProps {
@@ -15,6 +15,7 @@ interface IProps {
 
 const CartsList = ({ cartProducts }: IProps) => {
   const navigate = useNavigate();
+  const t = useTranslations("features.carts.list");
 
   const secondaryColor = useSecondaryTextColor();
 
@@ -39,27 +40,24 @@ const CartsList = ({ cartProducts }: IProps) => {
           fontSize={{ base: "md", md: "lg" }}
           fontWeight="semibold"
         >
-          <Text>{t("Subtotal")}</Text>
+          <Text>{t("subtotal")}</Text>
           <Text>{moneyVO.format(subtotal)}</Text>
         </HStack>
         <Text fontSize="sm" color={secondaryColor}>
-          {t("Shipping and taxes will be calculated at checkout.")}
+          {t("shipping-info")}
         </Text>
       </VStack>
       <VStack w="100%">
         <CheckoutButton />
-        <HStack>
-          <Text fontSize="sm">{t("or")}</Text>
-          <Button
-            size="sm"
-            variant="link"
-            colorScheme="orange"
-            rightIcon={<ArrowForwardIcon />}
-            onClick={() => navigate("/products")}
-          >
-            {t("Continue shopping")}
-          </Button>
-        </HStack>
+        <Button
+          variant="link"
+          size="sm"
+          colorScheme="blue"
+          rightIcon={<ArrowForwardIcon />}
+          onClick={() => navigate("/products")}
+        >
+          {t("continue-shopping")}
+        </Button>
       </VStack>
     </VStack>
   );

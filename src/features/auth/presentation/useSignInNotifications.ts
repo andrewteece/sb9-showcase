@@ -1,24 +1,14 @@
 import { useToast } from "@/lib/components/Toast/useToast";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 export const useSignInNotifications = () => {
+  const t = useTranslations("features.auth.sign-in.notifications");
+
   const toast = useToast();
 
-  const success = () =>
-    toast({
-      status: "success",
-      title: t("Sign in"),
-      description: t("Logged in successfully."),
-    });
+  const success = () => toast({ status: "success", description: t("success") });
 
-  const failure = () =>
-    toast({
-      status: "error",
-      title: t("Sign in"),
-      description: t(
-        "Something went wrong while signing in. Pleas try again or contact us."
-      ),
-    });
+  const failure = () => toast({ status: "error", description: t("error") });
 
   return [success, failure] as const;
 };

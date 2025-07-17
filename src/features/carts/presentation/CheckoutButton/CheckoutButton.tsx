@@ -1,17 +1,18 @@
 import { Button } from "@chakra-ui/react";
 
 import { usePurchaseDialogStore } from "@/features/carts/presentation/CheckoutButton/usePurchaseDialogStore";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 import { CheckoutDialog } from "./CheckoutDialog";
 
 const CheckoutButton = () => {
   const onOpen = usePurchaseDialogStore((state) => state.onOpen);
+  const t = useTranslations("features.carts.checkout");
 
   return (
     <>
       <Button w="100%" colorScheme="orange" onClick={() => onOpen()}>
-        {t("Checkout")}
+        {t("button")}
       </Button>
       <CheckoutDialog />
     </>

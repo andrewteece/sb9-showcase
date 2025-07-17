@@ -1,16 +1,17 @@
 import { Button, type ButtonProps } from "@chakra-ui/react";
 
 import { useNotImplementedYetToast } from "@/lib/components/Toast/useNotImplementedYetToast";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 interface IProps extends ButtonProps {}
 
 const RestFiltersButton = (props: IProps) => {
   const notImplemented = useNotImplementedYetToast();
+  const t = useTranslations("shared.buttons");
 
   return (
     <Button onClick={notImplemented} {...props}>
-      {t("Reset filters")}
+      {t("reset-filters")}
     </Button>
   );
 };

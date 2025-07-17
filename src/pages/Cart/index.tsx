@@ -7,22 +7,20 @@ import { PageHeader } from "@/lib/components/Layout/PageHeader";
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";
 import { useParams } from "@/lib/components/Router";
 import { dateVO } from "@/lib/format/Date";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 const CartPage = () => {
   const params = useParams<{ cartId: string }>();
   const { data } = useCartProductsQuery(params.cartId!);
+  const t = useTranslations("pages.cart");
 
   return (
     <Page>
       <PageHeader
-        title={t("List of selected products")}
-        description={t(
-          "These are all products that you yet chose (updated {time}).",
-          {
-            time: dateVO.formatRelativeTime(data.date),
-          }
-        )}
+        title={t("title")}
+        description={t("description", {
+          time: dateVO.formatRelativeTime(data.date),
+        })}
       >
         <ClearCartButton />
       </PageHeader>

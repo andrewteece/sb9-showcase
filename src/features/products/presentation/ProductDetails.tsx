@@ -1,6 +1,5 @@
 /* eslint-disable import/no-restricted-paths */
 import {
-  chakra,
   Box,
   Button,
   HStack,
@@ -22,8 +21,8 @@ import { StarRating } from "@/features/products/presentation/StarRating";
 import { useCategoryLabel } from "@/features/products/presentation/useCategoryLabel";
 import type { IProduct } from "@/features/products/types/IProduct";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
-import { t } from "@/lib/format/message";
 import { moneyVO } from "@/lib/format/Money";
+import { useTranslations } from "@/lib/i18n/useTransations";
 import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 interface IProps {
@@ -34,6 +33,7 @@ interface IProps {
 const ProductDetails = ({ product, onBack }: IProps) => {
   const categoryLabel = useCategoryLabel(product.category);
   const secondaryColor = useSecondaryTextColor();
+  const t = useTranslations("features.products.details");
 
   return (
     <SimpleGrid
@@ -60,11 +60,7 @@ const ProductDetails = ({ product, onBack }: IProps) => {
         <VStack spacing={{ base: 1, lg: 3 }} w="100%" align="start">
           <PageHeader
             title={product.title}
-            description={t("A part of out {category} collection.", {
-              category: (
-                <chakra.span fontStyle="italic">{categoryLabel}</chakra.span>
-              ),
-            })}
+            description={t("collection", { category: categoryLabel })}
           />
           <HStack w="100%" height="24px" spacing={4}>
             <Text fontWeight="semibold" fontSize={{ base: "lg", md: "xl" }}>
@@ -73,7 +69,7 @@ const ProductDetails = ({ product, onBack }: IProps) => {
             <Divider orientation="vertical" />
             <StarRating rating={product.rating.rate} />
             <Button variant="link" colorScheme="orange">
-              {t("See all {number} reviews", { number: product.rating.count })}
+              {t("see-reviews", { number: product.rating.count })}
             </Button>
           </HStack>
           <Text
@@ -86,89 +82,45 @@ const ProductDetails = ({ product, onBack }: IProps) => {
           <VStack w="100%">
             <AddToCartButton productId={product.id} colorScheme="orange" />
             <Button w="100%" variant="outline" onClick={onBack}>
-              {t("Back to products' list")}
+              {t("back-to-list")}
             </Button>
           </VStack>
           <Accordion w="100%" pt={4} defaultIndex={[0]}>
             <AccordionItem>
               <AccordionButton>
                 <Box as="span" flex="1" textAlign="left">
-                  {t("Features")}
+                  {t("features")}
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
-              <AccordionPanel pb={4}>
-                {
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do"
-                }
-                {
-                  "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut"
-                }
-                {
-                  "enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-                }
-                {"nisi ut aliquip ex ea commodo consequat."}
-              </AccordionPanel>
+              <AccordionPanel pb={4}>{t("features-content")}</AccordionPanel>
             </AccordionItem>
             <AccordionItem>
               <AccordionButton>
                 <Box as="span" flex="1" textAlign="left">
-                  {t("Care")}
+                  {t("care")}
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
-              <AccordionPanel pb={4}>
-                {
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do"
-                }
-                {
-                  "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut"
-                }
-                {
-                  "enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-                }
-                {"nisi ut aliquip ex ea commodo consequat."}
-              </AccordionPanel>
+              <AccordionPanel pb={4}>{t("care-content")}</AccordionPanel>
             </AccordionItem>
             <AccordionItem>
               <AccordionButton>
                 <Box as="span" flex="1" textAlign="left">
-                  {t("Shipping")}
+                  {t("shipping")}
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
-              <AccordionPanel pb={4}>
-                {
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do"
-                }
-                {
-                  "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut"
-                }
-                {
-                  "enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-                }
-                {"nisi ut aliquip ex ea commodo consequat."}
-              </AccordionPanel>
+              <AccordionPanel pb={4}>{t("shipping-content")}</AccordionPanel>
             </AccordionItem>
             <AccordionItem>
               <AccordionButton>
                 <Box as="span" flex="1" textAlign="left">
-                  {t("Returns")}
+                  {t("returns")}
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
-              <AccordionPanel pb={4}>
-                {
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do"
-                }
-                {
-                  "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut"
-                }
-                {
-                  "enim ad minim veniam, quis nostrud exercitation ullamco laboris"
-                }
-                {"nisi ut aliquip ex ea commodo consequat."}
-              </AccordionPanel>
+              <AccordionPanel pb={4}>{t("returns-content")}</AccordionPanel>
             </AccordionItem>
           </Accordion>
         </VStack>

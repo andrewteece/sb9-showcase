@@ -4,23 +4,22 @@ import { ContactUsButton } from "@/lib/components/Result/Buttons/ContactUsButton
 import { WarningIcon } from "@/lib/components/Result/Icons/WarningIcon";
 import { Result } from "@/lib/components/Result/Result";
 import { useNavigate } from "@/lib/components/Router";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 const ProductNotFoundResult = () => {
   const navigate = useNavigate();
+  const t = useTranslations("features.products.not-found");
 
   return (
     <Result
       image={<WarningIcon />}
-      heading={t("Product doesn't exist")}
-      subheading={t(
-        "Probably this product is no more for a sale or you just got here by accident. If you think there is something wrong on our side, please contact us!"
-      )}
+      heading={t("heading")}
+      subheading={t("description")}
     >
       <ButtonGroup>
         <ContactUsButton />
         <Button onClick={() => navigate("/products")}>
-          {t("Back to products' list")}
+          {t("back-to-list")}
         </Button>
       </ButtonGroup>
     </Result>

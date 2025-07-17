@@ -15,7 +15,7 @@ import { useRef } from "react";
 
 import { useClearCart } from "@/features/carts/infrastructure/useClearCart";
 import { useConfirmClearCartDialogStore } from "@/features/carts/presentation/ClearCartButton/useConfirmClearCartDialogStore";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 import { useClearCartNotifications } from "./useClearCartNotifications";
@@ -24,6 +24,7 @@ const ConfirmClearCartDialog = () => {
   const cancelRef = useRef<HTMLButtonElement>(null);
   const secondaryColor = useSecondaryTextColor();
   const [clear, isLoading] = useClearCart();
+  const t = useTranslations("features.carts.clear-cart.dialog");
 
   const { isOpen, onClose } = useConfirmClearCartDialogStore((state) => ({
     isOpen: state.isOpen,
@@ -41,41 +42,36 @@ const ConfirmClearCartDialog = () => {
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            {t("Clear cart")}
+            {t("title")}
           </AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>
             <VStack align="stretch">
-              <Text>
-                {t("Are you sure? You can't undo this action afterwards.")}
-              </Text>
-              <Text fontSize="xs" color={secondaryColor}>
-                {t(
-                  "(because this app uses a fake API, the request will be mocked and won't affect the app's data)"
-                )}
+              <Text>{t("message")}</Text>
+              <Text fontSize="sm" color={secondaryColor}>
+                {t("message")}
               </Text>
             </VStack>
           </AlertDialogBody>
+
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={onClose}>
-              {t("Cancel")}
+              {t("cancel")}
             </Button>
             <Button
               colorScheme="red"
-              onClick={async () => {
-                try {
-                  await clear();
-                  notifySuccess();
-                } catch {
-                  notifyFailure();
-                } finally {
-                  onClose();
-                }
+              onClick={() => {
+                clear()
+                  .then(() => {
+                    notifySuccess();
+                    onClose();
+                  })
+                  .catch(() => notifyFailure());
               }}
-              isLoading={isLoading}
               ml={3}
+              isLoading={isLoading}
             >
-              {t("Confirm")}
+              {t("confirm")}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

@@ -7,13 +7,14 @@ import { ProductNotFoundResult } from "@/features/products/presentation/ProductN
 import { Page } from "@/lib/components/Layout/Page";
 import { InternalErrorResult } from "@/lib/components/Result/InternalErrorResult";
 import { useNavigate, useParams, useRouteError } from "@/lib/components/Router";
-import { t } from "@/lib/format/message";
 import { ResourceNotFoundException } from "@/lib/http/exceptions/ResourceNotFoundException";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 const ProductPage = () => {
   const params = useParams<{ productId: string }>();
   const navigate = useNavigate();
   const { data } = useProductQuery(params.productId!);
+  const t = useTranslations("pages.product");
 
   return (
     <Page spacing={6}>
@@ -22,7 +23,7 @@ const ProductPage = () => {
         variant="link"
         onClick={() => navigate("/products")}
       >
-        {t("Back to products' list")}
+        {t("back-to-list")}
       </Button>
       <ProductDetails product={data} onBack={() => navigate("/products")} />
     </Page>

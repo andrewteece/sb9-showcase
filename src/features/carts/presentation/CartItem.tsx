@@ -6,8 +6,8 @@ import { useCategoryLabel } from "@/features/products/presentation/useCategoryLa
 import { Category } from "@/features/products/types/Category";
 import { useNavigate } from "@/lib/components/Router";
 import { useNotImplementedYetToast } from "@/lib/components/Toast/useNotImplementedYetToast";
-import { t } from "@/lib/format/message";
 import { moneyVO } from "@/lib/format/Money";
+import { useTranslations } from "@/lib/i18n/useTransations";
 import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 interface IProps {
@@ -28,6 +28,7 @@ const CartItem = ({
   quantity,
 }: IProps) => {
   const navigate = useNavigate();
+  const t = useTranslations("features.carts.item");
   const categoryLabel = useCategoryLabel(category);
   const categoryColor = useSecondaryTextColor();
   const notImplemented = useNotImplementedYetToast();
@@ -49,66 +50,49 @@ const CartItem = ({
         <Box
           onClick={() => navigate(`/products/${id}`)}
           cursor="pointer"
-          h={40}
-          w={64}
-          bgSize="cover"
-          bgPos="center"
-          style={{
-            backgroundImage: `url(${imageUrl})`,
-          }}
-        />
-        <VStack
           w="100%"
-          h={{ base: "auto", md: 40 }}
-          spacing={0}
-          align="flex-start"
-          position="relative"
-        >
-          <HStack
-            align="center"
-            position="absolute"
-            bottom={0}
-            left={0}
-            display={{ base: "none", md: "flex" }}
+          maxW="150px"
+          h="100%"
+          maxH="100px"
+          bgImage={imageUrl}
+          bgSize="contain"
+          bgRepeat="no-repeat"
+          bgPosition="center"
+        />
+        <VStack spacing={1} align="flex-start" justify="flex-start">
+          <Text
+            fontSize="lg"
+            fontWeight="medium"
+            onClick={() => navigate(`/products/${id}`)}
+            cursor="pointer"
+            _hover={{ color: "blue.500" }}
           >
-            <CheckIcon color="green.400" />
-            <Text fontSize="md">{t("In stock")}</Text>
-          </HStack>
-          <HStack
-            w="100%"
-            justify="space-between"
-            fontSize="md"
-            fontWeight="semibold"
-            spacing={6}
-          >
-            <Text
-              isTruncated
-              onClick={() => navigate(`/products/${id}`)}
-              cursor="pointer"
-              mb={{ base: 0, md: 2 }}
-            >
-              {title}
-            </Text>
-          </HStack>
+            {title}
+          </Text>
           <Text fontSize="sm" color={categoryColor}>
             {categoryLabel}
           </Text>
-          <Text fontSize="sm" color={categoryColor}>
-            {t("{quantity} quantity", { quantity })}
+          <Text fontSize="sm">
+            {t("quantity")} {quantity}
           </Text>
+          <HStack spacing={2}>
+            <CheckIcon color="green.500" />
+            <Text color="green.500" fontSize="sm">
+              {t("in-stock")}
+            </Text>
+          </HStack>
         </VStack>
       </Stack>
       <Stack
         direction={{ base: "row", md: "column" }}
         align={{ base: "center", md: "flex-end" }}
-        justify="space-between"
-        h={{ base: "auto", md: 40 }}
+        spacing={{ base: 4, md: 2 }}
       >
-        <Text fontSize="md" fontWeight="semibold">
+        <Text fontSize="lg" fontWeight="medium">
           {moneyVO.format(price)}
         </Text>
-        <Button variant="link" colorScheme="blue" onClick={notImplemented}>
-          {t("Remove")}
+        <Button size="sm" variant="ghost" onClick={notImplemented}>
+          {t("remove")}
         </Button>
       </Stack>
     </Stack>

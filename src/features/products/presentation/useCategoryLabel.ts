@@ -1,15 +1,15 @@
 import { Category } from "@/features/products/types/Category";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 export const useCategoryLabel = (category: Category) => {
-  const message = messages[category];
-
-  return t(message) ?? category;
+  const t = useTranslations("features.products.categories");
+  const key = messageKeys[category];
+  return key ? t(key) : category;
 };
 
-const messages = {
-  [Category.Women_clothing]: "Women's clothing",
-  [Category.Men_clothing]: "Men's clothing",
-  [Category.Jewelery]: "Jewelery",
-  [Category.Electronics]: "Electronics",
+const messageKeys = {
+  [Category.Women_clothing]: "women-clothing",
+  [Category.Men_clothing]: "men-clothing",
+  [Category.Jewelery]: "jewelery",
+  [Category.Electronics]: "electronics",
 };

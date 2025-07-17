@@ -1,7 +1,7 @@
 import { ButtonGroup } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 import { ContactUsButton } from "./Buttons/ContactUsButton";
 import { ErrorIcon } from "./Icons/ErrorIcon";
@@ -12,13 +12,13 @@ interface IProps {
 }
 
 const InternalServerErrorResult = ({ children }: IProps) => {
+  const t = useTranslations("shared.result.server-error");
+
   return (
     <Result
       image={<ErrorIcon />}
-      heading={t("Something went seriously wrong")}
-      subheading={t(
-        "It sounds like something unexpected happened right now. Please, inform our support team about this issue ASAP!"
-      )}
+      heading={t("heading")}
+      subheading={t("description")}
     >
       <ButtonGroup>
         <ContactUsButton />

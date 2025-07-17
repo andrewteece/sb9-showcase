@@ -1,7 +1,7 @@
 import { ButtonGroup } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 import { RestFiltersButton } from "./Buttons/ResetFiltersButton";
 import { WarningIcon } from "./Icons/WarningIcon";
@@ -12,11 +12,13 @@ interface IProps {
 }
 
 const EmptyStateResult = ({ children }: IProps) => {
+  const t = useTranslations("shared.result.empty-state");
+
   return (
     <Result
       image={<WarningIcon />}
-      heading={t("No results found")}
-      subheading={t("Unfortunately, there is nothing for you here yet!")}
+      heading={t("heading")}
+      subheading={t("description")}
     >
       <ButtonGroup>
         <RestFiltersButton />

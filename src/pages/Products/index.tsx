@@ -8,13 +8,14 @@ import { Page } from "@/lib/components/Layout/Page";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";
 import { useNotImplementedYetToast } from "@/lib/components/Toast/useNotImplementedYetToast";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 import type { IQueryParams } from "@/types/IQueryParams";
 
 const defaultParams: IQueryParams = { limit: 10, sort: "asc" };
 
 const ProductsPage = () => {
   const notImplemented = useNotImplementedYetToast();
+  const t = useTranslations("pages.products");
 
   const [params, setParams] = useState<IQueryParams>(defaultParams);
   const { data, isFetching } = useProductsQuery(params, {
@@ -25,12 +26,9 @@ const ProductsPage = () => {
 
   return (
     <Page>
-      <PageHeader
-        title={t("Products list")}
-        description={t("Explore what we have in the store for you.")}
-      >
+      <PageHeader title={t("title")} description={t("description")}>
         <Button leftIcon={<SettingsIcon />} onClick={notImplemented}>
-          {t("More filters")}
+          {t("more-filters")}
         </Button>
       </PageHeader>
       <ProductsList products={data.products} />
@@ -46,7 +44,7 @@ const ProductsPage = () => {
           isLoading={isFetching}
           isDisabled={noMoreProducts}
         >
-          {noMoreProducts ? t("No more products") : t("Show more products")}
+          {noMoreProducts ? t("load-more.no-more") : t("load-more.show-more")}
         </Button>
       )}
     </Page>

@@ -10,12 +10,13 @@ import {
 import { useRef } from "react";
 
 import { usePurchaseDialogStore } from "@/features/carts/presentation/CheckoutButton/usePurchaseDialogStore";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 import { CheckoutForm } from "../CheckoutForm";
 
 const CheckoutDialog = () => {
   const cancelRef = useRef<HTMLButtonElement>(null);
+  const t = useTranslations("features.carts.checkout.dialog");
 
   const { isOpen, onClose } = usePurchaseDialogStore((state) => ({
     isOpen: state.isOpen,
@@ -31,7 +32,7 @@ const CheckoutDialog = () => {
       <AlertDialogOverlay>
         <AlertDialogContent pb={4}>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            {t("Checkout")}
+            {t("title")}
           </AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>

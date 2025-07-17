@@ -13,7 +13,7 @@ import { useState } from "react";
 
 import { useAuthStore } from "@/features/auth/application/authStore";
 import { TextInput } from "@/lib/components/Form/TextInput";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 import { useSignInNotifications } from "./useSignInNotifications";
@@ -24,6 +24,8 @@ interface IProps {
 }
 
 export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
+  const t = useTranslations("features.auth.sign-in.form");
+
   const secondaryColor = useSecondaryTextColor();
 
   const [username, setUsername] = useState(initialUsername);
@@ -35,13 +37,9 @@ export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
   return (
     <VStack align="stretch" spacing={8} w="100%" maxW="lg">
       <VStack textAlign="center">
-        <Heading fontSize={{ base: "2xl", md: "4xl" }}>
-          {t("Sign in to your account")}
-        </Heading>
+        <Heading fontSize={{ base: "2xl", md: "4xl" }}>{t("header")}</Heading>
         <Text fontSize={{ base: "md", md: "lg" }} color={secondaryColor}>
-          {t("to enjoy all of our cool {link} ✌️", {
-            link: <Link color="blue.400">{t("features")}</Link>,
-          })}
+          {t("description")}
         </Text>
       </VStack>
       <Box
@@ -70,7 +68,7 @@ export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
             value={username}
             onChange={(e) => setUsername(e.currentTarget.value)}
           >
-            {t("Username")}
+            {t("username")}
           </TextInput>
           <TextInput
             id="password"
@@ -78,7 +76,7 @@ export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
             value={password}
             onChange={(e) => setPassword(e.currentTarget.value)}
           >
-            {t("Password")}
+            {t("password")}
           </TextInput>
           <VStack w="100%" spacing={10}>
             <Stack
@@ -87,11 +85,11 @@ export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
               align="start"
               justify="space-between"
             >
-              <Checkbox>{t("Remember me")}</Checkbox>
-              <Link color="blue.400">{t("Forgot password?")}</Link>
+              <Checkbox>{t("remember-me")}</Checkbox>
+              <Link color="blue.400">{t("forgot-password")}</Link>
             </Stack>
             <Button type="submit" colorScheme="blue" w="100%">
-              {t("Sign in")}
+              {t("sign-in")}
             </Button>
           </VStack>
         </VStack>

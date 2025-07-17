@@ -1,23 +1,22 @@
 import { useToast } from "@/lib/components/Toast/useToast";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 export const usePurchaseNotifications = () => {
+  const t = useTranslations("features.carts.checkout.notifications");
   const toast = useToast();
 
   const success = () =>
     toast({
       status: "success",
-      title: t("Checkout"),
-      description: t("You have successfully purchased all selected products."),
+      title: t("title"),
+      description: t("success"),
     });
 
   const failure = () =>
     toast({
       status: "error",
-      title: t("Checkout"),
-      description: t(
-        "Something went wrong with finalizing a transaction. Pleas try again or contact us."
-      ),
+      title: t("title"),
+      description: t("error"),
     });
 
   return [success, failure] as const;

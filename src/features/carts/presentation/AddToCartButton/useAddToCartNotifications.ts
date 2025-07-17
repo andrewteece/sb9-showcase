@@ -1,30 +1,29 @@
 import { useToast } from "@/lib/components/Toast/useToast";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 
 export const useAddToCartNotifications = () => {
+  const t = useTranslations("features.carts.add-to-cart.notifications");
   const toast = useToast();
 
   const notifySuccess = () =>
     toast({
       status: "success",
-      title: t("New product"),
-      description: t("A product has been successfully added to your cart."),
+      title: t("title"),
+      description: t("success"),
     });
 
   const notifyFailure = () =>
     toast({
       status: "error",
-      title: t("New product"),
-      description: t(
-        "Something went wrong with adding a product to a cart. Pleas try again or contact us."
-      ),
+      title: t("title"),
+      description: t("error"),
     });
 
   const notifyNotAuthenticated = () =>
     toast({
       status: "warning",
-      title: t("New product"),
-      description: t("Please log in in order to add products."),
+      title: t("title"),
+      description: t("not-authenticated"),
     });
 
   return { notifySuccess, notifyFailure, notifyNotAuthenticated } as const;

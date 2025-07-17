@@ -15,12 +15,13 @@ import { useRef } from "react";
 
 import { useProductAddedDialogStore } from "@/features/carts/presentation/AddToCartButton/useProductAddedDialogStore";
 import { useNavigate } from "@/lib/components/Router";
-import { t } from "@/lib/format/message";
+import { useTranslations } from "@/lib/i18n/useTransations";
 import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 const ProductAddedDialog = () => {
   const secondaryColor = useSecondaryTextColor();
   const navigate = useNavigate();
+  const t = useTranslations("features.carts.add-to-cart.dialog");
 
   const cancelRef = useRef<HTMLButtonElement>(null);
 
@@ -39,36 +40,37 @@ const ProductAddedDialog = () => {
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            {t("New product in the cart")}
+            {t("title")}
           </AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>
             <VStack align="stretch">
-              <Text>
-                {t(
-                  "Wonderful! You have already added a new product to your cart."
-                )}
-              </Text>
-              <Text fontSize="xs" color={secondaryColor}>
-                {t(
-                  "(because this app uses a fake API, the request will be mocked and won't affect the app's data)"
-                )}
+              <Text>{t("message")}</Text>
+              <Text fontSize="sm" color={secondaryColor}>
+                {t("success-message")}
               </Text>
             </VStack>
           </AlertDialogBody>
+
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
-              {t("Continue shopping")}
-            </Button>
             <Button
-              colorScheme="orange"
+              ref={cancelRef}
               onClick={() => {
                 onClose();
                 void navigate(`/cart/${cartId}`);
               }}
+            >
+              {t("go-to-cart")}
+            </Button>
+            <Button
+              colorScheme="blue"
+              onClick={() => {
+                onClose();
+                void navigate("/products");
+              }}
               ml={3}
             >
-              {t("Go to cart")}
+              {t("continue-shopping")}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
