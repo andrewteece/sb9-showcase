@@ -16,13 +16,11 @@ import { useRef } from "react";
 import { useClearCart } from "@/features/carts/infrastructure/useClearCart";
 import { useConfirmClearCartDialogStore } from "@/features/carts/presentation/ClearCartButton/useConfirmClearCartDialogStore";
 import { useTranslations } from "@/lib/i18n/useTransations";
-import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 import { useClearCartNotifications } from "./useClearCartNotifications";
 
 const ConfirmClearCartDialog = () => {
   const cancelRef = useRef<HTMLButtonElement>(null);
-  const secondaryColor = useSecondaryTextColor();
   const [clear, isLoading] = useClearCart();
   const t = useTranslations("features.carts.clear-cart.dialog");
 
@@ -48,9 +46,6 @@ const ConfirmClearCartDialog = () => {
           <AlertDialogBody>
             <VStack align="stretch">
               <Text>{t("message")}</Text>
-              <Text fontSize="sm" color={secondaryColor}>
-                {t("message")}
-              </Text>
             </VStack>
           </AlertDialogBody>
 

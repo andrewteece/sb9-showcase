@@ -27,7 +27,7 @@ export const Purchasing: Story = {
       await userEvent.click(screen.getByRole("button", { name: /Checkout/ }));
 
       await expect(
-        screen.getByRole("button", { name: "Purchase" })
+        screen.getByRole("button", { name: "Complete Order" })
       ).toBeInTheDocument();
     });
 

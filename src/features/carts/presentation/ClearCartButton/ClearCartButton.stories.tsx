@@ -35,7 +35,9 @@ export const ClearingCart: Story = {
     await step("Confirm clearing the cart", async () => {
       await sleep(500);
 
-      await userEvent.click(screen.getByRole("button", { name: /Confirm/ }));
+      await userEvent.click(
+        screen.getByRole("button", { name: /Yes, clear cart/ })
+      );
     });
 
     await expect(

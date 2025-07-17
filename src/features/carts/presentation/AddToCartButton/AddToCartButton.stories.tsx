@@ -6,7 +6,10 @@ import {
   waitForElementToBeRemoved,
   expect,
 } from "storybook/test";
-import { withRouter } from "storybook-addon-remix-react-router";
+import {
+  withRouter,
+  reactRouterParameters,
+} from "storybook-addon-remix-react-router";
 
 import { getAddToCartHandler } from "@/test-lib/handlers/getAddToCartHandler";
 import { sleep } from "@/test-lib/storybook/sleep";
@@ -33,6 +36,9 @@ const meta = {
     msw: {
       handlers: [getAddToCartHandler()],
     },
+    reactRouter: reactRouterParameters({
+      routing: { path: "/products" },
+    }),
   },
 } satisfies Meta<typeof AddToCartButton>;
 
