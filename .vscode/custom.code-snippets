@@ -18,7 +18,7 @@
   "Storybook Story": {
     "prefix": "story",
     "body": [
-      "import type { Meta, StoryObj } from '@storybook/react';",
+      "import type { Meta, StoryObj } from '@storybook/react-vite';",
       "",
       "import { ${1:${TM_FILENAME_BASE/.(?:story|stories).*//gi}} } from './${1:${TM_FILENAME_BASE/.(?:story|stories).*//gi}}';",
       "",
