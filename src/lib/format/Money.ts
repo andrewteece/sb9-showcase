@@ -1,4 +1,4 @@
-import { locale, getLocale } from "./locale";
+import i18n, { supportedLocales } from "@/lib/i18n/i18n";
 
 interface IMoneyVO {
   format(value: string | number, currency?: string): string;
@@ -42,6 +42,6 @@ class MoneyVO implements IMoneyVO {
 }
 
 export const moneyVO = new MoneyVO({
-  locale,
-  currency: getLocale().defaultCurrency,
+  locale: i18n.resolvedLanguage ?? supportedLocales[0],
+  currency: "USD",
 });

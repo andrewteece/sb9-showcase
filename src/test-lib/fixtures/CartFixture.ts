@@ -1,11 +1,11 @@
 import type { ICart } from "@/features/carts/types/ICart";
-import { dateVO } from "@/lib/format/Date";
+import { DateVO } from "@/lib/date/Date";
 
 import { createFixture } from "./createFixture";
 
 export const CartFixture = createFixture<ICart>({
   id: 1,
-  date: dateVO.past(),
+  date: DateVO.past(),
   userId: 1,
   products: [{ productId: 1, quantity: 2 }],
 });

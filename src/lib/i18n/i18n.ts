@@ -8,7 +8,7 @@ import LocalStorageBackend from "i18next-localstorage-backend";
 import { initReactI18next } from "react-i18next";
 
 type Locale = "en-GB" | "nb-NO" | "da-DK";
-export const supportedLocales: Locale[] = ["en-GB", "nb-NO", "da-DK"];
+export const supportedLocales: Locale[] = ["en-GB"];
 export const LOCALE_STORAGE_KEY = "i18next_locale";
 
 void i18n

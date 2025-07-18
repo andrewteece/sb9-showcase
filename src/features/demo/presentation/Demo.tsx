@@ -1,11 +1,15 @@
 import { VStack, Text, Heading, Center, Button } from "@chakra-ui/react";
 
 import { useCounter } from "@/features/demo/application/useCounter";
-import { dateVO } from "@/lib/format/Date";
+import { useFormatDate } from "@/lib/date/useFormatDate";
+import { useFormatDateTime } from "@/lib/date/useFormatDateTime";
 import { moneyVO } from "@/lib/format/Money";
 import { numberVO } from "@/lib/format/Number";
 
 const Demo = () => {
+  const formatDate = useFormatDate();
+  const formatDateTime = useFormatDateTime();
+
   const { count, increment } = useCounter();
 
   return (
@@ -19,15 +23,10 @@ const Demo = () => {
           </Text>
         </VStack>
         <Text fontWeight="400">
-          {`Vite had ${numberVO.format("2696684.12")} weekly downloads on NPM in ${dateVO.formatDate(new window.Date(2023, 1, 17, 10, 44, 0))}`}
+          {`Vite had ${numberVO.format("2696684.12")} weekly downloads on NPM in ${formatDate(new window.Date(2023, 1, 17, 10, 44, 0), { format: "long" })}`}
         </Text>
         <Text fontWeight="400">
-          {`${numberVO.format(1000)} bitcoins were worth ${moneyVO.format(23753382.63, "USD")} on ${dateVO.formatDateTime(new Date(2023, 1, 17, 12, 44, 0))}`}
-        </Text>
-        <Text fontWeight="400">
-          {`Storybook conference: ${dateVO.formatRelativeTime(
-            dateVO.given(new Date(2023, 1, 17, 12, 44, 0))
-          )}`}
+          {`${numberVO.format(1000)} bitcoins were worth ${moneyVO.format(23753382.63, "USD")} on ${formatDateTime(new Date(2023, 1, 17, 12, 44, 0))}`}
         </Text>
       </VStack>
     </Center>

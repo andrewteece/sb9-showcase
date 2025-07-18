@@ -1,4 +1,4 @@
-import { locale } from "./locale";
+import i18n, { supportedLocales } from "@/lib/i18n/i18n";
 
 interface INumberVO {
   format(value: number | string, options?: Intl.NumberFormatOptions): string;
@@ -36,4 +36,6 @@ class NumberVO implements INumberVO {
   }
 }
 
-export const numberVO = new NumberVO({ locale });
+export const numberVO = new NumberVO({
+  locale: i18n.resolvedLanguage ?? supportedLocales[0],
+});

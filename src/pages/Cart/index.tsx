@@ -6,20 +6,21 @@ import { Page } from "@/lib/components/Layout/Page";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";
 import { useParams } from "@/lib/components/Router";
-import { dateVO } from "@/lib/format/Date";
+import { useRelativeTime } from "@/lib/date/useRelativeTime";
 import { useTranslations } from "@/lib/i18n/useTransations";
 
 const CartPage = () => {
   const params = useParams<{ cartId: string }>();
   const { data } = useCartProductsQuery(params.cartId!);
   const t = useTranslations("pages.cart");
+  const relativeTime = useRelativeTime();
 
   return (
     <Page>
       <PageHeader
         title={t("title")}
         description={t("description", {
-          time: dateVO.formatRelativeTime(data.date),
+          time: relativeTime(data.date),
         })}
       >
         <ClearCartButton />
