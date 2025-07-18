@@ -3,8 +3,9 @@ import { Box, Text, VStack, HStack } from "@chakra-ui/react";
 
 import { AddToCartButton } from "@/features/carts/presentation/AddToCartButton/AddToCartButton";
 import { Category } from "@/features/products/types/Category";
-import { useNavigate } from "@/lib/components/Router";
 import { moneyVO } from "@/lib/format/Money";
+import { useNavigate } from "@/lib/router";
+import { routes } from "@/lib/router/routes";
 import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 import { useCategoryLabel } from "./useCategoryLabel";
@@ -45,7 +46,12 @@ const ProductCard = ({ title, category, price, imageUrl, id }: IProps) => {
         >
           <Text
             isTruncated
-            onClick={() => navigate(`/products/${id}`)}
+            onClick={() =>
+              navigate({
+                path: routes.product.path,
+                params: { productId: id.toString() },
+              })
+            }
             cursor="pointer"
           >
             {title}

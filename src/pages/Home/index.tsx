@@ -4,7 +4,7 @@ import { PricingSection } from "@/features/marketing/presentation/PricingSection
 import { useProductsQuery } from "@/features/products/infrastructure/productsQuery";
 import { Page } from "@/lib/components/Layout/Page";
 import { InternalErrorResult } from "@/lib/components/Result/InternalErrorResult";
-import { useRouteError } from "@/lib/components/Router/useRouteError";
+import { useRouteError } from "@/lib/router/useRouteError";
 
 interface IProps {
   fallbackProductsNumber?: number;

@@ -4,9 +4,10 @@ import { type ComponentProps, Fragment } from "react";
 
 import { CartItem } from "@/features/carts/presentation/CartItem";
 import { CheckoutButton } from "@/features/carts/presentation/CheckoutButton/CheckoutButton";
-import { useNavigate } from "@/lib/components/Router";
 import { moneyVO } from "@/lib/format/Money";
 import { useTranslations } from "@/lib/i18n/useTransations";
+import { useNavigate } from "@/lib/router";
+import { routes } from "@/lib/router/routes";
 import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 interface IProps {
@@ -54,7 +55,7 @@ const CartsList = ({ cartProducts }: IProps) => {
           size="sm"
           colorScheme="blue"
           rightIcon={<ArrowForwardIcon />}
-          onClick={() => navigate("/products")}
+          onClick={() => navigate(routes.products)}
         >
           {t("continue-shopping")}
         </Button>

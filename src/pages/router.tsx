@@ -1,7 +1,9 @@
 // eslint-disable-next-line no-restricted-imports
-import { createBrowserRouter, ScrollRestoration } from "react-router-dom";
+import { createBrowserRouter, ScrollRestoration } from "react-router";
 
 import { Layout } from "@/lib/components/Layout/Layout";
+import { handleLazyImportError } from "@/lib/router";
+import { routes } from "@/lib/router/routes";
 
 import { cartPageLoader } from "./Cart/loader";
 import { homePageLoader } from "./Home/loader";
@@ -20,26 +22,26 @@ export const router = createBrowserRouter([
       {
         path: "/",
         loader: homePageLoader,
-        lazy: () => import("./Home"),
+        lazy: () => import("./Home").catch(handleLazyImportError),
       },
       {
-        path: "/sign-in",
-        lazy: () => import("./SignIn"),
+        path: routes.signIn,
+        lazy: () => import("./SignIn").catch(handleLazyImportError),
       },
       {
-        path: "/products",
+        path: routes.products,
         loader: productsPageLoader,
-        lazy: () => import("./Products"),
+        lazy: () => import("./Products").catch(handleLazyImportError),
       },
       {
-        path: "/products/:productId",
+        path: routes.product.path,
         loader: productPageLoader,
-        lazy: () => import("./Product"),
+        lazy: () => import("./Product").catch(handleLazyImportError),
       },
       {
-        path: "/cart/:cartId",
+        path: routes.cart,
         loader: cartPageLoader,
-        lazy: () => import("./Cart"),
+        lazy: () => import("./Cart").catch(handleLazyImportError),
       },
     ],
   },

@@ -12,7 +12,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
-import { Link, useLocation } from "@/lib/components/Router";
+import { Link, useLocation } from "@/lib/router";
 import { useBrandColor } from "@/lib/theme/useBrandColor";
 
 import type { INavItem } from "./INavItem";

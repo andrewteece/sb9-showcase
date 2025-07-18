@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { Navigate } from "@/lib/components/Router";
+import { Navigate } from "@/lib/router";
 
 import { useAuthStore } from "./authStore";
 

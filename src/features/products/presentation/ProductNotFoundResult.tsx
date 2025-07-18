@@ -3,8 +3,9 @@ import { Button, ButtonGroup } from "@chakra-ui/react";
 import { ContactUsButton } from "@/lib/components/Result/Buttons/ContactUsButton";
 import { WarningIcon } from "@/lib/components/Result/Icons/WarningIcon";
 import { Result } from "@/lib/components/Result/Result";
-import { useNavigate } from "@/lib/components/Router";
 import { useTranslations } from "@/lib/i18n/useTransations";
+import { useNavigate } from "@/lib/router";
+import { routes } from "@/lib/router/routes";
 
 const ProductNotFoundResult = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const ProductNotFoundResult = () => {
     >
       <ButtonGroup>
         <ContactUsButton />
-        <Button onClick={() => navigate("/products")}>
+        <Button onClick={() => navigate(routes.products)}>
           {t("back-to-list")}
         </Button>
       </ButtonGroup>

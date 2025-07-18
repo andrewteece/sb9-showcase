@@ -4,10 +4,11 @@ import { Box, Text, VStack, HStack, Button, Stack } from "@chakra-ui/react";
 
 import { useCategoryLabel } from "@/features/products/presentation/useCategoryLabel";
 import { Category } from "@/features/products/types/Category";
-import { useNavigate } from "@/lib/components/Router";
 import { useNotImplementedYetToast } from "@/lib/components/Toast/useNotImplementedYetToast";
 import { moneyVO } from "@/lib/format/Money";
 import { useTranslations } from "@/lib/i18n/useTransations";
+import { useNavigate } from "@/lib/router";
+import { routes } from "@/lib/router/routes";
 import { useSecondaryTextColor } from "@/lib/theme/useSecondaryTextColor";
 
 interface IProps {
@@ -48,7 +49,12 @@ const CartItem = ({
         align="flex-start"
       >
         <Box
-          onClick={() => navigate(`/products/${id}`)}
+          onClick={() =>
+            navigate({
+              path: routes.product.path,
+              params: { productId: id.toString() },
+            })
+          }
           cursor="pointer"
           w="100%"
           maxW="150px"

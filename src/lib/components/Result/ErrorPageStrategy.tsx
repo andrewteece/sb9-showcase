@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useAuthStore } from "@/features/auth/application/authStore";
-import { useNavigate, useRouteError } from "@/lib/components/Router";
 import { AjaxError } from "@/lib/http/AjaxError";
+import { useNavigate, useRouteError } from "@/lib/router";
 
 import { InternalErrorResult } from "./InternalErrorResult";
 import { InternalServerErrorResult } from "./InternalServerErrorResult";

@@ -149,7 +149,7 @@ export default config(
       "no-restricted-imports": [
         "error",
         {
-          patterns: ["lodash/**", "lodash/fp/**", "react-router-dom"],
+          patterns: ["lodash/**", "lodash/fp/**", "react-router"],
           paths: [
             {
               message: `Please use import { method } from "lodash-es" instead.`,

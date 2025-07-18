@@ -10,7 +10,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import { Link } from "@/lib/components/Router";
+import { Link } from "@/lib/router";
 
 import type { INavItem } from "./INavItem";
 import { useNavItems } from "./useNavItems";

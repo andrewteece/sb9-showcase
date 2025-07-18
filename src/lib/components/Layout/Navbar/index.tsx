@@ -13,8 +13,8 @@ import {
 } from "@chakra-ui/react";
 
 import { useAuthStore } from "@/features/auth/application/authStore";
-import { Link, useNavigate } from "@/lib/components/Router";
 import { useNotImplementedYetToast } from "@/lib/components/Toast/useNotImplementedYetToast";
+import { Link, useNavigate } from "@/lib/router";
 
 import { ToggleModeButton } from "../ToggleModeButton";
 

@@ -5,9 +5,9 @@ import { ClearCartButton } from "@/features/carts/presentation/ClearCartButton/C
 import { Page } from "@/lib/components/Layout/Page";
 import { PageHeader } from "@/lib/components/Layout/PageHeader";
 import { ErrorPageStrategy } from "@/lib/components/Result/ErrorPageStrategy";
-import { useParams } from "@/lib/components/Router";
 import { useRelativeTime } from "@/lib/date/useRelativeTime";
 import { useTranslations } from "@/lib/i18n/useTransations";
+import { useParams } from "@/lib/router";
 
 const CartPage = () => {
   const params = useParams<{ cartId: string }>();

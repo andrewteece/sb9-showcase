@@ -6,9 +6,9 @@ import { ProductDetails } from "@/features/products/presentation/ProductDetails"
 import { ProductNotFoundResult } from "@/features/products/presentation/ProductNotFoundResult";
 import { Page } from "@/lib/components/Layout/Page";
 import { InternalErrorResult } from "@/lib/components/Result/InternalErrorResult";
-import { useNavigate, useParams, useRouteError } from "@/lib/components/Router";
 import { ResourceNotFoundException } from "@/lib/http/exceptions/ResourceNotFoundException";
 import { useTranslations } from "@/lib/i18n/useTransations";
+import { useNavigate, useParams, useRouteError } from "@/lib/router";
 
 const ProductPage = () => {
   const params = useParams<{ productId: string }>();
