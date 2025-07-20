@@ -25,10 +25,7 @@ export {
 export { useRouteError } from "./useRouteError";
 export { handleLazyImportError } from "./handleLazyImportError";
 
-type StateCandidate = { from: string } | Record<string, unknown>;
-
-export const useLocationState = () =>
-  (useLocation().state as StateCandidate) ?? {};
+export const useLocationState = () => useLocation().state ?? {};
 
 export const generatePath = (
   path: string,
