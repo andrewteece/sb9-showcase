@@ -1,12 +1,8 @@
-import type { Branded } from "@/types/Branded";
-
 import { Category } from "./Category";
 import type { IRating } from "./IRating";
 
-export type ProductId = Branded<number, "ProductId">;
-
 export interface IProduct {
-  id: ProductId;
+  id: number;
   title: string;
   description: string;
   category: Category;
