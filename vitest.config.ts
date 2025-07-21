@@ -26,7 +26,7 @@ export default defineConfig((env) =>
             "**/*{.,-}stories.?(c|m)[jt]s?(x)",
             ...coverageConfigDefaults.exclude,
           ],
-          reportsDirectory: "./reports",
+          reportsDirectory: "./coverage",
         },
       },
     })
