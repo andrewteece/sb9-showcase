@@ -4,9 +4,14 @@ on:
   push:
     branches:
       - core
+      - basic
   pull_request:
     branches:
       - core
+      - basic
+
+env:
+  NODE_VERSION: "22.x"
 
 jobs:
   lint-tests:
@@ -17,6 +22,9 @@ jobs:
 
   unit-tests:
     runs-on: ubuntu-latest
+
+    # For every direct push to target branches or when it's active PR
+    if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,10 +32,10 @@ jobs:
       - name: Enable corepack
         run: corepack enable
 
-      - name: Install Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22.x"
+          node-version: ${{ env.NODE_VERSION }}
           cache: "pnpm"
 
       - name: Get pnpm store directory
@@ -54,31 +62,40 @@ jobs:
         run: pnpm test:ci
 
       - name: Upload test results
-        if: always()
+        if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
-          name: Unit tests results
+          name: unit-test-results
           path: reports/**/*
+
+      - name: Upload coverage report
+        if: success() || failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-coverage-report
+          path: coverage/**/*
 
   storybook-tests:
     runs-on: ubuntu-latest
+    env:
+      STORYBOOK_DISABLE_TELEMETRY: 1
+      STORYBOOK: "true"
+      CI: true
+
+    # For every direct push to target branches or when it's active PR
+    if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        id: pnpm-install
-        with:
-          version: 10.6.1
-          run_install: false
+      - name: Enable corepack
+        run: corepack enable
 
-      # https://github.com/storybookjs/test-runner/issues/301
-      # - name: Install Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: "16.x"
-      #     cache: "pnpm"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -107,17 +124,21 @@ jobs:
         run: |
           pnpm exec concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
             "pnpm exec http-server storybook-static --port 6006 --silent" \
-            "pnpm exec wait-on tcp:6006 && pnpm exec test-storybook --coverage --junit"
+            "pnpm exec wait-on tcp:6006 && pnpm exec test-storybook --coverage --coverageDirectory=coverage --excludeTags=\"!test\" --junit --outputFile reports/storybook-report.json"
 
-      - name: Move Storybook coverage report and cleanup
-        run: |
-          mv coverage/storybook/coverage-storybook.json reports/storybook-coverage.json && rm -rf coverage
-
-      - name: Upload Storybook report artifacts
+      - name: Upload test results
+        if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
-          name: Storybook tests results
+          name: storybook-test-results
           path: reports/**/*
+
+      - name: Upload coverage report
+        if: success() || failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-coverage-report
+          path: coverage/**/*
 
   build:
     needs: [lint-tests, unit-tests, storybook-tests]
@@ -165,8 +186,49 @@ jobs:
           name: build
           path: dist
 
+  test-reports:
+    needs: [unit-tests, storybook-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Generate Full Coverage Report
+        uses: danielpalme/ReportGenerator-GitHub-Action@v5
+        with:
+          reports: "unit-coverage-report/lcov.info;storybook-coverage-report/lcov.info"
+          reporttypes: "MarkdownSummaryGithub;JsonSummary;Html"
+          targetdir: coverage-report
+
+      - name: Add Coverage Report Comment to PR
+        if: github.event_name == 'pull_request'
+        run: gh pr comment $PR_NUMBER --body-file coverage-report/SummaryGithub.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.number }}
+
+      - name: Publish Coverage Report in Build Summary
+        run: cat coverage-report/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload Full Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-coverage-report
+          path: coverage-report/**/*
+
+      - name: Publish Test Results
+        uses: dorny/test-reporter@v2
+        id: test-reporter
+        with:
+          name: Test Results
+          path: unit-test-results/**/*.xml,storybook-test-results/**/*.xml
+          reporter: jest-junit
+          fail-on-error: false
+
   deploy:
-    needs: build
+    needs: [build, test-reports]
     runs-on: ubuntu-latest
     steps:
       - name: Get build artifacts

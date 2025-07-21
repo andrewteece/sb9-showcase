@@ -14,7 +14,7 @@ const config: StorybookConfig = {
       options: {
         istanbul: {
           include: ["src/**/*.tsx"],
-          exclude: ["src/**/*.ts"],
+          exclude: ["src/**/*.ts", "src/test-lib/*.tsx"],
         },
       } satisfies AddonOptionsVite,
     },
