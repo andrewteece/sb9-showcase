@@ -19,6 +19,7 @@ const config: StorybookConfig = {
       } satisfies AddonOptionsVite,
     },
     "@storybook/addon-docs",
+    "@storybook/addon-vitest",
   ],
 
   framework: {

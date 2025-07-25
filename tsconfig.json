@@ -36,7 +36,8 @@
     "test-globals.ts",
     "src/**/*",
     ".storybook/**/*.ts",
-    "eslint.config.mjs"
+    "eslint.config.mjs",
+    "vitest.shims.d.ts"
   ],
   "references": [
     {
