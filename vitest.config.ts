@@ -31,13 +31,14 @@ export default defineConfig((env) =>
             "json",
             ["lcov", { projectRoot: "./src" }],
           ],
-          // include: ["src/**/*.ts", "src/**/*.tsx"],
-          exclude: [
-            "**/test-lib/*",
-            // "**/*{.,-}stories.?(c|m)[jt]s?(x)",
-            ...coverageConfigDefaults.exclude,
-          ],
+          exclude: ["**/test-lib/*", ...coverageConfigDefaults.exclude],
           reportsDirectory: "./coverage",
+        },
+        onConsoleLog: (log) => {
+          if (log.includes("i18next:")) {
+            return false;
+          }
+          return true;
         },
         projects: [
           {
