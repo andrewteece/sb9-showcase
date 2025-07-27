@@ -54,8 +54,6 @@
     "@vitejs/plugin-react-swc": "3.10.2",
     "@vitest/browser": "3.2.4",
     "@vitest/coverage-istanbul": "3.2.4",
-    "axe-playwright": "2.1.0",
-    "concurrently": "8.2.0",
     "eslint": "9.24.0",
     "eslint-config-prettier": "10.1.2",
     "eslint-import-resolver-typescript": "4.3.2",
@@ -66,7 +64,6 @@
     "eslint-plugin-react-refresh": "0.4.19",
     "eslint-plugin-storybook": "9.0.18",
     "eslint-plugin-vitest": "0.5.4",
-    "http-server": "14.1.1",
     "husky": "8.0.3",
     "jsdom": "21.1.2",
     "msw": "2.10.4",
@@ -81,8 +78,7 @@
     "vite": "7.0.5",
     "vite-plugin-checker": "0.10.1",
     "vite-tsconfig-paths": "5.1.4",
-    "vitest": "3.2.4",
-    "wait-on": "7.2.0"
+    "vitest": "3.2.4"
   },
   "browserslist": {
     "production": [
