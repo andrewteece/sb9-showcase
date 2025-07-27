@@ -50,4 +50,9 @@ export default defineConfig(({ mode }) => ({
     },
   ],
   assetsInclude: ["/sb-preview/runtime.js"],
+  server: {
+    port: 5173,
+    host: "127.0.0.1",
+    strictPort: true,
+  },
 }));
