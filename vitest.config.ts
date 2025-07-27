@@ -31,7 +31,11 @@ export default defineConfig((env) =>
             "json",
             ["lcov", { projectRoot: "./src" }],
           ],
-          exclude: ["**/test-lib/*", ...coverageConfigDefaults.exclude],
+          exclude: [
+            "**/test-lib/*",
+            "**/public/*",
+            ...coverageConfigDefaults.exclude,
+          ],
           reportsDirectory: "./coverage",
         },
         onConsoleLog: (log) => {
@@ -59,7 +63,7 @@ export default defineConfig((env) =>
             ],
             test: {
               name: "storybook",
-              include: ["src/**/*.stories.@(js|jsx|ts|tsx)"],
+              include: ["src/**/*.stories.@(ts|tsx)"],
               browser: {
                 enabled: true,
                 provider: "playwright",
