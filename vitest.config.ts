@@ -34,6 +34,7 @@ export default defineConfig((env) =>
           exclude: [
             "**/test-lib/*",
             "**/public/*",
+            "src/**/*.stories.@(ts|tsx)",
             ...coverageConfigDefaults.exclude,
           ],
           reportsDirectory: "./coverage",
