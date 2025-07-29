@@ -3,8 +3,8 @@
 ## Follow these steps:
 
 1. ALWAYS start by running `git status` to check what branch you're on
-2. Use this template: `gh pr create --base core --head <branch name> --title "very clear & concise title" --body "clear, detailed description of changes"`
-3. Always create Pull Requests against the branch the user specifics. NEVER EVER AGAINST `core` or `basic`.
+2. Use this template: `gh pr create --base core --head <branch_name> --title "very clear & concise title" --body "clear, detailed description of changes"`
+3. Always create Pull Requests against the branch the user specifics.
 4. If you run into issues, STOP and explain the error to the user.
 
 ## Remember:
