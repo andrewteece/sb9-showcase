@@ -9,9 +9,10 @@
 
 ## Remember:
 
-- DO NOT GIVE YOURSELF CREDIT
+- DO NOT CREDIT YOURSELF in the PR's description
+  - Especially do not add this at the end: 🤖 Generated with [Claude Code](https://claude.ai/code)
 - Use the GitHub CLI (`gh`) for all GitHub-related tasks
-- Make titles clear & concise, and descriptions detailed yet focused, never credit yourself in the PR's description
+- Make titles clear & concise; make descriptions detailed yet focused, without testing plan; never credit yourself
 - Define titles following Conventional Commits specification:
   - for fixes, prefix with "fix: "
   - for new features, prefix with "feat: "
