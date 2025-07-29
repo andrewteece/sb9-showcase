@@ -18,6 +18,7 @@ If a topic is provided, focus on documenting that topic.
 - keep commit messages concise, while still clearly describing the changes
 - if the user mentions a specific issue number, include it in the commit message
 - NEVER EVER do a force push
+- NEVER EVER commit files outside of `src` dir
 - Follow Conventional Commits specification:
   - for fixes, prefix with "fix: "
   - for new features, prefix with "feat: "
