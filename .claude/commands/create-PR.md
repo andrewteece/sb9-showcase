@@ -9,9 +9,9 @@
 
 ## Remember:
 
+- DO NOT GIVE YOURSELF CREDIT
 - Use the GitHub CLI (`gh`) for all GitHub-related tasks
-- Make titles clear & concise, and descriptions detailed yet focused
-- DO NOT credit yourself
+- Make titles clear & concise, and descriptions detailed yet focused, never credit yourself in the PR's description
 - Define titles following Conventional Commits specification:
   - for fixes, prefix with "fix: "
   - for new features, prefix with "feat: "
