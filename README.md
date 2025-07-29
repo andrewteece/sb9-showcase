@@ -26,7 +26,7 @@ This version is free of any libraries. If the `core` version doesn't match your 
 - [PNPM](https://pnpm.io/) as a package manager.
 - CI setup (tests, build, tests coverage report, deploy draft) with [GitHub Actions](https://docs.github.com/en/actions).
 - [Github Copilot](https://github.com/features/copilot) configuration (instructions).
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) configuration (`CLAUDE.md` file and remote development setup).
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) configuration (`CLAUDE.md` file, `.claude` directory with settings and commands, and remote development setup).
 
 ## Extended version - `core`
 
