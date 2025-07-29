@@ -10,7 +10,7 @@ If a topic is provided, focus on documenting that topic.
 1. run `git status` to get the current branch name and learn about changes being made
 2. run `git add src/*` to stage all files (unless the user says otherwise)
 3. run `git commit -m "commit message"` to commit changes (make the message very concise yet complete, do not give yourself credit)
-4. run `git push origin <branch name>` to push changes to GitHub
+4. run `git push --set-upstream origin <branch_name>` to push changes to GitHub
 
 ## # Important Rules:
 
