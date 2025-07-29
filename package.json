@@ -90,11 +90,8 @@
       "last 1 version"
     ]
   },
-  "jest-junit": {
-    "outputFile": "./reports/storybook-report.xml"
-  },
   "msw": {
     "workerDirectory": "public"
   },
-  "packageManager": "pnpm@10.6.1"
+  "packageManager": "pnpm@10.13.1"
 }
