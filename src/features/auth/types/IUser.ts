@@ -1,23 +1,2 @@
-export interface IUser {
-  id: number;
-  email: string;
-  username: string;
-  name: {
-    firstname: string;
-    lastname: string;
-  };
-  phone: string;
-  address: IAddress;
-  cartId: number;
-}
-
-interface IAddress {
-  city: string;
-  street: string;
-  number: number;
-  zipcode: string;
-  geolocation: {
-    lat: string;
-    long: string;
-  };
-}
+export type { IUser } from "@/lib/api/auth/users/{user-id}/user-query";
+export type { IAddress } from "@/lib/api/auth/users/{user-id}/user-dto";

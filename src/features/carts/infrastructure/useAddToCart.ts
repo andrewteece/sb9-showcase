@@ -1,53 +1,21 @@
-import { useMutation } from "@tanstack/react-query";
-
 import { useAuthStore } from "@/features/auth/application/authStore";
-import { DateVO } from "@/lib/date/Date";
-import { httpService } from "@/lib/http";
-import { Logger } from "@/lib/logger";
+import { useAddToCartMutation } from "@/lib/api/carts/{cart-id}/add-to-cart-command";
 
 interface IAddToCartValues {
   productId: number;
   quantity?: number;
 }
 
-interface IAddToCartDto {
-  userId: number;
-  date: string;
-  products: { productId: number; quantity: number }[];
-}
-
 export const useAddToCart = () => {
   const cartId = useAuthStore((store) => store.user?.cartId);
   const userId = useAuthStore((store) => store.user?.id);
-
-  const { mutateAsync, isLoading } = useMutation<
-    void,
-    unknown,
-    IAddToCartValues
-  >((body) =>
-    httpService.put<void, IAddToCartDto>(`carts/${cartId}`, {
-      userId,
-      date: DateVO.now(),
-      products: [{ productId: body.productId, quantity: body.quantity ?? 1 }],
-    })
-  );
+  const [mutateAsync, isLoading] = useAddToCartMutation();
 
   const handler = (body: IAddToCartValues) => {
-    return mutateAsync(body)
-      .then(async () => {
-        // optionally mutate related data
-      })
-      .catch((e) => {
-        // listen for a specific error and act respectively (e.g. throwing a specific error and catch it later)
-
-        // notify backend about the error if needed
-        Logger.error(
-          "An error occurred during adding an item to the cart",
-          e as Error
-        );
-
-        throw e;
-      });
+    if (!cartId || !userId) {
+      throw new Error("User not authenticated");
+    }
+    return mutateAsync({ ...body, cartId, userId });
   };
 
   return [handler, isLoading] as const;

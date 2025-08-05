@@ -1,4 +1,1 @@
-export interface IRating {
-  rate: number;
-  count: number;
-}
+export type { IRating } from "@/lib/api/products/{product-id}/product-dto";
