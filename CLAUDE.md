@@ -89,6 +89,7 @@ src/
 │   ├── carts/     # Shopping cart feature
 │   ├── products/  # Product catalog feature
 ├── lib/           # Shared libraries and utilities
+│   ├── api/       # Centralized API layer (queries, commands, DTOs)
 │   ├── components/ # Reusable UI components
 │   ├── http/      # HTTP client and error handling
 │   ├── i18n/      # Internationalization setup
@@ -104,12 +105,48 @@ Each feature follows feature slice architecture patterns with three layers:
 
 - **presentation/** - UI components, UI-wise hooks
 - **application/** - Business logic, state management, logic-wise hooks
-- **infrastructure/** - Data fetching, external APIs, contracts, DTOs
-- **types/** - Type definitions
+- **infrastructure/** - Reexports from centralized API lib, feature-specific wrappers
+- **types/** - Type reexports from API lib, feature-specific types
+
+### API Architecture
+
+The centralized API layer (`src/lib/api/`) is organized by domain and endpoint structure:
+
+```
+src/lib/api/
+├── auth/
+│   ├── login/
+│   │   ├── login-dto.ts       # Login types
+│   │   └── login-command.ts   # Login functionality
+│   └── users/{user-id}/
+│       ├── user-dto.ts        # User types
+│       └── user-query.ts      # User queries
+├── carts/
+│   ├── {cart-id}/
+│   │   ├── cart-dto.ts        # Cart types
+│   │   ├── cart-query.ts      # Cart queries
+│   │   ├── cart-products-query.ts  # Cart products
+│   │   ├── add-to-cart-command.ts  # Add to cart
+│   │   ├── clear-cart-command.ts   # Clear cart
+│   │   └── purchase-command.ts     # Purchase
+│   └── cart-query-keys.ts     # Cart query keys
+└── products/
+    ├── {product-id}/
+    │   ├── product-dto.ts     # Product types
+    │   └── product-query.ts   # Single product
+    ├── products-list/
+    │   ├── products-list-dto.ts    # Products list types
+    │   └── products-list-query.ts  # Products list
+    └── products-query-keys.ts # Product query keys
+```
 
 ### Key Patterns
 
 - **Co-location** - Related files (component + story + test) are grouped together
+- **Centralized API** - All API logic consolidated in `src/lib/api/` with endpoint-based organization
+- **Type centralization** - Types defined in API lib, reexported through features
+- **Kebab-case naming** - Consistent kebab-case naming for all API files
+- **No barrel exports** - Direct imports instead of index.ts files
 - **MSW handlers** - API mocking is centralized in `test-lib/handlers/`
 - **Fixture pattern** - Test data generation in `test-lib/fixtures/`
 - **Strong typing** - Comprehensive TypeScript usage with branded types
