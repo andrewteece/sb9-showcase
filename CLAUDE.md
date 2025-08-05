@@ -25,12 +25,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - The plan should be a detailed implementation plan and the reasoning behind them, as well as tasks broken down.
 - If the task requires external knowledge or certain package, also research to get latest knowledge (Use Task tool for research).
 - Don't over plan it, always think MVP.
-- Once you write the plan, firstly ask me to review it. Do not continue until I approve the plan.
+- Once you write the plan, firstly ask me to review it. Do not start implementation until I approve the plan.
 
 ### While implementing
 
-- You should update the plan as you work.
-- After you complete tasks in the plan, you should update and append detailed descriptions of the changes you made, so following tasks can be easily hand over to other engineers.
+- You should update the plan in .claude/tasks/TASK_NAME.md as you work.
+- After you complete tasks in .claude/tasks/TASK_NAME.md, you should update and append detailed descriptions of the changes you made, so following tasks can be easily hand over to other engineers.
+- In case of lint errors/warnings, use `pnpm lint --fix` to resolve them.
 
 ### Scanning Repository
 
@@ -45,6 +46,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `pnpm dev` - Start development server on port 5173
 - `pnpm lint` - Run ESLint with flat config
+- `pnpm lint --fix` - Run ESLint and fix linting errors/warnings
 - `pnpm test` - Run all tests (unit + storybook)
 - `pnpm test:unit` - Run unit tests only
 - `pnpm test:storybook` - Run storybook tests only
