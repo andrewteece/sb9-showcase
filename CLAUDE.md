@@ -16,6 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | G-4 | For changes >300 LOC or >3 files, **ask for confirmation**.                                                                                                                                                  | ❌ Refactor large modules without human guidance.                                                                                                     |
 | G-5 | Stay within the current task context. Inform the dev if it'd be better to start afresh.                                                                                                                      | ❌ Continue work from a prior prompt after "new task" – start a fresh session.                                                                        |
 | G-6 | Modify API contracts only with explicit developer approval and clear documentation.                                                                                                                          | ❌ Change API contracts (e.g., endpoints, DTOs, mapping logic) without approval.                                                                      |
+| G-7 | Use git commands only when explicitly requested by the developer.                                                                                                                                            | ❌ Stage, commit, or push changes without explicit developer request.                                                                                 |
 
 ## Plan & Review
 
@@ -25,12 +26,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - The plan should be a detailed implementation plan and the reasoning behind them, as well as tasks broken down.
 - If the task requires external knowledge or certain package, also research to get latest knowledge (Use Task tool for research).
 - Don't over plan it, always think MVP.
-- Once you write the plan, firstly ask me to review it. Do not continue until I approve the plan.
+- Once you write the plan, firstly ask me to review it. Do not start implementation until I approve the plan.
 
 ### While implementing
 
-- You should update the plan as you work.
-- After you complete tasks in the plan, you should update and append detailed descriptions of the changes you made, so following tasks can be easily hand over to other engineers.
+- You should update the plan in .claude/tasks/TASK_NAME.md as you work.
+- After you complete tasks in .claude/tasks/TASK_NAME.md, you should update and append detailed descriptions of the changes you made, so following tasks can be easily hand over to other engineers.
+- In case of lint errors/warnings, use `pnpm lint --fix` to resolve them.
 
 ### Scanning Repository
 
@@ -45,6 +47,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `pnpm dev` - Start development server on port 5173
 - `pnpm lint` - Run ESLint with flat config
+- `pnpm lint --fix` - Run ESLint and fix linting errors/warnings
 - `pnpm test` - Run all tests (unit + storybook)
 - `pnpm test:unit` - Run unit tests only
 - `pnpm test:storybook` - Run storybook tests only
@@ -87,6 +90,7 @@ src/
 │   ├── carts/     # Shopping cart feature
 │   ├── products/  # Product catalog feature
 ├── lib/           # Shared libraries and utilities
+│   ├── api/       # Centralized API layer (queries, commands, DTOs)
 │   ├── components/ # Reusable UI components
 │   ├── http/      # HTTP client and error handling
 │   ├── i18n/      # Internationalization setup
@@ -111,7 +115,8 @@ Each feature follows feature slice architecture patterns with three layers:
 - **MSW handlers** - API mocking is centralized in `test-lib/handlers/`
 - **Fixture pattern** - Test data generation in `test-lib/fixtures/`
 - **Strong typing** - Comprehensive TypeScript usage with branded types
-- **Component Composition**: Features export composed components for pages to use
+- **Component Composition**: Features export composed components for pages to use,
+- **Centralized API** - All API logic consolidated in `src/lib/api/` with endpoint-based organization
 
 ### Path Resolution
 

@@ -1,11 +1,1 @@
-interface IProduct {
-  productId: number;
-  quantity: number;
-}
-
-export interface ICart {
-  id: number;
-  userId: number;
-  date: string;
-  products: IProduct[];
-}
+export type { CartDto as ICart } from "@/lib/api/carts/{cart-id}/cart-dto";

@@ -1,10 +1,2 @@
-import { httpService } from "@/lib/http";
-
-export interface ICredentials {
-  username: string;
-  password: string;
-}
-
-export const loginUser = (body: ICredentials) => {
-  return httpService.post<string>("auth/login", body);
-};
+export { loginUser } from "@/lib/api/auth/login/login-command";
+export type { LoginDto as ICredentials } from "@/lib/api/auth/login/login-dto";

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+// eslint-disable-next-line import/no-restricted-paths
 import { useAuthStore } from "@/features/auth/application/authStore";
 import { AjaxError } from "@/lib/http/AjaxError";
 import { useNavigate, useRouteError } from "@/lib/router";

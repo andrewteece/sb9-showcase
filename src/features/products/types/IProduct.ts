@@ -1,12 +1,1 @@
-import { Category } from "./Category";
-import type { IRating } from "./IRating";
-
-export interface IProduct {
-  id: number;
-  title: string;
-  description: string;
-  category: Category;
-  image: string;
-  price: number;
-  rating: IRating;
-}
+export type { ProductDto as IProduct } from "@/lib/api/products/{product-id}/product-dto";

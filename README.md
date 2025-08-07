@@ -46,6 +46,7 @@ If configured tools and overall setup meet your requirements, you should definit
 - Formatting tools for numbers, monetary values, and dates (easily extendable with any date library like [DayJS](https://day.js.org/)).
 - State management with [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction).
 - API mocking with [MSW 2](https://mswjs.io/).
+- Centralized API architecture with endpoint-based organization and type consolidation.
 - A demo app with authentication presenting project structure, good practices, and used tooling in action (with a little help of [Fake Store API](https://fakestoreapi.com/docs)).
 
 # Guideline

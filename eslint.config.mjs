@@ -197,5 +197,22 @@ export default config(
         },
       ],
     },
+  },
+  {
+    files: ["./src/lib/**"],
+    rules: {
+      "import/no-restricted-paths": [
+        "error",
+        {
+          zones: [
+            {
+              target: "./src/lib",
+              from: "./src/features",
+              message: "Lib should not depend on features.",
+            },
+          ],
+        },
+      ],
+    },
   }
 );
