@@ -16,6 +16,7 @@
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
     "test:storybook": "test-storybook --url http://localhost:6006",
+    "build-storybook": "storybook build -o storybook-static",
     "chromatic": "chromatic"
   },
   "dependencies": {
