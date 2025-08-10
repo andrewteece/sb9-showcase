@@ -1,37 +1,30 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-import * as tsconfigPaths from "vite-tsconfig-paths";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
-
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(ts|tsx)"],
   addons: [
     "@storybook/addon-links",
     "storybook-addon-remix-react-router",
     "@storybook/addon-docs",
     "@storybook/addon-vitest",
+    "@storybook/addon-a11y",
   ],
+  framework: { name: "@storybook/react-vite", options: {} },
+  staticDirs: ["../public"],
 
-  framework: {
-    name: "@storybook/react-vite",
-    options: {},
-  },
-
-  viteFinal(config) {
+  viteFinal(viteConfig) {
     return {
-      ...config,
-      // Ensure that the vite-tsconfig-paths plugin is included in the Storybook config as well.
-      // This plugin is necessary for resolving TypeScript path mappings, which allows the
-      // coverage addon to instrument the code correctly.
-      plugins: [...(config.plugins ?? []), tsconfigPaths.default()],
+      ...viteConfig,
+      plugins: [...(viteConfig.plugins ?? []), tsconfigPaths()],
     };
   },
 
-  typescript: {
-    reactDocgen: "react-docgen-typescript",
-  },
+  typescript: { reactDocgen: "react-docgen-typescript" },
 
   build: {
     test: {
+      // fine to keep: speeds up test builds by skipping docs processing
       disabledAddons: ["@storybook/addon-docs"],
     },
   },

@@ -61,7 +61,14 @@ export default config(
     files: ["**/*.{ts,tsx}"],
     plugins: { import: importPlugin, "react-refresh": reactRefresh },
     settings: {
-      "import/resolver": { typescript: { alwaysTryTypes: true } },
+      "import/resolver": {
+        // TypeScript resolver adds TS + paths support for eslint-plugin-import
+        // (requires eslint-import-resolver-typescript)
+        typescript: { project: "./tsconfig.json", alwaysTryTypes: true },
+        // Node resolver lets './Button' resolve to './Button.tsx'
+        // (requires eslint-import-resolver-node)
+        node: { extensions: [".js", ".jsx", ".ts", ".tsx"] },
+      },
       "import/ignore": [
         "node_modules",
         ".json$",
