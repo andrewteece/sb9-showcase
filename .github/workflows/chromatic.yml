@@ -1,7 +1,13 @@
 name: Chromatic (tests + publish)
+
 on:
   push: { branches: [core, main] }
   pull_request:
+
+# cancel older runs for the same branch/PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   ui-tests-and-chromatic:
@@ -36,10 +42,13 @@ jobs:
         env:
           STORYBOOK_A11Y_MODE: error
         run: pnpm test-storybook --url http://localhost:6006
+        # Test Runner turns stories into tests; play() assertions run in browser. :contentReference[oaicite:2]{index=2}
 
       # --- Publish to Chromatic (visual review URL) ---
       - name: Publish to Chromatic
         uses: chromaui/action@v11
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          # buildScriptName defaults to "build-storybook"; omit if you have that script
+          onlyChanged: true # analyze only diffs for speed
+          exitZeroOnChanges: false # fail when there are unreviewed changes
+          # buildScriptName defaults to "build-storybook"
