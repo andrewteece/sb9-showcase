@@ -1,29 +1,45 @@
-name: Chromatic
+name: Chromatic (tests + publish)
 on:
   push: { branches: [core, main] }
   pull_request:
 
 jobs:
-  chromatic:
+  ui-tests-and-chromatic:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout (full history for Chromatic)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Chromatic recommends full git history
+
       - uses: pnpm/action-setup@v3
         with: { version: 9 }
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
-      - run: pnpm i --frozen-lockfile
 
-      # (optional) run your Storybook Test Runner first:
-      # - run: pnpm storybook -- --ci --port 6006 &
-      # - run: npx wait-on http://localhost:6006
-      # - run: pnpm test-storybook --url http://localhost:6006
+      - name: Install deps
+        run: pnpm i --frozen-lockfile
 
+      # --- Storybook Test Runner (a11y + play() interaction tests) ---
+      - name: Start Storybook
+        env:
+          STORYBOOK_A11Y_MODE: error # fail on a11y violations in CI
+        run: pnpm storybook -- --ci --port 6006 &
+
+      - name: Wait for Storybook
+        run: npx wait-on http://localhost:6006
+
+      - name: Run Storybook tests (a11y + interactions)
+        env:
+          STORYBOOK_A11Y_MODE: error
+        run: pnpm test-storybook --url http://localhost:6006
+
+      # --- Publish to Chromatic (visual review URL) ---
       - name: Publish to Chromatic
         uses: chromaui/action@v11
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          # uncomment if your SB build script has a custom name:
-          # buildScriptName: build-storybook
+          # buildScriptName defaults to "build-storybook"; omit if you have that script
