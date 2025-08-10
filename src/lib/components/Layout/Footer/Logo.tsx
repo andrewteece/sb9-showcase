@@ -9,7 +9,7 @@ export const Logo = () => {
   return (
     <HStack>
       <ArrowRightIcon color={color} />
-      <Text color={color} fontSize="lg" fontWeight="extrabold" m={0}>
+      <Text color="brand.text" fontSize="lg" fontWeight="extrabold" m={0}>
         {"Logoipsum"}
       </Text>
     </HStack>
