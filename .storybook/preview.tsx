@@ -35,9 +35,7 @@ const preview: Preview = {
     // When you're ready, switch test: 'error' to fail CI on violations.
     a11y: {
       disable: false,
-      test: "todo",
-      // Example: tweak rules globally if needed
-      // config: { rules: [{ id: 'color-contrast', enabled: true }] }
+      test: import.meta.env.STORYBOOK_A11Y_MODE === "error" ? "error" : "todo",
     },
 
     layout: "centered",
