@@ -1,59 +1,67 @@
-/// <reference types="vitest" />
+// vite.config.ts
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import react from "@vitejs/plugin-react-swc";
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import checker from "vite-plugin-checker";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-// https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  plugins: [
-    react(),
-    tsconfigPaths(),
-    mode !== "test" &&
-      checker({
-        typescript: true,
-        eslint: {
-          useFlatConfig: true,
-          lintCommand: 'eslint "./src/**/*.{ts,tsx}"',
-        },
-      }),
-    {
-      name: "remove-msw-service-worker",
-      closeBundle: () => {
-        if (process.env.NODE_ENV === "production") {
-          const mswFile: string = path.join(
-            __dirname,
-            "dist",
-            "mockServiceWorker.js"
-          );
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-          if (fs.existsSync(mswFile)) {
-            fs.unlinkSync(mswFile);
+export default defineConfig(({ command, mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
+  const isBuild = command === "build";
+
+  return {
+    plugins: [
+      react(),
+      tsconfigPaths(),
+      checker({ typescript: true }),
+
+      // --- keep: remove MSW worker from production output ---
+      {
+        name: "remove-msw-service-worker",
+        closeBundle: () => {
+          if (process.env.NODE_ENV === "production") {
+            const mswFile = path.join(
+              __dirname,
+              "dist",
+              "mockServiceWorker.js"
+            );
+            if (fs.existsSync(mswFile)) {
+              fs.unlinkSync(mswFile);
+            }
           }
-        }
+        },
       },
-    },
-    {
-      name: "i18n-hot-reload",
-      handleHotUpdate: ({ file, server }) => {
-        if (file.includes("locales") && file.endsWith(".json")) {
-          server.hot.send({
-            data: file,
-            type: "custom",
-            event: "locales-update",
-          });
-        }
+
+      // --- keep: JSON locale hot-reload during dev ---
+      {
+        name: "i18n-hot-reload",
+        handleHotUpdate({ file, server }) {
+          if (file.includes("locales") && file.endsWith(".json")) {
+            // Vite dev server custom event channel
+            server.ws.send({
+              type: "custom",
+              event: "locales-update",
+              data: file,
+            });
+          }
+        },
       },
+    ],
+
+    // Dev at "/", GH Pages build at "/sb9-showcase/"
+    base: isBuild ? "/sb9-showcase/" : "/",
+
+    server: { port: 5173, open: true },
+    preview: { port: 5173 },
+
+    define: {
+      __APP_ENV__: env.APP_ENV,
     },
-  ],
-  base: "/sb9-showcase/",
-  assetsInclude: ["/sb-preview/runtime.js"],
-  server: {
-    port: 5173,
-    host: "127.0.0.1",
-    strictPort: true,
-  },
-}));
+  };
+});
