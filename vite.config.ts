@@ -49,7 +49,7 @@ export default defineConfig(({ mode }) => ({
       },
     },
   ],
-  base: "andrewteece/sb9-showcase/",
+  base: "/sb9-showcase/",
   assetsInclude: ["/sb-preview/runtime.js"],
   server: {
     port: 5173,
