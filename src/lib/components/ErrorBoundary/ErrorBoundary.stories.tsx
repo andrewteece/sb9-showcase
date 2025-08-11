@@ -57,7 +57,15 @@ const TestableErrorBoundary = ({
       }}
     >
       <VStack>
-        <Button id="test" onClick={setError.on} colorScheme="red">
+        <Button
+          id="test"
+          onClick={setError.on}
+          colorScheme="red"
+          bg="red.700"
+          _hover={{ bg: "red.800" }}
+          _active={{ bg: "red.900" }}
+          color="white"
+        >
           {"Throw an error"}
         </Button>
         {throwError ? (
