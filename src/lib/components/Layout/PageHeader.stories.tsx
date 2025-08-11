@@ -22,13 +22,21 @@ export const Default: Story = {
     children: (
       <>
         <Button
-          colorScheme="blue"
           variant="outline"
+          colorScheme="blue"
           leftIcon={<ExternalLinkIcon />}
         >
           {"See profile"}
         </Button>
-        <Button colorScheme="blue" leftIcon={<EmailIcon />}>
+
+        {/* AA contrast: white on blue.700 */}
+        <Button
+          leftIcon={<EmailIcon />}
+          color="white"
+          bg="blue.700"
+          _hover={{ bg: "blue.800" }}
+          _active={{ bg: "blue.900" }}
+        >
           {"Contact"}
         </Button>
       </>
@@ -36,30 +44,7 @@ export const Default: Story = {
   },
 };
 
-export const SmSize: Story = {
-  args: {
-    ...Default.args,
-    size: "sm",
-  },
-};
-
-export const MdSize: Story = {
-  args: {
-    ...Default.args,
-    size: "md",
-  },
-};
-
-export const LgSize: Story = {
-  args: {
-    ...Default.args,
-    size: "lg",
-  },
-};
-
-export const XlSize: Story = {
-  args: {
-    ...Default.args,
-    size: "xl",
-  },
-};
+export const SmSize: Story = { args: { ...Default.args, size: "sm" } };
+export const MdSize: Story = { args: { ...Default.args, size: "md" } };
+export const LgSize: Story = { args: { ...Default.args, size: "lg" } };
+export const XlSize: Story = { args: { ...Default.args, size: "xl" } };

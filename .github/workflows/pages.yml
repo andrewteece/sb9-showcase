@@ -18,16 +18,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v3
         with:
           version: 10
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
@@ -35,23 +32,22 @@ jobs:
       - name: Install deps
         run: pnpm install --frozen-lockfile
 
-      # Build the Vite app to dist/
       - name: Build app
         run: pnpm build
 
-      # Build Storybook to storybook-static/
       - name: Build Storybook
         run: pnpm build-storybook
 
-      # Place Storybook under /storybook in the deployed site
       - name: Move Storybook into app output
         run: |
           mkdir -p dist/storybook
           rsync -a --delete storybook-static/ dist/storybook/
 
-      # SPA fallback so deep links work on GitHub Pages
       - name: Create SPA 404 fallback
         run: cp dist/index.html dist/404.html
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -60,6 +56,7 @@ jobs:
 
   deploy:
     needs: build
+    if: github.ref == 'refs/heads/main' # ensures deploy won’t run on PRs
     runs-on: ubuntu-latest
     environment:
       name: github-pages

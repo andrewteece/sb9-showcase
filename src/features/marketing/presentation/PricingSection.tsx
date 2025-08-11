@@ -41,6 +41,7 @@ const PricingSection = () => {
           {"anytime."}
         </Text>
       </VStack>
+
       <Stack
         direction={{ base: "column", md: "row" }}
         textAlign="center"
@@ -48,6 +49,7 @@ const PricingSection = () => {
         spacing={10}
         py={10}
       >
+        {/* Hobby */}
         <PriceWrapper>
           <Box py={4} px={12}>
             <Text fontWeight="500" fontSize="2xl">
@@ -78,13 +80,12 @@ const PricingSection = () => {
               </ListItem>
             </List>
             <Box w="80%" pt={7}>
-              <Button w="full" colorScheme="orange" variant="outline">
-                {"Start trial"}
-              </Button>
+              <StartTrialOutlineButton />
             </Box>
           </VStack>
         </PriceWrapper>
 
+        {/* Growth (primary) */}
         <PriceWrapper>
           <Box position="relative">
             <MostPopularBadge />
@@ -123,13 +124,13 @@ const PricingSection = () => {
                 </ListItem>
               </List>
               <Box w="80%" pt={7}>
-                <Button w="full" colorScheme="orange">
-                  {"Start trial"}
-                </Button>
+                <StartTrialSolidButton />
               </Box>
             </VStack>
           </Box>
         </PriceWrapper>
+
+        {/* Scale */}
         <PriceWrapper>
           <Box py={4} px={12}>
             <Text fontWeight="500" fontSize="2xl">
@@ -160,9 +161,7 @@ const PricingSection = () => {
               </ListItem>
             </List>
             <Box w="80%" pt={7}>
-              <Button w="full" colorScheme="orange" variant="outline">
-                {"Start trial"}
-              </Button>
+              <StartTrialOutlineButton />
             </Box>
           </VStack>
         </PriceWrapper>
@@ -217,8 +216,31 @@ const MostPopularBadge = () => {
 
 const CheckIcon = () => {
   const color = useColorModeValue("green.500", "green.200");
-
   return <ChakraCheckIcon fontSize="sm" color={color} mr={2} />;
+};
+
+/** DRY helpers for AA-safe CTAs */
+const StartTrialSolidButton = () => (
+  <Button w="full" colorScheme="orange" variant="solid">
+    {"Start trial"}
+  </Button>
+);
+
+const StartTrialOutlineButton = () => {
+  const accent = useColorModeValue("orange.700", "orange.300");
+  const accentHover = useColorModeValue("orange.800", "orange.200");
+  return (
+    <Button
+      w="full"
+      variant="outline"
+      colorScheme="orange"
+      color={accent}
+      borderColor={accent}
+      _hover={{ color: accentHover, borderColor: accentHover }}
+    >
+      {"Start trial"}
+    </Button>
+  );
 };
 
 export { PricingSection };

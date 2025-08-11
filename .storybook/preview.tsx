@@ -1,17 +1,22 @@
-import { ChakraProvider, theme } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import type { Preview } from "@storybook/react-vite";
 import { initialize, mswLoader } from "msw-storybook-addon";
 
+import { theme } from "@/lib/theme/theme";
 import { getUserHandler } from "@/test-lib/handlers/getUserHandler";
 import { withAuth } from "@/test-lib/storybook/withAuth";
 import { withI18Next } from "@/test-lib/storybook/withI18Next";
 import { withReactQuery } from "@/test-lib/storybook/withReactQuery";
 
+// ✅ Use YOUR custom theme (adjust path if your file is in a different place)
+// If you exported `export const theme = ...`
+// If you exported `export default theme`, use:
+// import theme from "@/lib/theme";
+
 // Start MSW with a custom onUnhandledRequest filter
 initialize(
   {
     onUnhandledRequest: (req, print) => {
-      // Only warn on unhandled requests to your API domain/prefix
       if (req.url.includes("api")) print.warning();
     },
   },
@@ -19,29 +24,21 @@ initialize(
 );
 
 const preview: Preview = {
-  // Global docs via tags (you can still override per-story)
   tags: ["autodocs"],
 
   parameters: {
     controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/,
-      },
+      matchers: { color: /(background|color)$/i, date: /Date$/ },
       expanded: true,
     },
-
-    // Keep a11y ON in Storybook; set test mode to "todo" so CI doesn't fail yet
-    // When you're ready, switch test: 'error' to fail CI on violations.
+    // Keep a11y ON in Storybook; CI mode toggled via env
     a11y: {
       disable: false,
       test: import.meta.env.STORYBOOK_A11Y_MODE === "error" ? "error" : "todo",
     },
-
     layout: "centered",
   },
 
-  // msw-storybook-addon loader ensures handlers apply before stories render
   loaders: [mswLoader],
 
   decorators: [

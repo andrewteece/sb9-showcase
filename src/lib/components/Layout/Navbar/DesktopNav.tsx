@@ -1,3 +1,4 @@
+// src/lib/components/Layout/Navbar/DesktopNav.tsx
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -10,6 +11,7 @@ import {
   Stack,
   Text,
   useColorModeValue,
+  Button, // ✅ add
 } from "@chakra-ui/react";
 
 import { Link, useLocation } from "@/lib/router";
@@ -28,54 +30,65 @@ export const DesktopNav = () => {
 
   return (
     <Stack direction="row" spacing={4}>
-      {navItems.map((navItem) => (
-        <Box key={navItem.label}>
-          <Popover trigger="hover" placement="bottom-start">
-            <PopoverTrigger>
-              {navItem.href ? (
-                <ChLink
-                  as={Link}
-                  p={2}
-                  to={navItem.href}
-                  color={pathname === navItem.href ? brandColor : linkColor}
-                  _hover={{
-                    color: brandColor,
-                  }}
+      {navItems.map((navItem) => {
+        const isActive = pathname === navItem.href;
+
+        return (
+          <Box key={navItem.label}>
+            <Popover trigger="hover" placement="bottom-start">
+              <PopoverTrigger>
+                {navItem.children ? (
+                  // ✅ Use a button for popover trigger; styled as a link
+                  <Button
+                    variant="link"
+                    color={isActive ? brandColor : linkColor}
+                    _hover={{ color: brandColor }}
+                  >
+                    {navItem.label}
+                  </Button>
+                ) : navItem.href ? (
+                  // Normal navigation link
+                  <ChLink
+                    as={Link}
+                    p={2}
+                    to={navItem.href}
+                    color={isActive ? brandColor : linkColor}
+                    _hover={{ color: brandColor }}
+                  >
+                    {navItem.label}
+                  </ChLink>
+                ) : (
+                  // Fallback non-nav item (rare)
+                  <ChLink
+                    p={2}
+                    color={isActive ? brandColor : linkColor}
+                    _hover={{ color: brandColor }}
+                  >
+                    {navItem.label}
+                  </ChLink>
+                )}
+              </PopoverTrigger>
+
+              {navItem.children && (
+                <PopoverContent
+                  border={0}
+                  boxShadow="xl"
+                  bg={popoverContentBgColor}
+                  p={4}
+                  rounded="xl"
+                  minW="sm"
                 >
-                  {navItem.label}
-                </ChLink>
-              ) : (
-                <ChLink
-                  p={2}
-                  href={navItem.href}
-                  color={pathname === navItem.href ? brandColor : linkColor}
-                  _hover={{
-                    color: brandColor,
-                  }}
-                >
-                  {navItem.label}
-                </ChLink>
+                  <Stack>
+                    {navItem.children.map((child) => (
+                      <DesktopSubNav key={child.label} {...child} />
+                    ))}
+                  </Stack>
+                </PopoverContent>
               )}
-            </PopoverTrigger>
-            {navItem.children && (
-              <PopoverContent
-                border={0}
-                boxShadow="xl"
-                bg={popoverContentBgColor}
-                p={4}
-                rounded="xl"
-                minW="sm"
-              >
-                <Stack>
-                  {navItem.children.map((child) => (
-                    <DesktopSubNav key={child.label} {...child} />
-                  ))}
-                </Stack>
-              </PopoverContent>
-            )}
-          </Popover>
-        </Box>
-      ))}
+            </Popover>
+          </Box>
+        );
+      })}
     </Stack>
   );
 };
