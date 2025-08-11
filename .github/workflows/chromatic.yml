@@ -29,14 +29,16 @@ jobs:
       - name: Install deps
         run: pnpm i --frozen-lockfile
 
-      # --- Storybook Test Runner (a11y + play() interaction tests) ---
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps
+
       - name: Start Storybook
         env:
-          STORYBOOK_A11Y_MODE: error # fail on a11y violations in CI
+          STORYBOOK_A11Y_MODE: error
         run: pnpm storybook -- --ci --port 6006 &
 
       - name: Wait for Storybook
-        run: npx wait-on http://localhost:6006
+        run: npx wait-on --timeout 60000 http://localhost:6006
 
       - name: Run Storybook tests (a11y + interactions)
         env:
