@@ -1,4 +1,4 @@
-name: Deploy Vite to GitHub Pages
+name: Deploy Vite (core/) to GitHub Pages
 
 on:
   push:
@@ -18,35 +18,40 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout"
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: "Setup Node"
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
-      - name: "Install"
+      - name: Install
         run: npm ci
+        working-directory: core
 
-      - name: "Build"
+      - name: Build
         run: npm run build
+        working-directory: core
 
-      - name: "Ensure SPA 404"
+      - name: Ensure SPA 404
         run: |
-          if [ -f dist/index.html ]; then cp dist/index.html dist/404.html; fi
+          if [ -f core/dist/index.html ]; then cp core/dist/index.html core/dist/404.html; fi
 
-      - name: "Debug: list dist"
-        run: ls -la dist
+      - name: Debug list dist
+        run: ls -la core/dist
 
-      - name: "Configure Pages"
+      - name: Show index.html head (debug base)
+        run: head -n 25 core/dist/index.html
+
+      - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: "Upload Pages artifact"
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: core/dist
           name: github-pages
 
   deploy:
@@ -59,7 +64,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: "Deploy to GitHub Pages"
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
         with:
