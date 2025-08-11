@@ -1,6 +1,14 @@
 /* eslint-disable import/no-restricted-paths */
 import { CheckIcon } from "@chakra-ui/icons";
-import { Box, Text, VStack, HStack, Button, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  VStack,
+  HStack,
+  Button,
+  Stack,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 import { useCategoryLabel } from "@/features/products/presentation/useCategoryLabel";
 import { Category } from "@/features/products/types/Category";
@@ -33,6 +41,8 @@ const CartItem = ({
   const categoryLabel = useCategoryLabel(category);
   const categoryColor = useSecondaryTextColor();
   const notImplemented = useNotImplementedYetToast();
+
+  const ok = useColorModeValue("green.700", "green.300");
 
   return (
     <Stack
@@ -82,8 +92,8 @@ const CartItem = ({
             {t("quantity")} {quantity}
           </Text>
           <HStack spacing={2}>
-            <CheckIcon color="green.500" />
-            <Text color="green.500" fontSize="sm">
+            <CheckIcon color={ok} boxSize="14px" />
+            <Text color={ok} fontSize="sm">
               {t("in-stock")}
             </Text>
           </HStack>

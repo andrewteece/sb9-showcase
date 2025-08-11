@@ -86,7 +86,10 @@ export const SignInForm = ({ initialUsername, initialPassword }: IProps) => {
               justify="space-between"
             >
               <Checkbox>{t("remember-me")}</Checkbox>
-              <Link color="blue.400">{t("forgot-password")}</Link>
+              {/* AA-safe link colors via theme tokens */}
+              <Link color="text.link" _hover={{ color: "text.linkHover" }}>
+                {t("forgot-password")}
+              </Link>
             </Stack>
             <Button type="submit" colorScheme="blue" w="100%">
               {t("sign-in")}

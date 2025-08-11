@@ -53,7 +53,7 @@ const CartsList = ({ cartProducts }: IProps) => {
         <Button
           variant="link"
           size="sm"
-          colorScheme="blue"
+          colorScheme="blue.700"
           rightIcon={<ArrowForwardIcon />}
           onClick={() => navigate(routes.products)}
         >
