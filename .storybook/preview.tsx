@@ -8,10 +8,14 @@ import { withAuth } from "@/test-lib/storybook/withAuth";
 import { withI18Next } from "@/test-lib/storybook/withI18Next";
 import { withReactQuery } from "@/test-lib/storybook/withReactQuery";
 
-// ✅ Use YOUR custom theme (adjust path if your file is in a different place)
-// If you exported `export const theme = ...`
-// If you exported `export default theme`, use:
-// import theme from "@/lib/theme";
+// Decide the correct worker URL based on where Storybook is hosted
+const isHostedUnderSubdir =
+  typeof window !== "undefined" &&
+  window.location.pathname.startsWith("/storybook");
+
+const swUrl = isHostedUnderSubdir
+  ? "/storybook/mockServiceWorker.js" // Storybook served at /storybook/ (Vercel)
+  : "/mockServiceWorker.js"; // Storybook root (localhost:6006, Chromatic)
 
 // Start MSW with a custom onUnhandledRequest filter
 initialize(
@@ -19,6 +23,7 @@ initialize(
     onUnhandledRequest: (req, print) => {
       if (req.url.includes("api")) print.warning();
     },
+    serviceWorker: { url: swUrl },
   },
   [getUserHandler()]
 );
