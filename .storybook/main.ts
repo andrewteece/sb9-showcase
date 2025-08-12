@@ -1,3 +1,4 @@
+// .storybook/main.ts
 import type { StorybookConfig } from "@storybook/react-vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
@@ -24,7 +25,6 @@ const config: StorybookConfig = {
 
   build: {
     test: {
-      // fine to keep: speeds up test builds by skipping docs processing
       disabledAddons: ["@storybook/addon-docs"],
     },
   },

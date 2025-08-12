@@ -1,3 +1,4 @@
+// .storybook/preview.tsx
 import { ChakraProvider } from "@chakra-ui/react";
 import type { Preview } from "@storybook/react-vite";
 import { initialize, mswLoader } from "msw-storybook-addon";
@@ -8,25 +9,23 @@ import { withAuth } from "@/test-lib/storybook/withAuth";
 import { withI18Next } from "@/test-lib/storybook/withI18Next";
 import { withReactQuery } from "@/test-lib/storybook/withReactQuery";
 
-// Decide the correct worker URL based on where Storybook is hosted
+// Detect if Storybook is hosted under /storybook (your Vercel route)
 const isHostedUnderSubdir =
   typeof window !== "undefined" &&
   window.location.pathname.startsWith("/storybook");
 
 const swUrl = isHostedUnderSubdir
-  ? "/storybook/mockServiceWorker.js" // Storybook served at /storybook/ (Vercel)
-  : "/mockServiceWorker.js"; // Storybook root (localhost:6006, Chromatic)
+  ? "/storybook/mockServiceWorker.js" // Vercel under /storybook
+  : "/mockServiceWorker.js"; // Local (http://localhost:6006), Vercel at root, Chromatic
 
-// Start MSW with a custom onUnhandledRequest filter
-initialize(
-  {
-    onUnhandledRequest: (req, print) => {
-      if (req.url.includes("api")) print.warning();
-    },
-    serviceWorker: { url: swUrl },
+// Initialize MSW (options only; handlers go in parameters.msw.handlers)
+initialize({
+  onUnhandledRequest: (req, print) => {
+    // Warn only for calls hitting "api"
+    if (req.url.includes("api")) print.warning();
   },
-  [getUserHandler()]
-);
+  serviceWorker: { url: swUrl },
+});
 
 const preview: Preview = {
   tags: ["autodocs"],
@@ -36,14 +35,19 @@ const preview: Preview = {
       matchers: { color: /(background|color)$/i, date: /Date$/ },
       expanded: true,
     },
-    // Keep a11y ON in Storybook; CI mode toggled via env
     a11y: {
       disable: false,
       test: import.meta.env.STORYBOOK_A11Y_MODE === "error" ? "error" : "todo",
     },
     layout: "centered",
+
+    // Global MSW handlers (add more as needed)
+    msw: {
+      handlers: [getUserHandler()],
+    },
   },
 
+  // Wire MSW into each story
   loaders: [mswLoader],
 
   decorators: [
