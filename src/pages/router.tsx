@@ -10,46 +10,39 @@ import { homePageLoader } from "./Home/loader";
 import { productPageLoader } from "./Product/loader";
 import { productsPageLoader } from "./Products/loader";
 
-// Vite sets BASE_URL to "/sb9-showcase/" in production.
-// React Router wants "/sb9-showcase" (no trailing slash).
-const basename = (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
-
-export const router = createBrowserRouter(
-  [
-    {
-      element: (
-        <>
-          <ScrollRestoration getKey={(location) => location.pathname} />
-          <Layout />
-        </>
-      ),
-      children: [
-        {
-          path: "/",
-          loader: homePageLoader,
-          lazy: () => import("./Home").catch(handleLazyImportError),
-        },
-        {
-          path: routes.signIn,
-          lazy: () => import("./SignIn").catch(handleLazyImportError),
-        },
-        {
-          path: routes.products,
-          loader: productsPageLoader,
-          lazy: () => import("./Products").catch(handleLazyImportError),
-        },
-        {
-          path: routes.product.path,
-          loader: productPageLoader,
-          lazy: () => import("./Product").catch(handleLazyImportError),
-        },
-        {
-          path: routes.cart,
-          loader: cartPageLoader,
-          lazy: () => import("./Cart").catch(handleLazyImportError),
-        },
-      ],
-    },
-  ],
-  { basename }
-);
+export const router = createBrowserRouter([
+  {
+    element: (
+      <>
+        <ScrollRestoration getKey={(location) => location.pathname} />
+        <Layout />
+      </>
+    ),
+    children: [
+      {
+        path: "/",
+        loader: homePageLoader,
+        lazy: () => import("./Home").catch(handleLazyImportError),
+      },
+      {
+        path: routes.signIn,
+        lazy: () => import("./SignIn").catch(handleLazyImportError),
+      },
+      {
+        path: routes.products,
+        loader: productsPageLoader,
+        lazy: () => import("./Products").catch(handleLazyImportError),
+      },
+      {
+        path: routes.product.path,
+        loader: productPageLoader,
+        lazy: () => import("./Product").catch(handleLazyImportError),
+      },
+      {
+        path: routes.cart,
+        loader: cartPageLoader,
+        lazy: () => import("./Cart").catch(handleLazyImportError),
+      },
+    ],
+  },
+]);

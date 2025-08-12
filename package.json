@@ -17,6 +17,7 @@
     "storybook": "storybook dev -p 6006",
     "test:storybook": "test-storybook --url http://localhost:6006",
     "build-storybook": "storybook build -o storybook-static",
+    "build:vercel": "pnpm build && pnpm build-storybook && mkdir -p dist/storybook && cp -R storybook-static/* dist/storybook/ || true",
     "chromatic": "chromatic"
   },
   "dependencies": {

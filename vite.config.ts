@@ -54,8 +54,7 @@ export default defineConfig(({ command, mode }) => {
       },
     ],
 
-    // Dev at "/", GH Pages build at "/sb9-showcase/"
-    base: isBuild ? "/sb9-showcase/" : "/",
+    base: "/",
 
     server: { port: 5173, open: true },
     preview: { port: 5173 },
