@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: true
 
 jobs:
@@ -44,7 +44,8 @@ jobs:
           rsync -a --delete storybook-static/ dist/storybook/
 
       - name: Create SPA 404 fallback
-        run: cp dist/index.html dist/404.html
+        run: |
+          if [ -f dist/index.html ]; then cp dist/index.html dist/404.html; fi
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -56,7 +57,7 @@ jobs:
 
   deploy:
     needs: build
-    if: github.ref == 'refs/heads/main' # ensures deploy won’t run on PRs
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
