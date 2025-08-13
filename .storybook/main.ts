@@ -1,4 +1,3 @@
-// .storybook/main.ts
 import type { StorybookConfig } from "@storybook/react-vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
@@ -12,7 +11,9 @@ const config: StorybookConfig = {
     "@storybook/addon-a11y",
   ],
   framework: { name: "@storybook/react-vite", options: {} },
-  staticDirs: ["../public"],
+
+  // 👇 Explicitly mount /public at Storybook’s root
+  staticDirs: [{ from: "../public", to: "/" }],
 
   viteFinal(viteConfig) {
     return {
@@ -20,13 +21,10 @@ const config: StorybookConfig = {
       plugins: [...(viteConfig.plugins ?? []), tsconfigPaths()],
     };
   },
-
   typescript: { reactDocgen: "react-docgen-typescript" },
 
   build: {
-    test: {
-      disabledAddons: ["@storybook/addon-docs"],
-    },
+    test: { disabledAddons: ["@storybook/addon-docs"] },
   },
 };
 

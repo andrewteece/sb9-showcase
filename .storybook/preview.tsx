@@ -9,27 +9,16 @@ import { withAuth } from "@/test-lib/storybook/withAuth";
 import { withI18Next } from "@/test-lib/storybook/withI18Next";
 import { withReactQuery } from "@/test-lib/storybook/withReactQuery";
 
-// Detect if Storybook is hosted under /storybook (your Vercel route)
-const isHostedUnderSubdir =
-  typeof window !== "undefined" &&
-  window.location.pathname.startsWith("/storybook");
-
-const swUrl = isHostedUnderSubdir
-  ? "/storybook/mockServiceWorker.js" // Vercel under /storybook
-  : "/mockServiceWorker.js"; // Local (http://localhost:6006), Vercel at root, Chromatic
-
-// Initialize MSW (options only; handlers go in parameters.msw.handlers)
+// ✅ Use a RELATIVE path so it works at / and at /storybook
 initialize({
   onUnhandledRequest: (req, print) => {
-    // Warn only for calls hitting "api"
     if (req.url.includes("api")) print.warning();
   },
-  serviceWorker: { url: swUrl },
+  serviceWorker: { url: "mockServiceWorker.js" }, // <-- no leading slash
 });
 
 const preview: Preview = {
   tags: ["autodocs"],
-
   parameters: {
     controls: {
       matchers: { color: /(background|color)$/i, date: /Date$/ },
@@ -40,16 +29,11 @@ const preview: Preview = {
       test: import.meta.env.STORYBOOK_A11Y_MODE === "error" ? "error" : "todo",
     },
     layout: "centered",
-
-    // Global MSW handlers (add more as needed)
     msw: {
       handlers: [getUserHandler()],
     },
   },
-
-  // Wire MSW into each story
   loaders: [mswLoader],
-
   decorators: [
     (Story) => (
       <ChakraProvider theme={theme}>
