@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-restricted-imports
 import { createBrowserRouter, ScrollRestoration } from "react-router";
 
 import { Layout } from "@/lib/components/Layout/Layout";

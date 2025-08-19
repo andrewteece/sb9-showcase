@@ -1,3 +1,5 @@
+/* eslint-disable import/no-restricted-paths */
+
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -12,7 +14,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-// eslint-disable-next-line import/no-restricted-paths
 import { useAuthStore } from "@/features/auth/application/authStore";
 import { useNotImplementedYetToast } from "@/lib/components/Toast/useNotImplementedYetToast";
 import { Link, useNavigate } from "@/lib/router";

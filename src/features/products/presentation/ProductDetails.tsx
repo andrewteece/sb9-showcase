@@ -1,4 +1,3 @@
-/* eslint-disable import/no-restricted-paths */
 import {
   Box,
   Button,

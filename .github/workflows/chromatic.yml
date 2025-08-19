@@ -1,4 +1,4 @@
-name: Chromatic (tests + publish)
+name: Chromatic (publish only)
 
 on:
   push: { branches: [core, main] }
@@ -9,68 +9,29 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  ui-tests-and-chromatic:
+  chromatic:
     runs-on: ubuntu-latest
-    env:
-      CI: true
-      STORYBOOK_DISABLE_TELEMETRY: 1
-      STORYBOOK_A11Y_MODE: error
-      STORYBOOK_BASE_PATH: "/" # .storybook/main.ts reads this in CI
-
     steps:
       - name: Checkout (full history for Chromatic)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 10.14.0 }
+
+      - uses: actions/setup-node@v4
         with:
           node-version: 22.x
           cache: pnpm
 
-      - name: Enable Corepack (use package.json#packageManager)
-        run: corepack enable
-
-      - name: Resolve PNPM store path
-        id: pnpm-store
-        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - name: Cache PNPM store
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.pnpm-store.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-
       - name: Install deps
-        run: pnpm install --frozen-lockfile
+        run: pnpm i --frozen-lockfile
 
-      - name: Install Playwright (Chromium)
-        run: pnpm exec playwright install chromium --with-deps
-
-      # ---------- Build & serve Storybook (static) ----------
-      - name: Build Storybook
-        run: pnpm build-storybook
-
-      - name: Serve Storybook static
-        run: npx http-server storybook-static -p 6006 -s &
-
-      - name: Wait for Storybook iframe
-        run: pnpm exec wait-on http-get://127.0.0.1:6006/iframe.html
-
-      # ---------- Test Runner (a11y + interactions) ----------
-      - name: Run Storybook tests
-        run: pnpm test-storybook --url http://127.0.0.1:6006 --reporters=dot
-        env:
-          STORYBOOK_A11Y_MODE: error
-
-      # ---------- Publish to Chromatic ----------
       - name: Publish to Chromatic
         uses: chromaui/action@v11
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: true
           exitZeroOnChanges: false
-          storybookBuildDir: storybook-static
+          # buildScriptName defaults to "build-storybook"

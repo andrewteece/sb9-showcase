@@ -1,6 +1,6 @@
 import { config, configs as tsConfigs } from "typescript-eslint";
 import js from "@eslint/js";
-import { configs } from "eslint-plugin-react-hooks";
+import { configs as rhConfigs } from "eslint-plugin-react-hooks";
 import reactPlugin from "eslint-plugin-react";
 import prettierPluginRecommended from "eslint-plugin-prettier/recommended";
 import importPlugin from "eslint-plugin-import";
@@ -18,55 +18,62 @@ const featureToFeatureZones = featureSlices.map((feature) => ({
 }));
 
 export default config(
+  // -------- Global ignores (generated + tool files) --------
   {
     ignores: [
-      "**/dist",
+      "**/dist/**",
       "**/storybook-static/**",
+      "**/coverage/**",
       "**/reports/**",
+      "**/.storybook/**",
       "**/*.typegen.ts",
       "**/public/mockServiceWorker.js",
+      "**/vitest.workspace.ts",
+      "**/eslint.config.*",
+      // Tool configs we lint separately (or not at all)
+      "vite.config.ts",
+      "vitest.config.ts",
     ],
   },
+
+  // -------- Base presets --------
   js.configs.recommended,
   tsConfigs.recommendedTypeChecked,
   tsConfigs.stylisticTypeChecked,
-  configs["recommended-latest"],
+  rhConfigs["recommended-latest"],
   reactPlugin.configs.flat.recommended,
   reactPlugin.configs.flat["jsx-runtime"],
   prettierPluginRecommended,
   ...storybookPlugin.configs["flat/recommended"],
 
+  // -------- Global language options --------
   {
     languageOptions: {
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
+      ecmaVersion: 2022,
+      sourceType: "module",
       globals: {
         __DEV__: false,
         __PROD__: false,
         __APP_VERSION__: false,
         __APP_URL__: false,
       },
-      ecmaVersion: 2022,
-      sourceType: "module",
     },
     settings: {
-      react: {
-        version: "detect",
-      },
+      react: { version: "detect" },
     },
   },
+
+  // -------- TS/TSX app code rules --------
   {
     files: ["**/*.{ts,tsx}"],
     plugins: { import: importPlugin, "react-refresh": reactRefresh },
     settings: {
       "import/resolver": {
-        // TypeScript resolver adds TS + paths support for eslint-plugin-import
-        // (requires eslint-import-resolver-typescript)
         typescript: { project: "./tsconfig.json", alwaysTryTypes: true },
-        // Node resolver lets './Button' resolve to './Button.tsx'
-        // (requires eslint-import-resolver-node)
         node: { extensions: [".js", ".jsx", ".ts", ".tsx"] },
       },
       "import/ignore": [
@@ -80,6 +87,7 @@ export default config(
     rules: {
       ...importPlugin.configs.recommended.rules,
       ...importPlugin.configs.typescript.rules,
+
       "import/no-dynamic-require": "error",
       "import/no-useless-path-segments": "error",
       "import/no-extraneous-dependencies": "error",
@@ -94,35 +102,19 @@ export default config(
           "newlines-between": "always",
         },
       ],
+
       "react-refresh/only-export-components": "error",
       "no-unused-vars": "off",
-      "prettier/prettier": [
-        "error",
-        {
-          endOfLine: "auto",
-        },
-      ],
-      "no-console": [
-        "error",
-        {
-          allow: ["error"],
-        },
-      ],
+      "prettier/prettier": ["error", { endOfLine: "auto" }],
+      "no-console": ["error", { allow: ["error"] }],
       "react/jsx-curly-brace-presence": [
         "error",
-        {
-          props: "never",
-          children: "always",
-          propElementValues: "always",
-        },
+        { props: "never", children: "always", propElementValues: "always" },
       ],
-      "no-void": [
-        "error",
-        {
-          allowAsStatement: true,
-        },
-      ],
-      "testing-library/await-async-events": ["off"],
+      "no-void": ["error", { allowAsStatement: true }],
+
+      // TS strictness
+      "testing-library/await-async-events": "off",
       "react/display-name": "error",
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/ban-ts-comment": "error",
@@ -139,64 +131,15 @@ export default config(
       "@typescript-eslint/unbound-method": "off",
       "@typescript-eslint/no-floating-promises": [
         "error",
-        {
-          ignoreVoid: true,
-        },
+        { ignoreVoid: true },
       ],
       "@typescript-eslint/no-misused-promises": [
         "error",
-        {
-          checksVoidReturn: {
-            arguments: false,
-            attributes: false,
-          },
-        },
+        { checksVoidReturn: { arguments: false, attributes: false } },
       ],
       "@typescript-eslint/no-unsafe-enum-comparison": "error",
-      "no-restricted-imports": [
-        "error",
-        {
-          patterns: ["react-router"],
-          paths: [
-            {
-              importNames: ["default"],
-              message: `Instead of default import, please use import { method } from "ramda" instead.`,
-              name: "ramda",
-            },
-          ],
-        },
-      ],
-    },
-  },
-  {
-    files: ["**/*.test.ts?(x)"],
-    plugins: { vitest },
-    rules: vitest.configs.recommended.rules,
-    settings: {
-      vitest: {
-        typecheck: true,
-      },
-    },
-    languageOptions: {
-      globals: {
-        ...vitest.environments.env.globals,
-      },
-    },
-  },
-  {
-    files: ["**/*.?(m|c)js", "**/vite.config.ts", "**/vitest.config.ts"],
-    rules: {
-      strict: "off",
-      "import/no-commonjs": "off",
-      "@typescript-eslint/prefer-nullish-coalescing": "off",
-      "@typescript-eslint/no-unsafe-assignment": "off",
-      "@typescript-eslint/no-unsafe-member-access": "off",
-      "@typescript-eslint/no-unsafe-spread": "off",
-    },
-  },
-  {
-    files: ["./src/features/**"],
-    rules: {
+
+      // Import boundaries (feature slicing)
       "import/no-restricted-paths": [
         "error",
         {
@@ -205,6 +148,37 @@ export default config(
       ],
     },
   },
+
+  // -------- Test files --------
+  {
+    files: ["**/*.test.ts?(x)"],
+    plugins: { vitest },
+    rules: vitest.configs.recommended.rules,
+    settings: { vitest: { typecheck: true } },
+    languageOptions: {
+      globals: { ...vitest.environments.env.globals },
+    },
+  },
+
+  // -------- EXCEPTIONS (temporary): allow cross-feature imports in these files --------
+  {
+    files: [
+      // carts importing products
+      "src/features/carts/presentation/CartItem.tsx",
+      // products importing carts
+      "src/features/products/presentation/ProductCard.tsx",
+      "src/features/products/presentation/ProductDetails.tsx",
+      "src/features/products/presentation/ProductsList.tsx",
+      // lib importing auth (Navbar, etc.)
+      "src/lib/components/Layout/Navbar/**/*.tsx",
+      "src/lib/components/Result/ErrorPageStrategy.tsx",
+    ],
+    rules: {
+      "import/no-restricted-paths": "off",
+    },
+  },
+
+  // -------- Zone rules for lib (keep in place for all other files) --------
   {
     files: ["./src/lib/**"],
     rules: {

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-restricted-paths */
 import { CheckIcon } from "@chakra-ui/icons";
 import {
   Box,

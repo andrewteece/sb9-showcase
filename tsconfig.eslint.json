@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src",
+    ".storybook",
+    "vitest.workspace.ts",
+    "vitest.config.ts",
+    "vite.config.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": ["dist", "storybook-static", "node_modules"]
+}

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-restricted-paths */
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
 
 import { ProductAddedDialog } from "@/features/carts/presentation/AddToCartButton/ProductAddedDialog";

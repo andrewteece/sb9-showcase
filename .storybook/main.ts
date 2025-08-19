@@ -1,4 +1,3 @@
-// .storybook/main.ts
 import type { StorybookConfig } from "@storybook/react-vite";
 import type { Plugin, PluginOption } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -20,7 +19,6 @@ function filterPluginOptions(
 ): PluginOption[] {
   const out: PluginOption[] = [];
   for (const opt of options) {
-    // Keep promises as-is; Storybook/Vite will resolve them later.
     if (opt instanceof Promise) {
       out.push(opt);
       continue;
@@ -33,7 +31,6 @@ function filterPluginOptions(
       if (keep(opt.name)) out.push(opt);
       continue;
     }
-    // False/null/undefined or other shapes: pass through unchanged
     out.push(opt);
   }
   return out;
@@ -45,7 +42,7 @@ const config: StorybookConfig = {
     "@storybook/addon-links",
     "storybook-addon-remix-react-router",
     "@storybook/addon-docs",
-    "@storybook/addon-vitest",
+    "@storybook/addon-vitest", // <- Vitest-based Storybook Test
     "@storybook/addon-a11y",
   ],
   framework: { name: "@storybook/react-vite", options: {} },
@@ -54,7 +51,6 @@ const config: StorybookConfig = {
   staticDirs: [{ from: "../public", to: "/" }],
 
   viteFinal(viteConfig) {
-    const isProd = process.env.NODE_ENV === "production";
     const existing = viteConfig.plugins ?? [];
 
     // Remove any plugin that injects a "mocker" entry at the origin root
@@ -64,10 +60,17 @@ const config: StorybookConfig = {
       (name) => !name.toLowerCase().includes("mocker")
     );
 
+    // 🔑 Choose base path by environment:
+    // - CI/local: "/" (so static server at root works)
+    // - Vercel/prod deploy: "/storybook/"
+    // - Or override explicitly with STORYBOOK_BASE_PATH
+    const basePath =
+      process.env.STORYBOOK_BASE_PATH ??
+      (process.env.VERCEL ? "/storybook/" : "/");
+
     return {
       ...viteConfig,
-      // Ensure built assets resolve under /storybook in production only (local dev remains '/')
-      ...(isProd ? { base: "/storybook/" } : {}),
+      base: basePath,
       plugins: [...withoutMocker, tsconfigPaths()],
     };
   },

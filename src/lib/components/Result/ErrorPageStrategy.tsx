@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable import/no-restricted-paths */
 
-// eslint-disable-next-line import/no-restricted-paths
 import { useAuthStore } from "@/features/auth/application/authStore";
 import { AjaxError } from "@/lib/http/AjaxError";
 import { useNavigate, useRouteError } from "@/lib/router";
@@ -9,21 +8,24 @@ import { InternalErrorResult } from "./InternalErrorResult";
 import { InternalServerErrorResult } from "./InternalServerErrorResult";
 import { NotFoundResult } from "./NotFoundResult";
 
-interface IProps<Response extends AjaxError["response"] = any> {
+interface ErrorPageStrategyProps {
+  // AjaxError is constrained to <T extends Response>, so use the widest valid type
   error?: AjaxError<Response>;
 }
 
-export function ErrorPageStrategy<Response extends AjaxError["response"] = any>(
-  props: IProps<Response>
-) {
+export function ErrorPageStrategy({
+  error: propError,
+}: ErrorPageStrategyProps) {
   const navigate = useNavigate();
-  const logout = useAuthStore((store) => store.logout);
+  const logout = useAuthStore((s) => s.logout);
   const routeError = useRouteError();
 
-  const error = props.error ?? routeError;
+  // Could be unknown from react-router; narrow via instanceof below
+  const candidate: unknown = propError ?? routeError;
 
-  if (error instanceof AjaxError) {
-    switch (error.status) {
+  if (candidate instanceof AjaxError) {
+    // candidate is AjaxError<unknown> structurally; status exists regardless of T
+    switch (candidate.status) {
       case 500:
         return <InternalServerErrorResult />;
       case 401:

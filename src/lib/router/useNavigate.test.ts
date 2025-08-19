@@ -1,5 +1,4 @@
 import { renderHook } from "@testing-library/react";
-// eslint-disable-next-line no-restricted-imports
 import * as reactRouter from "react-router";
 import { describe, expect, it, vi, beforeEach, expectTypeOf } from "vitest";
 

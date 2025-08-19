@@ -1,4 +1,5 @@
-// eslint-disable-next-line import/no-restricted-paths
+/* eslint-disable import/no-restricted-paths */
+
 import { useAuthStore } from "@/features/auth/application/authStore";
 
 import type { INavItem } from "./INavItem";

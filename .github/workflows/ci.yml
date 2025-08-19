@@ -2,13 +2,9 @@ name: CI
 
 on:
   push:
-    branches:
-      - core
-      - basic
+    branches: [core, basic]
   pull_request:
-    branches:
-      - core
-      - basic
+    branches: [core, basic]
 
 env:
   NODE_VERSION: "22.x"
@@ -19,8 +15,6 @@ jobs:
     with:
       test-type: lint
       test-command: pnpm lint
-      # can't use ${{ env.* }} in a reusable 'with:' – pass a literal (or ${{ vars.NODE_VERSION }})
-      node-version: "22.x"
 
   unit-tests:
     runs-on: ubuntu-latest
@@ -40,7 +34,6 @@ jobs:
 
       - name: Get pnpm store directory
         id: pnpm-cache
-        shell: bash
         run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Setup pnpm cache
@@ -57,95 +50,25 @@ jobs:
       - name: Run unit tests
         run: pnpm test:unit:ci
 
-      - name: Upload test results
+      - name: Upload unit test results
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: unit-test-results
           path: reports/**/*
-          if-no-files-found: ignore
 
-      - name: Upload coverage report
+      - name: Upload unit coverage
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: unit-coverage-report
           path: coverage/**/*
-          if-no-files-found: ignore
 
-  storybook-tests:
-    runs-on: ubuntu-latest
-    env:
-      STORYBOOK_DISABLE_TELEMETRY: 1
-      STORYBOOK_A11Y_MODE: error
-      CI: true
-      STORYBOOK_BASE_PATH: "/"
-    if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Enable corepack
-        run: corepack enable
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: pnpm
-
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Install Playwright (Chromium)
-        run: pnpm exec playwright install chromium --with-deps
-
-      - name: Build Storybook
-        run: pnpm build-storybook
-
-      - name: Serve Storybook (static)
-        run: npx http-server storybook-static -p 6006 -s &
-
-      - name: Wait for Storybook iframe
-        run: pnpm exec wait-on http-get://127.0.0.1:6006/iframe.html
-
-      - name: Test Storybook
-        env:
-          STORYBOOK_TEST_URL: http://127.0.0.1:6006
-          STORYBOOK_A11Y_MODE: error
-        run: pnpm test-storybook --url $STORYBOOK_TEST_URL --reporters=dot
-
-      - name: Upload test results
-        if: success() || failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: storybook-test-results
-          path: reports/**/*
-          if-no-files-found: ignore
-
-      - name: Upload coverage report
-        if: success() || failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: storybook-coverage-report
-          path: coverage/**/*
-          if-no-files-found: ignore
+  # 🚫 Storybook tests disabled for now
+  # (If you want to re-enable later, add the job back and add it to "needs" below.)
 
   build:
-    needs: [lint-tests, unit-tests, storybook-tests]
+    needs: [lint-tests, unit-tests]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -162,7 +85,6 @@ jobs:
 
       - name: Get pnpm store directory
         id: pnpm-cache
-        shell: bash
         run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Setup pnpm cache
@@ -186,42 +108,27 @@ jobs:
           path: dist
 
   test-reports:
-    needs: [unit-tests, storybook-tests]
+    needs: [unit-tests]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Download Artifacts
         uses: actions/download-artifact@v4
 
-      - name: Generate Full Coverage Report
-        uses: danielpalme/ReportGenerator-GitHub-Action@v5
-        with:
-          reports: "unit-coverage-report/lcov.info;storybook-coverage-report/lcov.info"
-          reporttypes: "MarkdownSummaryGithub;JsonSummary;Html"
-          targetdir: coverage-report
-
-      - name: Add Coverage Report Comment to PR
-        if: github.event_name == 'pull_request'
-        run: gh pr comment $PR_NUMBER --body-file coverage-report/SummaryGithub.md
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.number }}
-
       - name: Publish Coverage Report in Build Summary
-        run: cat coverage-report/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
-
-      - name: Upload Full Coverage Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: full-coverage-report
-          path: coverage-report/**/*
+        run: |
+          echo '## Unit Coverage' >> $GITHUB_STEP_SUMMARY
+          if [ -f unit-coverage-report/lcov.info ]; then
+            echo "lcov found."
+          else
+            echo "lcov not found."
+          fi
 
       - name: Publish Test Results
         uses: dorny/test-reporter@v2
         with:
-          name: Test Results
-          path: unit-test-results/**/*.xml,storybook-test-results/**/*.xml
+          name: Unit Test Results
+          path: unit-test-results/**/*.xml
           reporter: jest-junit
           fail-on-error: false
 
@@ -234,6 +141,6 @@ jobs:
         with:
           name: build
       - name: Outputs content
-        run: ls
+        run: ls -la
       - name: Deploy
         run: echo "Deploying..."

@@ -1,5 +1,4 @@
 import { Center, Spinner } from "@chakra-ui/react";
-// eslint-disable-next-line no-restricted-imports
 import { RouterProvider } from "react-router";
 
 import "@fontsource/inter/400.css";
