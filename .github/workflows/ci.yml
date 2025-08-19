@@ -19,11 +19,12 @@ jobs:
     with:
       test-type: lint
       test-command: pnpm lint
+      # ❌ can't use ${{ env.NODE_VERSION }} here
+      # ✅ use a literal or a repo variable (e.g., ${{ vars.NODE_VERSION }})
+      node-version: "22.x"
 
   unit-tests:
     runs-on: ubuntu-latest
-
-    # For every direct push to target branches or when it's active PR
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     steps:
       - name: Checkout
@@ -41,8 +42,7 @@ jobs:
       - name: Get pnpm store directory
         id: pnpm-cache
         shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Setup pnpm cache
         uses: actions/cache@v4
@@ -53,7 +53,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile --ignore-scripts
+        run: pnpm install --frozen-lockfile
 
       - name: Run unit tests
         run: pnpm test:unit:ci
@@ -76,10 +76,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       STORYBOOK_DISABLE_TELEMETRY: 1
-      STORYBOOK: "true"
+      STORYBOOK_A11Y_MODE: error
       CI: true
-
-    # For every direct push to target branches or when it's active PR
+      # Build assets for root in CI; .storybook/main.ts reads this
+      STORYBOOK_BASE_PATH: "/"
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     steps:
       - name: Checkout
@@ -97,8 +97,7 @@ jobs:
       - name: Get pnpm store directory
         id: pnpm-cache
         shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Setup pnpm cache
         uses: actions/cache@v4
@@ -109,28 +108,27 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile --ignore-scripts
+        run: pnpm install --frozen-lockfile
 
-      - name: Get Playwright version
-        id: playwright-version
-        run: echo "version=$(jq -r '.devDependencies.playwright' package.json)" >> $GITHUB_OUTPUT
+      - name: Install Playwright (Chromium)
+        run: pnpm exec playwright install chromium --with-deps
 
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        id: playwright-cache
-        with:
-          path: |
-            ~/.cache/ms-playwright
-            node_modules/.pnpm/playwright-core*/node_modules/playwright-core/.local-browsers
-          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
-      - name: Install Playwright browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: pnpm exec playwright install chromium --with-deps --only-shell
+      # ---- Build & serve static Storybook ----
+      - name: Build Storybook
+        run: pnpm build-storybook
 
-      - name: Run storybook tests
-        run: pnpm test:storybook:ci
+      - name: Serve Storybook (static)
+        run: npx http-server storybook-static -p 6006 -s &
+
+      - name: Wait for Storybook iframe
+        run: pnpm exec wait-on http-get://127.0.0.1:6006/iframe.html
+
+      # ---- Run Test Runner (a11y + interactions) ----
+      - name: Test Storybook
+        env:
+          STORYBOOK_TEST_URL: http://127.0.0.1:6006
+          STORYBOOK_A11Y_MODE: error
+        run: pnpm test-storybook --url $STORYBOOK_TEST_URL --reporters=dot
 
       - name: Upload test results
         if: success() || failure()
@@ -153,24 +151,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        id: pnpm-install
-        with:
-          version: 10.6.1
-          run_install: false
+      - name: Enable corepack
+        run: corepack enable
 
-      - name: Install Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22.x"
+          node-version: ${{ env.NODE_VERSION }}
           cache: "pnpm"
 
       - name: Get pnpm store directory
         id: pnpm-cache
         shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
       - name: Setup pnpm cache
         uses: actions/cache@v4
@@ -181,9 +174,9 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile --ignore-scripts
+        run: pnpm install --frozen-lockfile
 
-      - name: Build an application
+      - name: Build application
         run: pnpm build
 
       - name: Upload build artifacts
@@ -226,7 +219,6 @@ jobs:
 
       - name: Publish Test Results
         uses: dorny/test-reporter@v2
-        id: test-reporter
         with:
           name: Test Results
           path: unit-test-results/**/*.xml,storybook-test-results/**/*.xml

@@ -12,45 +12,73 @@ concurrency:
 jobs:
   ui-tests-and-chromatic:
     runs-on: ubuntu-latest
+    env:
+      CI: true
+      STORYBOOK_DISABLE_TELEMETRY: 1
+      STORYBOOK_A11Y_MODE: error
+      # Build assets for root in CI (your .storybook/main.ts reads this)
+      STORYBOOK_BASE_PATH: "/"
+
     steps:
       - name: Checkout (full history for Chromatic)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Chromatic recommends full git history
+          fetch-depth: 0
 
-      - uses: pnpm/action-setup@v3
-        with: { version: 9 }
+      - name: Enable corepack
+        run: corepack enable
 
-      - uses: actions/setup-node@v4
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
         with:
-          node-version: 20
+          version: 10
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
           cache: pnpm
 
+      - name: Resolve PNPM store path
+        id: pnpm-store
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Cache PNPM store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
       - name: Install deps
-        run: pnpm i --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright browsers
-        run: pnpm exec playwright install --with-deps
+      - name: Install Playwright (Chromium)
+        run: pnpm exec playwright install chromium --with-deps
 
-      - name: Start Storybook
+      # ---------- Build & serve Storybook (static) ----------
+      - name: Build Storybook
+        run: pnpm build-storybook
+
+      - name: Serve Storybook static
+        run: npx http-server storybook-static -p 6006 -s &
+
+      - name: Wait for Storybook iframe
+        run: pnpm exec wait-on http-get://127.0.0.1:6006/iframe.html
+
+      # ---------- Test Runner (a11y + interactions) ----------
+      - name: Run Storybook tests
+        run: pnpm test-storybook --url http://127.0.0.1:6006 --reporters=dot
         env:
           STORYBOOK_A11Y_MODE: error
-        run: pnpm storybook -- --ci --port 6006 &
 
-      - name: Wait for Storybook
-        run: npx wait-on --timeout 60000 http://localhost:6006
-
-      - name: Run Storybook tests (a11y + interactions)
-        env:
-          STORYBOOK_A11Y_MODE: error
-        run: pnpm test-storybook --url http://localhost:6006
-        # Test Runner turns stories into tests; play() assertions run in browser. :contentReference[oaicite:2]{index=2}
-
-      # --- Publish to Chromatic (visual review URL) ---
+      # ---------- Publish to Chromatic ----------
       - name: Publish to Chromatic
         uses: chromaui/action@v11
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          onlyChanged: true # analyze only diffs for speed
-          exitZeroOnChanges: false # fail when there are unreviewed changes
-          # buildScriptName defaults to "build-storybook"
+          onlyChanged: true
+          exitZeroOnChanges: false
+          # Reuse the static build we just made
+          storybookBuildDir: storybook-static

@@ -9,43 +9,78 @@ on:
       test-command:
         required: true
         type: string
+      node-version:
+        required: false
+        type: string
+        default: "22.x"
+      pnpm-version:
+        required: false
+        type: string
+        default: "10"
+      working-directory:
+        required: false
+        type: string
+        default: "."
+      install-playwright:
+        required: false
+        type: boolean
+        default: false
+      playwright-browsers:
+        required: false
+        type: string
+        default: "chromium"
+      lockfile-path:
+        required: false
+        type: string
+        default: "pnpm-lock.yaml"
 
 jobs:
   run-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CI: true
+      STORYBOOK_DISABLE_TELEMETRY: 1
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        id: pnpm-install
-        with:
-          version: 10.6.1
-          run_install: false
+      - name: Enable corepack
+        run: corepack enable
 
-      - name: Install Node.js
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ inputs.pnpm-version }}
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22.x"
-          cache: "pnpm"
+          node-version: ${{ inputs.node-version }}
+          cache: pnpm
 
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - name: Resolve PNPM store path
+        id: pnpm-store
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - name: Setup pnpm cache
+      - name: Cache PNPM store
         uses: actions/cache@v4
         with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ${{ steps.pnpm-store.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles(inputs.lockfile-path) }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+            ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile --ignore-scripts
+        working-directory: ${{ inputs.working-directory }}
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        if: inputs.install-playwright == true
+        working-directory: ${{ inputs.working-directory }}
+        run: pnpm exec playwright install ${{ inputs.playwright-browsers }} --with-deps
 
       - name: Run ${{ inputs.test-type }} tests
+        working-directory: ${{ inputs.working-directory }}
         run: ${{ inputs.test-command }}
