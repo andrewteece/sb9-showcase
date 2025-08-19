@@ -1,6 +1,7 @@
 // .storybook/preview.tsx
 import { ChakraProvider } from "@chakra-ui/react";
 import type { Preview } from "@storybook/react-vite";
+import { http, HttpResponse } from "msw";
 import { initialize, mswLoader } from "msw-storybook-addon";
 
 import { theme } from "@/lib/theme/theme";
@@ -24,7 +25,7 @@ const swUrl =
     : "/mockServiceWorker.js";
 const swScope = `${base}/`;
 
-// Optional one-time diagnostics; remove if you like.
+// Optional diagnostics (remove once confirmed working).
 // eslint-disable-next-line no-console
 console.log("[MSW:init]", { base, swUrl, swScope });
 
@@ -52,7 +53,13 @@ const preview: Preview = {
     },
     layout: "centered",
     msw: {
-      handlers: [getUserHandler()],
+      handlers: [
+        getUserHandler(),
+        // ✅ Test-only ping handler
+        http.get("/api/ping", () =>
+          HttpResponse.json({ ok: true, source: "msw" })
+        ),
+      ],
     },
   },
   loaders: [mswLoader],
