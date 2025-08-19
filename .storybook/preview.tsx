@@ -1,7 +1,6 @@
 // .storybook/preview.tsx
 import { ChakraProvider } from "@chakra-ui/react";
 import type { Preview } from "@storybook/react-vite";
-import { http, HttpResponse } from "msw";
 import { initialize, mswLoader } from "msw-storybook-addon";
 
 import { theme } from "@/lib/theme/theme";
@@ -10,22 +9,33 @@ import { withAuth } from "@/test-lib/storybook/withAuth";
 import { withI18Next } from "@/test-lib/storybook/withI18Next";
 import { withReactQuery } from "@/test-lib/storybook/withReactQuery";
 
-// ✅ Derive the correct base path ("/" locally, "/storybook" on Vercel)
-const base =
-  typeof window !== "undefined"
-    ? window.location.pathname.split("/iframe.html")[0] || "/"
-    : "/";
-
+// Compute the base path Storybook is running under ("/" locally, "/storybook" on Vercel).
+const path = typeof window !== "undefined" ? window.location.pathname : "/";
+const base = path.includes("/iframe.html")
+  ? path.split("/iframe.html")[0] || "/"
+  : "/";
 const baseNoSlash = base.endsWith("/") ? base.slice(0, -1) : base;
 
-// ✅ Initialize MSW with the correct URL + scope
+// Build an absolute URL and set an explicit scope to survive hard reloads.
+const swUrl =
+  typeof window !== "undefined"
+    ? new URL(`${baseNoSlash}/mockServiceWorker.js`, window.location.origin)
+        .href
+    : "/mockServiceWorker.js";
+const swScope = `${base}/`;
+
+// Optional one-time diagnostics; remove if you like.
+// eslint-disable-next-line no-console
+console.log("[MSW:init]", { base, swUrl, swScope });
+
+// Initialize MSW for Storybook
 initialize({
   onUnhandledRequest: (req, print) => {
     if (req.url.includes("api")) print.warning();
   },
   serviceWorker: {
-    url: `${baseNoSlash}/mockServiceWorker.js`, // e.g. /storybook/mockServiceWorker.js
-    options: { scope: `${base}/` }, // e.g. /storybook/
+    url: swUrl,
+    options: { scope: swScope },
   },
 });
 
@@ -42,14 +52,7 @@ const preview: Preview = {
     },
     layout: "centered",
     msw: {
-      handlers: [
-        getUserHandler(),
-
-        // 🔎 TEST HANDLER — remove after verifying in prod
-        http.get("/api/ping", () => {
-          return HttpResponse.json({ ok: true, source: "msw" });
-        }),
-      ],
+      handlers: [getUserHandler()],
     },
   },
   loaders: [mswLoader],
