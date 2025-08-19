@@ -1,6 +1,7 @@
 // .storybook/preview.tsx
 import { ChakraProvider } from "@chakra-ui/react";
 import type { Preview } from "@storybook/react-vite";
+import { http, HttpResponse } from "msw";
 import { initialize, mswLoader } from "msw-storybook-addon";
 
 import { theme } from "@/lib/theme/theme";
@@ -9,12 +10,23 @@ import { withAuth } from "@/test-lib/storybook/withAuth";
 import { withI18Next } from "@/test-lib/storybook/withI18Next";
 import { withReactQuery } from "@/test-lib/storybook/withReactQuery";
 
-// ✅ Use a RELATIVE path so it works at / and at /storybook
+// ✅ Derive the correct base path ("/" locally, "/storybook" on Vercel)
+const base =
+  typeof window !== "undefined"
+    ? window.location.pathname.split("/iframe.html")[0] || "/"
+    : "/";
+
+const baseNoSlash = base.endsWith("/") ? base.slice(0, -1) : base;
+
+// ✅ Initialize MSW with the correct URL + scope
 initialize({
   onUnhandledRequest: (req, print) => {
     if (req.url.includes("api")) print.warning();
   },
-  serviceWorker: { url: "mockServiceWorker.js" }, // <-- no leading slash
+  serviceWorker: {
+    url: `${baseNoSlash}/mockServiceWorker.js`, // e.g. /storybook/mockServiceWorker.js
+    options: { scope: `${base}/` }, // e.g. /storybook/
+  },
 });
 
 const preview: Preview = {
@@ -30,7 +42,14 @@ const preview: Preview = {
     },
     layout: "centered",
     msw: {
-      handlers: [getUserHandler()],
+      handlers: [
+        getUserHandler(),
+
+        // 🔎 TEST HANDLER — remove after verifying in prod
+        http.get("/api/ping", () => {
+          return HttpResponse.json({ ok: true, source: "msw" });
+        }),
+      ],
     },
   },
   loaders: [mswLoader],
