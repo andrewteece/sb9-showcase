@@ -4,7 +4,6 @@ on:
   push: { branches: [core, main] }
   pull_request:
 
-# cancel older runs for the same branch/PR
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
@@ -16,8 +15,7 @@ jobs:
       CI: true
       STORYBOOK_DISABLE_TELEMETRY: 1
       STORYBOOK_A11Y_MODE: error
-      # Build assets for root in CI (your .storybook/main.ts reads this)
-      STORYBOOK_BASE_PATH: "/"
+      STORYBOOK_BASE_PATH: "/" # .storybook/main.ts reads this in CI
 
     steps:
       - name: Checkout (full history for Chromatic)
@@ -25,19 +23,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Enable corepack
-        run: corepack enable
-
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22.x
           cache: pnpm
+
+      - name: Enable Corepack (use package.json#packageManager)
+        run: corepack enable
 
       - name: Resolve PNPM store path
         id: pnpm-store
@@ -80,5 +73,4 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: true
           exitZeroOnChanges: false
-          # Reuse the static build we just made
           storybookBuildDir: storybook-static

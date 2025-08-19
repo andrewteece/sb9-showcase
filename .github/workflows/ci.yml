@@ -19,8 +19,7 @@ jobs:
     with:
       test-type: lint
       test-command: pnpm lint
-      # ❌ can't use ${{ env.NODE_VERSION }} here
-      # ✅ use a literal or a repo variable (e.g., ${{ vars.NODE_VERSION }})
+      # can't use ${{ env.* }} in a reusable 'with:' – pass a literal (or ${{ vars.NODE_VERSION }})
       node-version: "22.x"
 
   unit-tests:
@@ -37,7 +36,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "pnpm"
+          cache: pnpm
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -64,6 +63,7 @@ jobs:
         with:
           name: unit-test-results
           path: reports/**/*
+          if-no-files-found: ignore
 
       - name: Upload coverage report
         if: success() || failure()
@@ -71,6 +71,7 @@ jobs:
         with:
           name: unit-coverage-report
           path: coverage/**/*
+          if-no-files-found: ignore
 
   storybook-tests:
     runs-on: ubuntu-latest
@@ -78,7 +79,6 @@ jobs:
       STORYBOOK_DISABLE_TELEMETRY: 1
       STORYBOOK_A11Y_MODE: error
       CI: true
-      # Build assets for root in CI; .storybook/main.ts reads this
       STORYBOOK_BASE_PATH: "/"
     if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
     steps:
@@ -92,7 +92,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "pnpm"
+          cache: pnpm
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -113,7 +113,6 @@ jobs:
       - name: Install Playwright (Chromium)
         run: pnpm exec playwright install chromium --with-deps
 
-      # ---- Build & serve static Storybook ----
       - name: Build Storybook
         run: pnpm build-storybook
 
@@ -123,7 +122,6 @@ jobs:
       - name: Wait for Storybook iframe
         run: pnpm exec wait-on http-get://127.0.0.1:6006/iframe.html
 
-      # ---- Run Test Runner (a11y + interactions) ----
       - name: Test Storybook
         env:
           STORYBOOK_TEST_URL: http://127.0.0.1:6006
@@ -136,6 +134,7 @@ jobs:
         with:
           name: storybook-test-results
           path: reports/**/*
+          if-no-files-found: ignore
 
       - name: Upload coverage report
         if: success() || failure()
@@ -143,6 +142,7 @@ jobs:
         with:
           name: storybook-coverage-report
           path: coverage/**/*
+          if-no-files-found: ignore
 
   build:
     needs: [lint-tests, unit-tests, storybook-tests]
@@ -158,7 +158,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "pnpm"
+          cache: pnpm
 
       - name: Get pnpm store directory
         id: pnpm-cache
