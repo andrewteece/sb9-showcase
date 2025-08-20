@@ -6,8 +6,8 @@ A React + Vite SPA demonstrating component-driven development with Storybook, ac
 
 ## Quick links
 
-- **Production app:** https://sb9-showcase-2hjyf95gd-andrewteeces-projects.vercel.app/
-- **Storybook (production):** https://sb9-showcase-2hjyf95gd-andrewteeces-projects.vercel.app/storybook/
+- **Production app:** https://sb9-showcase-ddnduoyeu-andrewteeces-projects.vercel.app/
+- **Storybook (production):** https://sb9-showcase-ddnduoyeu-andrewteeces-projects.vercel.app/storybook/
 - **Chromatic project:** _link to latest Chromatic build_
 
 ---
